@@ -4,7 +4,6 @@ class Row extends Grid{
         super(point);
         this._type = "Row";
         this.name = `Row${Row.count++}`;
-        this.index = -1;
     }
 
     get Width() 
@@ -50,19 +49,13 @@ class Row extends Grid{
             this.children[i].sketch();
             pop();
         }
-        if(!showBar) return;
-        let mx = max(this.children.length,1);
-        mx = 1; 
-        let rGap = this.Width / mx;
-        let cGap = this.Height ;
         push();
-        stroke(0,0,255);
-        for (let i = 0; i <= mx; i++) {
-            line(this.X + rGap * i, this.Y, this.X + rGap * i, this.Y + this.Height);
-        }
-        for (let j = 0; j <= 1; j++) {
-            line(this.X, this.Y + cGap * j, this.X + this.Width, this.Y + cGap * j);
-        }
+        if(!showBar)
+            stroke(0);
+        else 
+            noStroke();
+        fill(this.backgroundColor[0], this.backgroundColor[1], this.backgroundColor[2]);
+        rect(this.X,this.Y,this.Width,this.Height);
         pop();
     }
 

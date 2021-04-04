@@ -14,12 +14,12 @@ class Grid
         this.children = [];
         this.size = 0.3333333;
         this.children_O = [];
-        this.index_size_O = [];
         this.drag = drag;
         this.name = "";
         this.parent = null;
         this.setOrientation = false;
         this._type = "Grid";
+        this.backgroundColor = [100,100,100];
         this.moved = false;
         this.canMove = true;
     }
@@ -31,52 +31,6 @@ class Grid
     get Height()
     {
         return this.height;
-    }
-
-    sketch() {        
-        // if(!chkorentaion){
-            for(let child of this.children)
-            {
-                push();
-                child.sketch();
-                pop();
-            }
-            if(!showBar) return;
-            // fill(0);
-            // stroke(0, 255, 0);
-            // strokeWeight(3);
-            // for (let i = 0; i <= 1; i++) {
-            //     line(this.X + this.width * i, this.Y, this.X + this.width * i, this.Y + this.height);
-            // }
-            // for (let j = 0; j <= 1; j++) {
-            //     line(this.X, this.Y + this.height * j,this.X + this.width, this.Y + this.height * j);
-            // }
-        // }
-        // else{
-        //     for(let child of this.children_O)
-        //     {
-        //         push();
-        //         child.sketch();
-        //         pop();
-        //     }
-            // fill(0);
-            // stroke(0, 255, 0);
-            // strokeWeight(3);
-            // for (let i = 0; i <= 1; i++) {
-            //     line(this.X_O + this.width_O * i, this.Y_O , this.X_O + this.width_O * i,this.Y_O+ this.height_O);
-            // }
-            // for (let j = 0; j <= 1; j++) {
-            //     line(this.X_O, this.Y_O  + this.height_O * j, this.X_O + this.width_O, this.Y_O + this.height_O * j);
-            // }
-        // }
-    }
-
-    reIndex(index)
-    {
-        for(let i = index ; i < this.children.length ; i++)
-        {
-            this.children[i].index = i;
-        }
     }
 
     move() 
@@ -135,7 +89,7 @@ class Grid
             {
                 // parent.children.splice(i,0,item);
                 parent.children.push(item);
-                item.index = parent.children.length-1;
+                // item.index = parent.children.length-1;
                 // item.index = i;
                 item.parent = parent;
                 // parent.reIndex(i);
@@ -151,7 +105,7 @@ class Grid
             {
                 found = true;
                 parent.children.push(item);
-                item.index = parent.children.length - 1;
+                // item.index = parent.children.length - 1;
                 item.parent = parent;
             }            
         }

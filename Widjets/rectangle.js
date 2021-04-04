@@ -17,6 +17,7 @@ class Rectangle extends Widjet {
         strokeWeight(3);
         stroke(0);
         rectMode(CORNER);
+        fill(this.backgroundColor[0], this.backgroundColor[1], this.backgroundColor[2]);
         if(chkorentaion && this.setOrientation)
             rect(this.X_O, this.Y_O, this.width, this.height);
         else

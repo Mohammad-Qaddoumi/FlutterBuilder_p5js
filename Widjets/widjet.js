@@ -10,10 +10,8 @@ class Widjet
         this.Y_O = point.Y;
         this.drag = drag;
         this.name = name;
-        // this.z_index = 0;
         this.text = new TextDrawer("",this.X,this.Y);
-        this.index = -1;
-        this.index_O = -1;
+        this.backgroundColor = [0,102,153];
         this.setOrientation = false;
         this.size = 0.2;
         this.moved = false;

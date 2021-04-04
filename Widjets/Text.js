@@ -19,10 +19,7 @@ class Text extends Widjet{
         textAlign(CENTER, CENTER);
         textFont(font);
         textSize(this.userSize*1.2);
-        fill(0, 102, 153);
-        noStroke();
-        // stroke(255,0,0);
-        strokeWeight(20);
+        fill(this.backgroundColor[0], this.backgroundColor[1], this.backgroundColor[2]);
         text(this.text, this.X, this.Y);
         /*
             let base = height * 0.75;
