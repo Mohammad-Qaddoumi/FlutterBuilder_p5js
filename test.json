@@ -1,0 +1,55 @@
+[
+    {
+        "screen0": {
+            "appBar": {},
+            "body": {
+                "type": "Row",
+                "size": "100",
+                "children": {
+                    "childrenNumber": 0
+                }
+            }
+        }
+    },
+    {
+        "screen0": {
+            "appBar": "Title",
+            "appBarColor": [100,100,100],
+            "screenColor": [0,0,150],
+            "body": {
+                "color": [100,100,10],
+                "size": 30,
+                "type": "FlatButton",
+                "onPress": "push(screen1);",
+                "content": "click",
+                "backgroundColor": [10,200,10]
+            }
+        },
+        "screen1": {
+            "appBar": "page2",
+            "appBarColor": [0,0,0],
+            "screenColor": [0,0,0],
+            "body": {
+                "color": [100,100,10],
+                "size": 30,
+                "type": "FlatButton",
+                "onPress": "push(screen2);",
+                "content": "hh",
+                "backgroundColor": [10,10,200]
+            }
+        },
+        "screen2": {
+            "appBar": "page3",
+            "appBarColor": [0,222,0],
+            "screenColor": [0,0,0],
+            "body": {
+                "color": [100,100,10],
+                "size": 30,
+                "type": "FlatButton",
+                "onPress": "push(screen0);",
+                "content": "hh",
+                "backgroundColor": [10,10,200]
+            }
+        }
+    }
+]
