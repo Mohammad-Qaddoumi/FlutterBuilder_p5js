@@ -3,6 +3,8 @@ function preload() {
 
     // screensArray.push(new Grid(gridPoints));
     screensArray.push(new Row(gridPoints));
+    screensArray[0].unSortedWidjets = [];
+    unSortedWidjets = screensArray[selectedScreen].unSortedWidjets;
     screensArray[selectedScreen].canMove = false;
     createMainWidjet();
     img = loadImage('assets/phone.png');
