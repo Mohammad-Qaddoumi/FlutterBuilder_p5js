@@ -20,6 +20,7 @@ class Grid
         this.setOrientation = false;
         this._type = "Grid";
         this.backgroundColor = [100,100,100];
+        this.noBackground = true;
         this.moved = false;
         this.canMove = true;
     }

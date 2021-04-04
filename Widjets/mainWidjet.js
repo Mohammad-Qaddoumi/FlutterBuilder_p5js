@@ -11,7 +11,9 @@ class MainWidjet{
     sketch() 
     {
         rect(this.X, this.Y, this.width, this.height);
+        push();
         this.text.sketch(this.width * 0.2);
+        pop();
     }
     isInside() {
         if(mouseX < this.X - (this.width/2))

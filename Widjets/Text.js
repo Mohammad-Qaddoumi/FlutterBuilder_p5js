@@ -16,7 +16,7 @@ class Text extends Widjet{
         // noStroke();
         // rectMode(CENTER);
         // rect(this.X, this.Y, this.width, this.height);
-        textAlign(CENTER, CENTER);
+        textAlign(LEFT,TOP);
         textFont(font);
         textSize(this.userSize*1.2);
         fill(this.backgroundColor[0], this.backgroundColor[1], this.backgroundColor[2]);

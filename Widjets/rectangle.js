@@ -14,7 +14,7 @@ class Rectangle extends Widjet {
             this.text.positionOrentation.X = this.X_O - (this.width / 2) + 5;
             this.text.positionOrentation.Y = this.Y_O;
         }
-        strokeWeight(3);
+        strokeWeight(2);
         stroke(0);
         rectMode(CORNER);
         fill(this.backgroundColor[0], this.backgroundColor[1], this.backgroundColor[2]);

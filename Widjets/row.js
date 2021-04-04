@@ -43,20 +43,35 @@ class Row extends Grid{
         if(mouseIsPressed)
             this.move();
         
+        if(!showBar)
+        {
+            stroke(0);
+            strokeWeight(3);
+        }
+        else 
+            noStroke();
+        if(!this.noBackground)
+        {
+            push();
+            fill(this.backgroundColor[0], this.backgroundColor[1], this.backgroundColor[2]);
+            rect(this.X,this.Y,this.Width,this.Height);
+            pop();
+        }
+        else{
+            push();
+            noFill();
+            rect(this.X,this.Y,this.Width,this.Height);
+            pop();
+        }
+        
+
         for(let i = 0; i < this.children.length; i++)
         {
             push();
             this.children[i].sketch();
             pop();
         }
-        push();
-        if(!showBar)
-            stroke(0);
-        else 
-            noStroke();
-        fill(this.backgroundColor[0], this.backgroundColor[1], this.backgroundColor[2]);
-        rect(this.X,this.Y,this.Width,this.Height);
-        pop();
+        
     }
 
     isInside() {

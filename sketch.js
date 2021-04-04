@@ -4,6 +4,7 @@ function preload() {
     // screensArray.push(new Grid(gridPoints));
     screensArray.push(new Row(gridPoints));
     screensArray[0].unSortedWidjets = [];
+    screensArray[0].backgroundColor = [0,0,0];
     unSortedWidjets = screensArray[selectedScreen].unSortedWidjets;
     screensArray[selectedScreen].canMove = false;
     createMainWidjet();
@@ -82,8 +83,9 @@ function draw() {
             item.sketch();
             pop();
         }    
-
+        push();
         screensArray[selectedScreen].sketch();
+        pop();
         // noLoop();
         // print(frameRate());
     }
