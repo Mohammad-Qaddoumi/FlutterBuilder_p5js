@@ -1,4 +1,3 @@
-
 function preload() {
 
     // screensArray.push(new Grid(gridPoints));
@@ -7,8 +6,9 @@ function preload() {
     screensArray[0].backgroundColor = [0,0,0];
     unSortedWidjets = screensArray[selectedScreen].unSortedWidjets;
     screensArray[selectedScreen].canMove = false;
+    selected = screensArray[selectedScreen];
     createMainWidjet();
-    img = loadImage('assets/phone.png');
+    img = loadImage('./assets/phone.png');
     font = loadFont("./assets/AnonymousPro-Regular.ttf");
 
     setEvents();
@@ -86,8 +86,10 @@ function draw() {
         push();
         screensArray[selectedScreen].sketch();
         pop();
+        
         // noLoop();
         // print(frameRate());
+        // print(dist(selected.X, selected.Y,mouseX,mouseY));
     }
 }
 

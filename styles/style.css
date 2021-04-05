@@ -1,6 +1,6 @@
-body{
-    user-select:none;
-    background-image: linear-gradient(to right, rgba(255, 80, 100, 2) , rgba(255, 206, 0, 0.9));
+body {
+    user-select: none;
+    background-image: linear-gradient(to right, rgba(255, 80, 100, 2), rgba(255, 206, 0, 0.9));
 }
 
 .mainheader {
@@ -8,47 +8,42 @@ body{
     min-width: 100%;
     height: 50px;
     /* background-color: rgba(255, 150, 20, 2); */
-    background-image: linear-gradient(to right, rgba(255, 80, 100, 2) , rgba(255, 206, 0, 0.9));
+    background-image: linear-gradient(to right, rgba(255, 80, 100, 2), rgba(255, 206, 0, 0.9));
     /* border: 1px solid #BFBFBF; */
     box-shadow: 4px 4px 5px #aaaaaa;
     border-radius: 3px;
-    left:0px;
+    left: 0px;
 }
 
-
-
-
-
-#footer{
-    background-image: linear-gradient(to right, rgba(255, 80, 100, 2) , rgba(255, 206, 0, 0.9));
+#footer {
+    background-image: linear-gradient(to right, rgba(255, 80, 100, 2), rgba(255, 206, 0, 0.9));
     /* border: 1px solid #BFBFBF; */
     box-shadow: 4px -4px 5px #aaaaaa;
     border-radius: 3px;
     display: flex;
-    flex-direction:row;
-    height:50px;
+    flex-direction: row;
+    height: 50px;
     margin-top: 0.2rem;
     width: 100%;
     min-width: 100%;
 }
 
-.mainContant{
+.mainContant {
     margin-top: 0.3rem;
     font-size: 1rem;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    justify-content:center;
+    justify-content: center;
     /* overflow: hidden; */
     width: 100%;
     height: max-content;
-
 }
 
-main{
+main {
     position: relative;
-    background-color: rgba(0,0,0,0.05);
-    background-image: linear-gradient(to right,#eacda3 , #d6ae7b);
+    background-color: rgba(0, 0, 0, 0.05);
+    background-image: linear-gradient(to right, #eacda3, #d6ae7b);
     width: 715px;
     height: 601px;
     margin-left: 0.2rem;
@@ -57,10 +52,10 @@ main{
     cursor: pointer;
 }
 
-.details{
+.details {
     display: flex;
     flex-direction: column;
-    background-image: linear-gradient(to right,#eacda3 , #d6ae7b);
+    background-image: linear-gradient(to right, #eacda3, #d6ae7b);
     margin-left: 0.2rem;
     padding: 0.1rem;
     max-width: fit-content;
@@ -70,97 +65,100 @@ main{
     box-shadow: 5px 5px 5px #aaaaaa;
 }
 
-.container{
-    background-color: rgba(0,0,0,0.15);
+.container {
+    background-color: rgba(0, 0, 0, 0.15);
     font-size: 0.6rem;
     padding: 0.2rem;
     max-width: fit-content;
-    min-width: fit-content;  
+    min-width: fit-content;
     display: flex;
     flex-direction: column;
     border: 1px solid #BFBFBF;
     box-shadow: 5px 5px 5px #aaaaaa;
-    margin:0.25rem;
+    margin: 0.25rem;
 }
 
-.itemId{
+.itemId {
     font-size: 0.47rem;
 }
 
-.divName , .z-index , .innerText, .grid , 
-.mainheader ,.size,
-.widthAndHeight{
+.divName, .z-index, .innerText, .grid, .mainheader, .size, .widthAndHeight {
     padding-top: 5px;
     width: 100%;
     display: flex;
 }
 
-.PropertiesTitle{
+.PropertiesTitle {
     font-size: 1rem;
 }
-#oriantaion{
+
+#oriantaion {
     display: none;
 }
 
-.btnAddScreen{
-    display:none;
+.btnAddScreen {
+    display: none;
     align-items: center;
-    justify-content:center;
+    justify-content: center;
     margin-left: 0.2rem;
 }
 
+.btnAddScreen:hover {
+    color: brown;
+}
 
-.btnAddScreen:hover{
-    color:brown;
+.fa-bug {
+    color: chocolate;
 }
-.fa-bug{
-    color:chocolate;
-}
-.oriantaionDiv ,.fa-user-graduate,.btnAddScreen{
+
+.oriantaionDiv, .fa-user-graduate, .btnAddScreen {
     font-size: 0.8rem;
     color: blue;
-    transition:  700ms color ease-in,
-                    751ms transform  ease-out;
+    transition: 700ms color ease-in, 751ms transform ease-out;
 }
 
 .oriantaionDiv:hover {
     color: tomato;
 }
-.fa-user-graduate:hover{
-    color:green;
+
+.fa-user-graduate:hover {
+    color: green;
 }
 
-.oriantaionLabel{
-    display:flex;
+.oriantaionLabel {
+    display: flex;
     align-items: center;
     justify-self: center;
 }
 
-#oriantaion:checked ~ label > .fa-sync{
+#oriantaion:checked~label>.fa-sync {
     transform: rotate(45deg);
-    color:green;
+    color: green;
 }
-.plusBtn,.fa-sync{
-    size:1;
+
+.plusBtn, .fa-sync {
+    size: 1;
     max-width: 1.6rem;
 }
-.menuTool{
+
+.menuTool {
     display: flex;
-    flex-direction:row;
+    flex-direction: row;
     width: 100%;
     align-items: center;
     justify-content: center;
-    padding-left:0.2rem;
+    padding-left: 0.2rem;
 }
 
-.action{
-    margin:0.1rem;
+.action {
+    margin: 0.1rem;
     display: flex;
     align-items: center;
     justify-content: flex-start;
 }
-.action > div{
-    margin:0.3rem;
+
+.action>div {
+    margin: 0.3rem;
 }
 
 .button-style {
@@ -175,7 +173,7 @@ main{
     font-size: 0.6rem;
 }
 
-.treeDiv{
+.treeDiv {
     display: flex;
     flex: 1;
     width: 100%;
@@ -184,23 +182,23 @@ main{
     margin: 0.25rem;
     border: 1px solid #BFBFBF;
     box-shadow: 5px 5px 5px #aaaaaa;
-    background-color: rgba(0,0,0,0.15);
+    background-color: rgba(0, 0, 0, 0.15);
     padding: 0.2rem;
     overflow: hidden;
     overflow-x: auto;
     white-space: nowrap;
 }
 
-.treeDiv .list{
+.treeDiv .list {
     display: flex;
     flex-flow: column;
     flex: 1;
     width: 100%;
     max-width: fit-content;
     max-height: fit-content;
-    background-color: rgba(0,0,0,0.1);
+    background-color: rgba(0, 0, 0, 0.1);
     margin-right: 4px;
-    padding:8px;
+    padding: 8px;
     transition: all 0.2s linear;
     max-height: 465px;
     overflow: hidden;
@@ -208,60 +206,74 @@ main{
     white-space: nowrap;
 }
 
-.treeDiv .list .list-item{
+.treeDiv .list .list-item {
     font-size: 0.5rem;
     background-color: #f3f3f3;
     border-radius: 8px;
     padding: 15px 20px;
     text-align: center;
     margin: 4px 0px;
-    color:rgb(82, 104, 49);
+    color: rgb(82, 104, 49);
 }
 
-
-.btnShowProperties,.btnShowTree,.btnDeleteScreen{
+.btnShowProperties, .btnShowTree, .btnDeleteScreen {
     margin: 0.25rem;
 }
-.deleteScreen{
+
+.btnShowProperties, .btnShowTree {
+    background-color: #378de5;
+    border: 0;
+    color: #ffffff;
+    font-size: 15px;
+    padding: 7px 24px;
+    margin: 0.25rem;
+    text-decoration: none;
+}
+
+.btnShowProperties:hover, .btnShowTree:hover {
+    background-color: #2c6db2;
+    cursor: pointer;
+}
+
+.deleteScreen {
     max-width: fit-content;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-input[type="number"]{
-    size:1;
+
+input[type="number"] {
+    size: 1;
     max-width: 40px;
-    margin:0.1rem;
+    margin: 0.1rem;
 }
 
-.footer-bottom{
-    margin:auto;
+.footer-bottom {
+    margin: auto;
 }
 
-
-
-@media all and (max-width: 1081px){/*all screeen less then 1150px*/
-    .mainContant{
+@media all and (max-width: 1081px) {
+    /*all screeen less then 1150px*/
+    .mainContant {
         flex-direction: column;
         align-items: center;
     }
-    .tools{
+    .tools {
         flex-direction: column;
     }
-    main{
+    main {
         width: 100%;
-        max-width:fit-content;
+        max-width: fit-content;
         overflow: hidden;
         overflow-x: auto;
         white-space: nowrap;
         /* width: 715px; */
         /* height: 601px; */
     }
-    .p5Canvas{
-        margin:0;
+    .p5Canvas {
+        margin: 0;
     }
-    .details{
+    .details {
         margin-top: 0.3rem;
     }
 }
-
