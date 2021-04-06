@@ -31,7 +31,8 @@ function setup()
     frameRate(120);
     changeTheSelectedProperty();
 }
-
+// let word = "First word";
+// let fontSize = 32;
 // let  updateText;
 function draw() 
 {
@@ -40,8 +41,6 @@ function draw()
     {
         push();
         txtUpdating.sketch(50);
-        // ambientLight(100);
-        // directionalLight(255,255,255,0,0,1);
         // translate(mouseX - width/2, mouseY - height/2);
         rotateX(spin);
         rotateY(spin * 1.3);
@@ -54,7 +53,6 @@ function draw()
         // box(75,170,2);
         model(modelPhone);
         spin += 0.03;
-        // image(bg_phone,-100,-200,80,200);
         pop();
     }
     else 
@@ -95,8 +93,35 @@ function draw()
         // print(frameRate());
         // print(dist(selected.X, selected.Y,mouseX,mouseY));
     }
-}
+    // fill(0,102,153);
+    // textFont(font);
+    // text("")
+    // let theight = fontSize + 4;
+    
+    // let base = height * 0.75;
+    // let scalar = 0.8; // Different for each font
 
+    // textSize(fontSize); // Set initial text size
+    // let asc = textAscent() * scalar; // Calc ascent
+    // print(textAscent());
+    // // print(asc);
+    // line(0, base - asc, width, base - asc);
+    // text('dp' + word, 0, base); // Draw text on baseline
+
+    // textSize(fontSize); // Increase text size
+    // asc = textAscent() * scalar; // Recalc ascent
+    // print(textAscent());
+    // textAlign(LEFT,TOP);
+    // line(40, base - asc, width, base - asc);
+    
+    // text(word, 40, base); // Draw text on baseline
+    // noFill();
+    // let h = fontSize * 1.1;
+    // let w = word.length * fontSize / 1.85 + 1;
+    // print(h,w);
+    // rect(39,base,w,h);
+
+}
 
 function mousePressed() 
 {

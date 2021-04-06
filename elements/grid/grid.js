@@ -24,6 +24,7 @@ class Grid extends Element
     {
         this.move();
         
+        push();
         if(!showBar)
         {
             stroke(0);
@@ -44,7 +45,7 @@ class Grid extends Element
             rect(this.X,this.Y,this.Width,this.Height);
             pop();
         }
-        
+        pop();
 
         for(let i = 0; i < this.children.length; i++)
         {
