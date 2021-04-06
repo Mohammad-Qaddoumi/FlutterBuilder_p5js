@@ -1,5 +1,5 @@
-function preload() {
-
+function preload() 
+{
     // screensArray.push(new Grid(gridPoints));
     screensArray.push(new Row(gridPoints));
     screensArray[0].unSortedWidjets = [];
@@ -13,7 +13,6 @@ function preload() {
 
     setEvents();
     
-    // modelPhone = loadModel('./assets/Nexus5x.obj',true);
     modelPhone = loadModel('./assets/phone2.obj', true);
     txtUpdating = new TextDrawer("Updating...", -100, -260);
     txtUpdating.parent = {X : -250, Y : -300};
@@ -26,16 +25,19 @@ function preload() {
     bg_phone_forModel = loadImage('./assets/Corp-phone2.png');
 }
 
-function setup() {
+function setup() 
+{
     let cnv = createCanvas(canvasWidth, canvasHeight, WEBGL);
     frameRate(120);
     changeTheSelectedProperty();
 }
 
 // let  updateText;
-function draw() {
+function draw() 
+{
     clear();
-    if (updateison) {
+    if (updateison) 
+    {
         push();
         txtUpdating.sketch(50);
         // ambientLight(100);
@@ -55,7 +57,8 @@ function draw() {
         // image(bg_phone,-100,-200,80,200);
         pop();
     }
-    else {
+    else 
+    {
         translate(width / -2, height / -2, 0);
         push();
         fill(255,0,0);
@@ -95,10 +98,12 @@ function draw() {
 }
 
 
-function mousePressed() {
+function mousePressed() 
+{
     pressed();   
 }
 
-function mouseReleased() {
+function mouseReleased() 
+{
     released();   
 }
