@@ -7,7 +7,6 @@ class Grid extends Element
         this.children = [];
         this.size = 0.3333333;
         this.noBackground = true;
-        this.canMove = true;
     }
 
     
@@ -55,17 +54,6 @@ class Grid extends Element
         }
         
     }
-
-    move() 
-    {
-        if(!this.drag || (pmouseX === mouseX && pmouseY === mouseY)) return;
-        if(!this.canMove)
-            return;
-        this.moved = true;
-        this.X = mouseX;
-        this.Y = mouseY;
-    }
-
 
     isInside() 
     {

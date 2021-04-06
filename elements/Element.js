@@ -13,6 +13,7 @@ class Element
         this.moved = false;
         this._type = type;
         this.backgroundColor = bc;
+        this.canMove = true;
         if (this.constructor == Element) 
         {
             throw new Error("Abstract classes can't be instantiated.");
@@ -25,6 +26,8 @@ class Element
     move() 
     {
         if(!this.drag || (pmouseX === mouseX && pmouseY === mouseY) || !mouseIsPressed) return;
+        if(!this.canMove)
+            return;
         this.moved = true;
         this.X = mouseX;
         this.Y = mouseY;

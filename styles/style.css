@@ -54,6 +54,8 @@ main {
 
 .details {
     display: flex;
+    /* flex-wrap: nowrap; */
+    /* flex-shrink: 0; */
     flex-direction: column;
     background-image: linear-gradient(to right, #eacda3, #d6ae7b);
     margin-left: 0.2rem;
@@ -63,6 +65,19 @@ main {
     justify-content: center;
     border: 1px solid #BFBFBF;
     box-shadow: 5px 5px 5px #aaaaaa;
+}
+
+.details input[type="radio"]{
+    display:none;
+}
+
+.menu
+{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem;
 }
 
 .container {
@@ -97,7 +112,7 @@ main {
 }
 
 .btnAddScreen {
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
     margin-left: 0.2rem;
@@ -174,7 +189,7 @@ main {
 }
 
 .treeDiv {
-    display: flex;
+    display: none;
     flex: 1;
     width: 100%;
     min-width: 267px;
@@ -216,7 +231,7 @@ main {
     color: rgb(82, 104, 49);
 }
 
-.btnShowProperties, .btnShowTree, .btnDeleteScreen {
+.btnShowProperties, .btnShowTree, .btnDeleteScreen , .btnAppbar {
     margin: 0.25rem;
 }
 
@@ -235,7 +250,7 @@ main {
     cursor: pointer;
 }
 
-.deleteScreen {
+.deleteScreen , .appBar {
     max-width: fit-content;
     display: flex;
     align-items: center;
@@ -250,6 +265,19 @@ input[type="number"] {
 
 .footer-bottom {
     margin: auto;
+}
+
+.details > .menu > label{
+    padding : 0.3rem;
+    background : #c2c2c2;
+    font-weight: bold;
+    border: 1px solid #BFBFBF;
+    box-shadow: 4px 5px 5px #aaaaaa;
+    max-height: fit-content;
+}
+
+.details .menu input[type="radio"]:checked + label {
+    background: #fff;
 }
 
 @media all and (max-width: 1081px) {

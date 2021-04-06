@@ -88,38 +88,12 @@ function draw()
         push();
         screensArray[selectedScreen].sketch();
         pop();
+        if(screensArray[selectedScreen].appBar)
+            screensArray[selectedScreen].appBar.sketch();
         
-        // noLoop();
+        // // noLoop();
         // print(frameRate());
-        // print(dist(selected.X, selected.Y,mouseX,mouseY));
     }
-    // fill(0,102,153);
-    // textFont(font);
-    // text("")
-    // let theight = fontSize + 4;
-    
-    // let base = height * 0.75;
-    // let scalar = 0.8; // Different for each font
-
-    // textSize(fontSize); // Set initial text size
-    // let asc = textAscent() * scalar; // Calc ascent
-    // print(textAscent());
-    // // print(asc);
-    // line(0, base - asc, width, base - asc);
-    // text('dp' + word, 0, base); // Draw text on baseline
-
-    // textSize(fontSize); // Increase text size
-    // asc = textAscent() * scalar; // Recalc ascent
-    // print(textAscent());
-    // textAlign(LEFT,TOP);
-    // line(40, base - asc, width, base - asc);
-    
-    // text(word, 40, base); // Draw text on baseline
-    // noFill();
-    // let h = fontSize * 1.1;
-    // let w = word.length * fontSize / 1.85 + 1;
-    // print(h,w);
-    // rect(39,base,w,h);
 
 }
 
