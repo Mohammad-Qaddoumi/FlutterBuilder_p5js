@@ -1,24 +1,24 @@
-class Text extends Widjet{
-    constructor(point, width, height,name,text){
-        super(point,true,name);
-        this.width = width;
-        this.height = height;
-        this.text = text;
+class Text extends Widjet
+{
+
+    constructor(point, width, height)
+    {
+        super({X : point.X , Y : point.Y, W : width, H : height},true,"Text");
+        this.text = "Text";
         this.userSize = 40;
-        this._type = "Text";
     }
+
     sketch()
     {
-        if (mouseIsPressed)
-        {
-            this.move();
-        }   
+        
+        this.move();
+
         // noStroke();
         // rectMode(CENTER);
         // rect(this.X, this.Y, this.width, this.height);
         textAlign(LEFT,TOP);
         textFont(font);
-        textSize(this.userSize*1.2);
+        textSize(this.userSize);
         fill(this.backgroundColor[0], this.backgroundColor[1], this.backgroundColor[2]);
         text(this.text, this.X, this.Y);
         /*
@@ -36,29 +36,16 @@ class Text extends Widjet{
             text('dp', 40, base); // Draw text on baseline
          */
     }
-    isInside() {
-        if(chkorentaion && this.setOrientation)
-        {
-            if(mouseX < this.X_O - (this.width/2))
-                return false;
-            if(mouseY < this.Y_O - (this.height/2))
-                return false;
-            if(mouseX > this.X_O + this.width/2)
-                return false;
-            if(mouseY > this.Y_O + this.height/2)
-                return false;
-        }
-        else
-        {
-            if(mouseX < this.X - (this.width/2))
-                return false;
-            if(mouseY < this.Y - (this.height/2))
-                return false;
-            if(mouseX > this.X + this.width/2)
-                return false;
-            if(mouseY > this.Y + this.height/2)
-                return false;
-        }
+
+    isInside() 
+    {
+        if(    mouseX < this.X 
+            || mouseY < this.Y 
+            || mouseX > this.X + this.width
+            || mouseY > this.Y + this.height
+        )
+            return false;
         return true;
     }
+    
 }

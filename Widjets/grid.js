@@ -1,30 +1,16 @@
-class Grid 
+class Grid extends Element
 {
-    constructor(point,drag = false) 
+    constructor(point,drag = false,type = "Grid") 
     {
-        this.Id = UUID.generate();
-        this.X = point.X;
-        this.Y = point.Y;
-        this.width = point.W;
-        this.height = point.H;
-        this.X_O = point.X_O;
-        this.Y_O = point.Y_O;
-        this.width_O = point.W_O;
-        this.height_O = point.H_O;
+        super(point ,drag , `${type} ${count++}`,type,[100,100,100]);
+
         this.children = [];
         this.size = 0.3333333;
-        this.children_O = [];
-        this.drag = drag;
-        this.name = "";
-        this.parent = null;
-        this.setOrientation = false;
-        this._type = "Grid";
-        this.backgroundColor = [100,100,100];
         this.noBackground = true;
-        this.moved = false;
         this.canMove = true;
     }
 
+    
     get Width()
     {
         return this.width;
@@ -34,36 +20,63 @@ class Grid
         return this.height;
     }
 
+    sketch()
+    {
+        this.move();
+        
+        if(!showBar)
+        {
+            stroke(0);
+            strokeWeight(3);
+        }
+        else 
+            noStroke();
+        if(!this.noBackground)
+        {
+            push();
+            fill(this.backgroundColor[0], this.backgroundColor[1], this.backgroundColor[2]);
+            rect(this.X,this.Y,this.Width,this.Height);
+            pop();
+        }
+        else{
+            push();
+            noFill();
+            rect(this.X,this.Y,this.Width,this.Height);
+            pop();
+        }
+        
+
+        for(let i = 0; i < this.children.length; i++)
+        {
+            push();
+            this.children[i].sketch();
+            pop();
+        }
+        
+    }
+
     move() 
     {
         if(!this.drag || (pmouseX === mouseX && pmouseY === mouseY)) return;
         if(!this.canMove)
             return;
         this.moved = true;
-        // print(this,this.moved);
-        if(chkorentaion)
-        {
-            this.setOrientation = true;
-        }
-
-        if(!this.setOrientation)
-        {
-            this.X = mouseX;
-            this.Y = mouseY;
-            this.X_O = this.X;
-            this.Y_O = this.Y;
-        }else{
-            if(chkorentaion){
-                this.X_O = mouseX;
-                this.Y_O = mouseY;
-            }
-            else{
-                this.X = mouseX;
-                this.Y = mouseY;
-            }
-        }
-
+        this.X = mouseX;
+        this.Y = mouseY;
     }
+
+
+    isInside() 
+    {
+        if(    mouseX < this.X 
+            || mouseY < this.Y 
+            || mouseX > this.X + this.Width
+            || mouseY > this.Y + this.Height
+        )
+            return false;
+        return true;
+    }
+
     static setTheWidjetParent(item, parent) {
         let x,y;
         x = item.X;

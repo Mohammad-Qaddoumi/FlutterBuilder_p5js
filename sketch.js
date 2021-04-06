@@ -16,6 +16,7 @@ function preload() {
     // modelPhone = loadModel('./assets/Nexus5x.obj',true);
     modelPhone = loadModel('./assets/phone2.obj', true);
     txtUpdating = new TextDrawer("Updating...", -100, -260);
+    txtUpdating.parent = {X : -250, Y : -300};
     // updateText = createGraphics(200, 200);
     // updateText.fill(255);
     // updateText.background(0);
