@@ -61,6 +61,9 @@
           
             <div class="container">
                 <div class="menuTool">
+                    <select class="screen-collection" >
+                        <option selected="selected" value="0" >Screen 1</option>
+                    </select>
                     <!-- <div class="oriantaionDiv">
                         <input type="checkbox" id="oriantaion" class="oriantaion">
                         <label for="oriantaion" class="oriantaionLabel">
@@ -90,19 +93,25 @@
                         <div>Add Screen</div>
                     </a>
                 </div>
-                <div class="PropertiesTitle">Screen</div>
+                <div class="PropertiesTitle">
+                    <!-- Screen -->
+                </div>
                 <div>
                     <input type="checkbox" name="showBars" id="showBars" >
                     <Label for="showBars">Show Bar</Label>
                 </div>
-                <div class="appBar" >
-                    <button class="btnAppbar button-style"> Add AppBar </button>
+                <div class="screenaction">
+                    <div class="appBar" >
+                        <button class="btnAppbar button-style"> Add AppBar </button>
+                    </div>
+                    <div class="deleteScreen">
+                        <input type="button" class="btnDeleteScreen button-style"
+                            value="Delete This Screen">
+                    </div>
                 </div>
-                <div class="deleteScreen">
-                    <input type="button" class="btnDeleteScreen button-style"
-                        value="Delete This Screen">
+                <div class="PropertiesTitle">
+                    <!-- Properties -->
                 </div>
-                <div class="PropertiesTitle">Properties</div>
                 <div class="selectedItem">SelectedItem:</div>
                 <div class="locked">
                     <input type="checkbox" name="lock" id="lock" checked>
