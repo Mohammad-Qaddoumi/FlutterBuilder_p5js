@@ -43,8 +43,8 @@ class Element
         ) return;
 
         this.moved = true;
-        this.X = mouseX;
-        this.Y = mouseY;
+        this.X = mouseX - X_D;
+        this.Y = mouseY - Y_D;
     }
 }
 

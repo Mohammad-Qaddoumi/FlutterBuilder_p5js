@@ -14,7 +14,7 @@ class WidjetBuilder
                 }
                 case "Rect":
                 {
-                    widget = new Rectangle({ X: element.X, Y: element.Y }, element.width-15, element.height-15);
+                    widget = new Rectangle({ X: element.X, Y: element.Y }, 99, 40);
                     break;
                 }
                 case "Text":

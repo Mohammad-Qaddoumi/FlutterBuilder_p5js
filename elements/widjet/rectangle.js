@@ -3,7 +3,7 @@ class Rectangle extends Widjet
 
     constructor(point, width, height) 
     {
-        super({X : point.X , Y : point.Y, W : width, H : height},true,"Rect");
+        super({X : point.X , Y : point.Y, W : width, H : height},true,"Rect","Click");
     }
 
     sketch() 
@@ -16,8 +16,13 @@ class Rectangle extends Widjet
         rectMode(CORNER);
         fill(this.backgroundColor[0], this.backgroundColor[1], this.backgroundColor[2]);
         rect(this.X, this.Y, this.width, this.height);
-        this.text.sketch(this.width * 0.15);
+        
+        fill(this.foregroundColor[0], this.foregroundColor[1], this.foregroundColor[2]);
+        textSize(this.textFontSize);
+        text(this.text,this.text_X, this.text_Y);
+        
     }
+
 
     isInside() 
     {

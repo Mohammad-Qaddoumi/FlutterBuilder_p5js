@@ -14,8 +14,11 @@ function preload()
     setEvents();
     
     modelPhone = loadModel('./assets/phone2.obj', true);
-    txtUpdating = new TextDrawer("Updating...", -100, -260);
-    txtUpdating.parent = {X : -250, Y : -300};
+    txtUpdating = {
+        text : "Updating...",
+        X : -250, 
+        Y : -300
+    }
     // updateText = createGraphics(200, 200);
     // updateText.fill(255);
     // updateText.background(0);
@@ -37,10 +40,17 @@ function setup()
 function draw() 
 {
     clear();
+    textAlign(LEFT,TOP);
+    textFont(font);
     if (updateison) 
     {
         push();
-        txtUpdating.sketch(50);
+
+        textSize(50);
+        fill(0, 102, 153);
+        noStroke();
+        text(txtUpdating.text, txtUpdating.X + 10 , txtUpdating.Y + 15);
+
         // translate(mouseX - width/2, mouseY - height/2);
         rotateX(spin);
         rotateY(spin * 1.3);
@@ -53,11 +63,13 @@ function draw()
         // box(75,170,2);
         model(modelPhone);
         spin += 0.03;
+
         pop();
     }
     else 
     {
         translate(width / -2, height / -2, 0);
+        
         push();
         fill(255,0,0);
         stroke(255,0,0);

@@ -7,15 +7,17 @@ class MainWidjet
         this.width = 65;
         this.height = 45;
         this._type = _type;
-        this.text = new TextDrawer(_type);
-        this.text.parent = this;
+        this.color = [0, 102, 153];
     }
 
     sketch() 
     {        
-        rect(this.X, this.Y, this.width, this.height);
         push();
-        this.text.sketch(this.width * 0.2);
+        rect(this.X, this.Y, this.width, this.height);
+        textSize(this.width * 0.25);
+        fill(this.color[0],this.color[1],this.color[2]);
+        noStroke();
+        text(this._type, this.X + 10 , this.Y + 15);
         pop();
     }
 
@@ -33,12 +35,11 @@ class MainWidjet
 }
 function createMainWidjet()
 {
-    // mainParticleArray.push(new MainWidjet({ X: 11, Y: 30 }, "AppBar"));
-    mainParticleArray.push(new MainWidjet({ X: 11, Y: 80  }, "Column"));
-    mainParticleArray.push(new MainWidjet({ X: 11, Y: 130 }, "Row"));
-    // mainParticleArray.push(new MainWidjet({ X: 11, Y: 180 }, "Circle"));
-    mainParticleArray.push(new MainWidjet({ X: 11, Y: 230 }, "Rect"));
-    mainParticleArray.push(new MainWidjet({ X: 11, Y: 280 }, "Text"));
+    mainParticleArray.push(new MainWidjet({ X: 11, Y: 30  }, "Column"));
+    mainParticleArray.push(new MainWidjet({ X: 11, Y: 80  }, "Row"));
+    mainParticleArray.push(new MainWidjet({ X: 11, Y: 130 }, "Rect"));
+    mainParticleArray.push(new MainWidjet({ X: 11, Y: 180 }, "Text"));
+    // mainParticleArray.push(new MainWidjet({ X: 11, Y: 230 }, "Circle"));
 
 
 }

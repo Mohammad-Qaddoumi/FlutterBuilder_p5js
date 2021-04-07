@@ -3,7 +3,7 @@ class Circle extends Widjet
 
     constructor(point, radius) 
     {
-        super({X : point.X , Y : point.Y, W : radius, H : radius},true,"Circle");
+        super({X : point.X , Y : point.Y, W : radius, H : radius},true,"Circle","Click");
     }
 
     sketch() 
@@ -16,9 +16,10 @@ class Circle extends Widjet
         ellipseMode(CORNER);
         fill(this.backgroundColor[0], this.backgroundColor[1], this.backgroundColor[2]);
         ellipse(this.X, this.Y, this.width, this.height);
-        this.text.sketch(this.width * 0.15);
-        strokeWeight(5);
-        stroke(255);
+        
+        fill(this.foregroundColor[0], this.foregroundColor[1], this.foregroundColor[2]);
+        textSize(this.textFontSize);
+        text(this.text,this.text_X, this.text_Y);
     }
     isInside() 
     {

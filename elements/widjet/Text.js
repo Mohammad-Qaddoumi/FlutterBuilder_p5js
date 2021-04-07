@@ -20,13 +20,14 @@ class Text extends Widjet
     sketch()
     {       
         this.move();
-        textAlign(LEFT,TOP);
-        textFont(font);
+
+        // noFill();
+        // rect(this.X - 1, this.Y ,this.Width,this.Height);
+
         textSize(this.fontSize);
-        fill(this.backgroundColor[0], this.backgroundColor[1], this.backgroundColor[2]);
+        fill(this.foregroundColor[0], this.foregroundColor[1], this.foregroundColor[2]);
         text(this.text, this.X, this.Y);
-        noFill();
-        rect(this.X - 1, this.Y ,this.Width,this.Height);
+
     }
 
     isInside() 

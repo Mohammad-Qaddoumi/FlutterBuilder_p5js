@@ -108,7 +108,14 @@
                     <input type="checkbox" name="lock" id="lock" checked>
                     <Label for="lock">lock</Label>
                 </div>
-                <input type="color" id="favcolor" name="favcolor" value="#ff0000">
+                <div class="backgroundColor">
+                    <label for="backgroundColor" >Background Color</label>
+                    <input type="color" id="backgroundColor" value="#ff0000">
+                </div>
+                <div class="foreColor">
+                    <label for="foreColor" >Fore Color</label>
+                    <input type="color" id="foreColor" value="#ff0000">
+                </div>
                 <div class="divName">
                     <div>Name:&nbsp;</div>
                     <input autocomplete="off" placeholder="Enter Widget name here" type="text" class="txtName"
@@ -123,9 +130,9 @@
                 </div>
                 <div class="widthAndHeight">
                     <div>Width:</div>
-                    <input class="width" type="number" value="20" min="10" max="99" />
+                    <input class="width" type="number" value="20" min="10" max="199" />
                     <div>Height:</div>
-                    <input class="height" type="number" value="20" min="10" max="99">
+                    <input class="height" type="number" value="20" min="10" max="199">
                 </div>
                 <div class="innerText">
                     <div>Text:&nbsp;</div>
@@ -183,7 +190,6 @@
     <script src="./elements/widjet/rectangle.js"></script>
     <script src="./elements/grid/row.js"></script>
     <script src="./elements/grid/column.js"></script>
-    <script src="./lib/TextDrawer.js"></script>
     <script src="./elements/widjet/Text.js"></script>
     <script src="./lib/events.js"></script>
     <script src="./lib/mousePressed.js"></script>
