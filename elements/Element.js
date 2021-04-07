@@ -19,15 +19,29 @@ class Element
             throw new Error("Abstract classes can't be instantiated.");
         }
     }
+
+    get Width()
+    {
+        return this.width;
+    }
+    get Height()
+    {
+        return this.height;
+    }
+
     sketch() 
     {
         throw new Error("Method 'sketch()' must be implemented.");
     }
+    
     move() 
     {
-        if(!this.drag || (pmouseX === mouseX && pmouseY === mouseY) || !mouseIsPressed) return;
-        if(!this.canMove)
-            return;
+        if(    !this.drag 
+            || (pmouseX === mouseX && pmouseY === mouseY) 
+            || !mouseIsPressed
+            || !this.canMove
+        ) return;
+
         this.moved = true;
         this.X = mouseX;
         this.Y = mouseY;

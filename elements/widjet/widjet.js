@@ -8,9 +8,10 @@ class Widjet extends Element
         this.text = new TextDrawer("",this.X,this.Y);
         this.text.parent = this;
         this.size = 0.2;
+        if (this.constructor == Widjet) 
+        {
+            throw new Error("Abstract classes can't be instantiated.");
+        }
     }
-
-    get Width() {return this.width;}
-    get Height() {return this.height;}
     
 }

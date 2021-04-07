@@ -7,16 +7,10 @@ class Grid extends Element
         this.children = [];
         this.size = 0.3333333;
         this.noBackground = true;
-    }
-
-    
-    get Width()
-    {
-        return this.width;
-    }
-    get Height()
-    {
-        return this.height;
+        if (this.constructor == Grid) 
+        {
+            throw new Error("Abstract classes can't be instantiated.");
+        }
     }
 
     sketch()
