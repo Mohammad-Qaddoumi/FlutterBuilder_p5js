@@ -36,11 +36,9 @@ $sql = "UPDATE `$table` SET `design_json` = '$data', `created_at` = '$date' WHER
 
 $con = mysqli_connect($server_name, $sql_name, $sql_pass, $db_name);
 
-
 if (!$con) {
     die( "Database Connection Error..." . mysqli_connect_error());
 }
-
 
 $result = $con->query($sql);
 

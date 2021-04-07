@@ -1,12 +1,16 @@
+// window.addEventListener("beforeunload", event => {
+//     event.preventDefault();
+//     event.returnValue = "";
+// });
 function preload() 
 {
-    // screensArray.push(new Grid(gridPoints));
-    screensArray.push(new Row(gridPoints));
-    screensArray[0].unSortedWidjets = [];
-    screensArray[0].backgroundColor = [0,0,0];
-    unSortedWidjets = screensArray[selectedScreen].unSortedWidjets;
-    screensArray[selectedScreen].canMove = false;
-    selected = screensArray[selectedScreen];
+    // screens.push(new Grid(gridPoints));
+    screens.push(new Row(gridPoints));
+    screens[0].unSortedWidjets = [];
+    screens[0].backgroundColor = [0,0,0];
+    unSortedWidjets = screens[selectedScreen].unSortedWidjets;
+    screens[selectedScreen].canMove = false;
+    selected = screens[selectedScreen];
     createMainWidjet();
     img = loadImage('./assets/phone.png');
     font = loadFont("./assets/AnonymousPro-Regular.ttf");
@@ -26,6 +30,8 @@ function preload()
     // updateText.textSize(30);
     // updateText.text('Update', 50, 50);
     bg_phone_forModel = loadImage('./assets/Corp-phone2.png');
+
+
 }
 
 function setup() 
@@ -98,10 +104,10 @@ function draw()
             pop();
         }    
         push();
-        screensArray[selectedScreen].sketch();
+        screens[selectedScreen].sketch();
         pop();
-        if(screensArray[selectedScreen].appBar)
-            screensArray[selectedScreen].appBar.sketch();
+        if(screens[selectedScreen].appBar)
+            screens[selectedScreen].appBar.sketch();
         
         // // noLoop();
         // print(frameRate());

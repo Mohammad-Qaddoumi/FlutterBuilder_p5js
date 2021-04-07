@@ -1,0 +1,29 @@
+{
+ "screen0": {
+  "screenColor": [
+   0,
+   0,
+   0
+  ],
+  "body": {
+   "type": "Row",
+   "size": 33,
+   "children": {
+    "childrenNumber": 1,
+    "child1": {
+     "type": "Text",
+     "size": "20",
+     "name": "Text 2",
+     "content": "Text",
+     "colorFromRGB": [
+      "0",
+      "0",
+      "0"
+     ],
+     "fontSize": "40",
+     "id": "a09eef13-a476-4bca-992f-3dab2423aba2"
+    }
+   }
+  }
+ }
+}
