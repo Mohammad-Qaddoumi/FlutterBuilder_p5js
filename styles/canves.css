@@ -1,0 +1,10 @@
+main {
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.05);
+    background-image: linear-gradient(to right, #eacda3, #d6ae7b);
+    width: 715px;
+    height: 601px;
+    border: 1px solid #BFBFBF;
+    box-shadow: 4px 5px 5px #aaaaaa;
+    cursor: pointer;
+}

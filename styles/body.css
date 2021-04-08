@@ -1,0 +1,32 @@
+@font-face {
+    font-family: Poppins;
+    src: url(../assets/Poppins-Regular.ttf);
+}
+@font-face {
+    font-family: Anonymous;
+    src: url(../assets/AnonymousPro-Regular.ttf);
+}
+* {
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+a {
+    text-decoration: none;
+}
+textarea {
+    resize: none;
+}
+html {
+    font-size: x-large;
+    font-family: Poppins,Anonymous, sans-serif;
+}
+body{
+    user-select: none;
+    width : 100vw;
+    height : 100vh;
+    background:transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,39 +1,6 @@
-body {
-    user-select: none;
-    background:transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.mainContant {
-    margin-top: 0.3rem;
-    font-size: 1rem;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: center;
-    /* overflow: hidden; */
-    width: 100%;
-    height: max-content;
-}
-
-main {
-    position: relative;
-    background-color: rgba(0, 0, 0, 0.05);
-    background-image: linear-gradient(to right, #eacda3, #d6ae7b);
-    width: 715px;
-    height: 601px;
-    margin-left: 0.2rem;
-    border: 1px solid #BFBFBF;
-    box-shadow: 4px 5px 5px #aaaaaa;
-    cursor: pointer;
-}
 
 .details {
     display: flex;
-    /* flex-wrap: nowrap; */
-    /* flex-shrink: 0; */
     flex-direction: column;
     background-image: linear-gradient(to right, #eacda3, #d6ae7b);
     margin-left: 0.2rem;
@@ -63,7 +30,6 @@ main {
     font-size: 0.6rem;
     padding: 0.2rem;
     width : 25vw;
-    /* max-width: fit-content; */
     min-width: 270px;
     display: flex;
     flex-direction: column;
@@ -152,7 +118,7 @@ main {
     justify-content: flex-start;
 }
 
-.action>div {
+.action > div {
     margin: 0.3rem;
 }
 
@@ -171,10 +137,8 @@ main {
 .treeDiv {
     display: none;
     flex: 1;
-    /* width: 100%; */
     width : 25vw;
     min-width: 270px;
-    /* max-width: fit-content; */
     margin: 0.25rem;
     border: 1px solid #BFBFBF;
     box-shadow: 5px 5px 5px #aaaaaa;
@@ -263,30 +227,4 @@ input[type="number"] {
 
 .details .menu input[type="radio"]:checked + label {
     background: #fff;
-}
-
-@media all and (max-width: 1030px) {
-    /*all screeen less then 1030px*/
-    .mainContant {
-        flex-direction: column;
-        align-items: center;
-    }
-    .tools {
-        flex-direction: column;
-    }
-    main {
-        width: 100%;
-        max-width: fit-content;
-        overflow: hidden;
-        overflow-x: auto;
-        white-space: nowrap;
-        /* width: 715px; */
-        /* height: 601px; */
-    }
-    .p5Canvas {
-        margin: 0;
-    }
-    .details {
-        margin-top: 0.3rem;
-    }
 }

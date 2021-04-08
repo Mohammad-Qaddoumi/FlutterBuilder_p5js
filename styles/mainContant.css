@@ -1,0 +1,14 @@
+
+.mainContant {
+    margin-top: 0.3rem;
+    font-size: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    height: max-content;
+    background:transparent;
+}
+
+
