@@ -1,10 +1,5 @@
-// window.addEventListener("beforeunload", event => {
-//     event.preventDefault();
-//     event.returnValue = "";
-// });
 function preload() 
 {
-    // screens.push(new Grid(gridPoints));
     screens.push(new Row(gridPoints));
     screens[0].unSortedWidjets = [];
     screens[0].backgroundColor = [0,0,0];
@@ -40,8 +35,6 @@ function setup()
     frameRate(120);
     changeTheSelectedProperty();
 }
-// let word = "First word";
-// let fontSize = 32;
 // let  updateText;
 function draw() 
 {
