@@ -12,9 +12,9 @@ class WidjetBuilder
                     widget = new Circle({ X: element.X, Y: element.Y }, element.width-15);
                     break;
                 }
-                case "Rect":
+                case "Flat":
                 {
-                    widget = new Rectangle({ X: element.X, Y: element.Y }, 99, 40);
+                    widget = new FlatButton({ X: element.X, Y: element.Y }, 99, 40);
                     break;
                 }
                 case "Text":

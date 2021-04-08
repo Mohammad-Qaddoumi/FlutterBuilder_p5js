@@ -1,33 +1,13 @@
 <?php
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
-header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 
 $data = file_get_contents('php://input',true);
-$json = json_decode($data,true);
-if (count((array)$json) === 0){
-    die;
+if (count((array)json_decode($data,true)) === 0){
+    die('Error');
 }
 
-if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')   
-    $url = "https://";   
-else  
-    $url = "http://";    
-$url .= $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];   
-
-if(strpos($url, 'localhost') !== false)
-{   
-    $db_name  = "testdata";
-    $sql_name = "root";
-    $sql_pass = "";
-} 
-else
-{
-    $db_name  = "id16371250_maindata";
-    $sql_name = "id16371250_qualityfirst";
-    $sql_pass = "FirstQuality#43";
-}
-
+$db_name  = "id16371250_maindata";
+$sql_name = "id16371250_qualityfirst";
+$sql_pass = "FirstQuality#43";
 $server_name = "localhost";
 $table = "apps";
 

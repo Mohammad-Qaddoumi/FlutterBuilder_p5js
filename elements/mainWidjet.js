@@ -37,7 +37,7 @@ function createMainWidjet()
 {
     mainParticleArray.push(new MainWidjet({ X: 11, Y: 30  }, "Column"));
     mainParticleArray.push(new MainWidjet({ X: 11, Y: 80  }, "Row"));
-    mainParticleArray.push(new MainWidjet({ X: 11, Y: 130 }, "Rect"));
+    mainParticleArray.push(new MainWidjet({ X: 11, Y: 130 }, "Flat"));
     mainParticleArray.push(new MainWidjet({ X: 11, Y: 180 }, "Text"));
     // mainParticleArray.push(new MainWidjet({ X: 11, Y: 230 }, "Circle"));
 

@@ -1,9 +1,9 @@
-class Rectangle extends Widjet 
+class FlatButton extends Widjet 
 {
 
     constructor(point, width, height) 
     {
-        super({X : point.X , Y : point.Y, W : width, H : height},true,"Rect","Click");
+        super({X : point.X , Y : point.Y, W : width, H : height},true,"Flat","Click");
     }
 
     sketch() 
