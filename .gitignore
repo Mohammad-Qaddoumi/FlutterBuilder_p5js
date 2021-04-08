@@ -1,3 +1,4 @@
 testjson/
 .vscode/
 .git/
+*.php
