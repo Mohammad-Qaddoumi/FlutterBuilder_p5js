@@ -38,8 +38,10 @@
     </style>
 
     <script>
-        if(      window.location === window.parent.location 
-            && !(window.location.href).includes('127.0.0.1'))
+        if(     window.location === window.parent.location 
+                && !(window.location.href).includes('127.0.0.1')
+                && !(window.location.href).includes('mohammad-qaddoumi')
+          )
         {	  	// The page is not in an iframe
             alert("You can't access this page directly");
             window.location = "https://less-code.000webhostapp.com";
@@ -49,9 +51,10 @@
 </head>
 
 <body>
-
     <div class="mainContant">
+
         <main></main>
+
         <div class="details">
 
             <div class="menu" >
@@ -95,9 +98,6 @@
                         <div>Add Screen</div>
                     </a>
                 </div>
-                <div class="PropertiesTitle">
-                    <!-- Screen -->
-                </div>
                 <div>
                     <input type="checkbox" name="showBars" id="showBars" >
                     <Label for="showBars">Show Bar</Label>
@@ -110,9 +110,6 @@
                         <input type="button" class="btnDeleteScreen button-style"
                             value="Delete This Screen">
                     </div>
-                </div>
-                <div class="PropertiesTitle">
-                    <!-- Properties -->
                 </div>
                 <div class="selectedItem">SelectedItem:</div>
                 <div class="locked">
@@ -167,6 +164,7 @@
             </div>
 
         </div>
+        
     </div>
 
 

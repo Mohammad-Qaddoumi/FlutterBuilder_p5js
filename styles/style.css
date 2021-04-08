@@ -257,6 +257,10 @@ input[type="number"] {
     max-height: fit-content;
 }
 
+.details  > .menu > label:hover {
+    transform : scale(1.1);
+}
+
 .details .menu input[type="radio"]:checked + label {
     background: #fff;
 }
