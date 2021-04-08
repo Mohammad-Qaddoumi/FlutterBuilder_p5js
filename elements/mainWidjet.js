@@ -17,7 +17,7 @@ class MainWidjet
         textSize(this.width * 0.25);
         fill(this.color[0],this.color[1],this.color[2]);
         noStroke();
-        text(this._type, this.X + 10 , this.Y + 15);
+        text(this._type, this.X + 9 , this.Y + 15);
         pop();
     }
 
