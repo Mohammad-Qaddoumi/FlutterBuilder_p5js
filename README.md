@@ -5,4 +5,4 @@ NOTE: git-hub pages are slow so you need to wait some time
       before using it . 
       "I will use CDN later"
 
-https://mohammad-qaddoumi.github.io/FlutterBuilder_p5js/design.html
+https://mohammad-qaddoumi.github.io/FlutterBuilder_p5js
