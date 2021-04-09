@@ -4,7 +4,7 @@ class MainWidjet
     {
         this.X = point.X;
         this.Y = point.Y;
-        this.width = 65;
+        this.width = 75;
         this.height = 45;
         this._type = _type;
         this.color = [0, 102, 153];
