@@ -25,6 +25,7 @@ function preload()
     // updateText.textSize(30);
     // updateText.text('Update', 50, 50);
     bg_phone_forModel = loadImage('./assets/Corp-phone2.png');
+
 }
 
 function setup() 
