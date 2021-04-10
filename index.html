@@ -12,31 +12,12 @@
     <link rel="stylesheet" href="./styles/details.css">
     <link rel="stylesheet" href="./styles/mediaQuery.css">
 
-    <script>
-        if(     window.location === window.parent.location 
-                && !(window.location.href).includes('127.0.0.1')
-                && !(window.location.href).includes('FlutterBuilder_p5js')
-          )
-        {	  	// The page is not in an iframe or localhost
-            alert("You can't access this page directly");
-            window.location = "https://less-code.000webhostapp.com";
-        }
-    </script>
-
-    <script>
-        window.onload = () => {
-            if(!window.location.href.includes('000webhostapp'))
-                return;
-            const body = window.document.children[0].children[1];
-            const index = body.children.length - 2;
-            const div = body.children[index];
-            div.style.display = 'none';
-        }
-    </script>
+    <script src="./setting.js"></script>
 
 </head>
 
 <body>
+
     <div class="mainContant">
 
         <main></main>
@@ -70,7 +51,7 @@
                 </label>
             </div>
           
-            <div class="container">
+            <div class="container transition-animation">
                 <div class="menuTool">
                     <select class="screen-collection" >
                         <option selected="selected" value="0" >Screen 1</option>
@@ -107,24 +88,24 @@
                     <Label for="showBars">Show Bar</Label>
                 </div>
                 <div class="screenaction">
-                    <div class="appBar" >
+                    <div class="appBar transition-animation" >
                         <button class="btnAppbar button-style"> Add AppBar </button>
                     </div>
-                    <div class="deleteScreen">
+                    <div class="deleteScreen transition-animation">
                         <input type="button" class="btnDeleteScreen button-style"
                             value="Delete This Screen">
                     </div>
                 </div>
                 <div class="selectedItem">SelectedItem:</div>
-                <div class="locked">
+                <div class="locked transition-animation">
                     <input type="checkbox" name="lock" id="lock" checked>
                     <Label for="lock">lock</Label>
                 </div>
-                <div class="backgroundColor">
+                <div class="backgroundColor transition-animation">
                     <label for="backgroundColor" >Background Color</label>
                     <input type="color" id="backgroundColor" value="#ff0000">
                 </div>
-                <div class="foreColor">
+                <div class="foreColor transition-animation">
                     <label for="foreColor" >Fore Color</label>
                     <input type="color" id="foreColor" value="#ff0000">
                 </div>
@@ -135,30 +116,30 @@
                 </div>
                 <div class="itemId"></div>
                 <div class="itemType">Type :</div>
-                <div class="size">
+                <div class="size transition-animation">
                     <div class="size-name">Size:&nbsp;</div>
                     <input class="userSize" type="number" name="userSize" id="userSize" value="40" min="10" max="100">
                     <div>%</div>
                 </div>
-                <div class="widthAndHeight">
+                <div class="widthAndHeight transition-animation">
                     <div>Width:</div>
                     <input class="width" type="number" value="20" min="10" max="199" />
                     <div>Height:</div>
                     <input class="height" type="number" value="20" min="10" max="199">
                 </div>
-                <div class="innerText">
+                <div class="innerText transition-animation">
                     <div>Text:&nbsp;</div>
                     <textarea class="inner-Text" name="innerText" id="" cols="30" rows="2"
                         placeholder="write your text here"></textarea>
                 </div>
                 <div class="action">
-                    <div class="delete"><input type="button" class="btnDelete button-style" value="Delete"></div>
-                    <div class="update"><input type="button" class="btnUpdate button-style" value="Update The App">
+                    <div class="delete transition-animation"><input type="button" class="btnDelete button-style" value="Delete"></div>
+                    <div class="update transition-animation"><input type="button" class="btnUpdate button-style" value="Update The App">
                     </div>
                 </div>
             </div>
            
-            <div class="treeDiv">
+            <div class="treeDiv transition-animation">
                 <div class="list screens">
                     <a class="list-item screen-value" data-value="0" href="#">Screen 1</a>
                 </div>

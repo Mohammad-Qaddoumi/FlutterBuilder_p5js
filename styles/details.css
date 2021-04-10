@@ -1,4 +1,8 @@
-
+/*TODO: fix the transition for the elements */
+.transition-animation{
+    /* transition: all 1000ms ease-in; */
+    transition: 1000ms all ease-in;
+}
 .details {
     display: flex;
     flex-direction: column;
