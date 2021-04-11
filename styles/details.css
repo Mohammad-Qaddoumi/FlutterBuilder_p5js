@@ -28,6 +28,14 @@
         transform: translate(0%,0% );
     }
 }
+button , a , input[type="button"]{
+    border: none;
+    border-radius: 10px;
+    outline : none;
+}
+button:active , a:active ,input[type="button"]:active{
+    transform:  scale(0.9);
+}
 .details {
     display: flex;
     flex-direction: column;

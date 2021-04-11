@@ -10,7 +10,7 @@ export default class AppBar extends Widjet
 
     sketch(p5) 
     {
-        push();
+        p5.push();
 
         p5.rectMode(p5.CORNER);
         p5.noStroke();
