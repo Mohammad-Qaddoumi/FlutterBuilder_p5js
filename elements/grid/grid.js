@@ -1,60 +1,64 @@
-class Grid extends Element
+import Element from '../Element.js';
+import config from '../../lib/config.js';
+export default class Grid extends Element
 {
     constructor(point,drag = false,type = "Grid") 
     {
-        super(point ,drag , `${type} ${count++}`,type,[100,100,100]);
+        super(point ,drag , `${type} ${config.count++}`,type,[100,100,100]);
 
         this.children = [];
         this.size = 0.3333333;
-        this.noBackground = true;
+        this.noBackground = false;
+        this.alignHorizontal = "center";
+        this.alignVertical = "center";
         if (this.constructor == Grid) 
         {
             throw new Error("Abstract classes can't be instantiated.");
         }
     }
 
-    sketch()
+    sketch(p5)
     {
-        this.move();
+        this.move(p5);
         
-        push();
-        if(!showBar)
+        p5.push();
+        if(!p5.showBar)
         {
-            stroke(0);
-            strokeWeight(3);
+            p5.stroke(0);
+            p5.strokeWeight(3);
         }
         else 
-            noStroke();
+            p5.noStroke();
         if(!this.noBackground)
         {
-            push();
-            fill(this.backgroundColor[0], this.backgroundColor[1], this.backgroundColor[2]);
-            rect(this.X,this.Y,this.Width,this.Height);
-            pop();
+            p5.push();
+            p5.fill(this.backgroundColor[0], this.backgroundColor[1], this.backgroundColor[2]);
+            p5.rect(this.X,this.Y,this.Width,this.Height);
+            p5.pop();
         }
         else{
-            push();
-            noFill();
-            rect(this.X,this.Y,this.Width,this.Height);
-            pop();
+            p5.push();
+            p5.noFill();
+            p5.rect(this.X,this.Y,this.Width,this.Height);
+            p5.pop();
         }
-        pop();
+        p5.pop();
 
         for(let i = 0; i < this.children.length; i++)
         {
-            push();
-            this.children[i].sketch();
-            pop();
+            p5.push();
+            this.children[i].sketch(p5);
+            p5.pop();
         }
         
     }
 
-    isInside() 
+    isInside(p5) 
     {
-        if(    mouseX < this.X 
-            || mouseY < this.Y 
-            || mouseX > this.X + this.Width
-            || mouseY > this.Y + this.Height
+        if(    p5.mouseX < this.X 
+            || p5.mouseY < this.Y 
+            || p5.mouseX > this.X + this.Width
+            || p5.mouseY > this.Y + this.Height
         )
             return false;
         return true;

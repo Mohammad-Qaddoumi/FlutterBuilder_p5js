@@ -1,118 +1,128 @@
-function preload() 
-{
-    screens.push(new Row(gridPoints));
-    screens[0].unSortedWidjets = [];
-    screens[0].backgroundColor = [0,0,0];
-    unSortedWidjets = screens[selectedScreen].unSortedWidjets;
-    screens[selectedScreen].canMove = false;
-    selected = screens[selectedScreen];
-    createMainWidjet();
-    img = loadImage('./assets/phone.png');
-    font = loadFont("./assets/AnonymousPro-Regular.ttf");
+import pressed from './lib/mousePressed.js';
+import release from './lib/mouseRelease.js';
+import config from './lib/config.js';
+import main from './elements/mainWidjet.js';
+import events from './lib/events.js';
+import Row from './elements/grid/row.js';
 
-    setEvents();
+function sketch(p5)
+{
     
-    modelPhone = loadModel('./assets/phone2.obj', true);
-    txtUpdating = {
-        text : "Updating...",
-        X : -250, 
-        Y : -300
-    }
-    // updateText = createGraphics(200, 200);
-    // updateText.fill(255);
-    // updateText.background(0);
-    // updateText.textAlign(CENTER);
-    // updateText.textSize(30);
-    // updateText.text('Update', 50, 50);
-    bg_phone_forModel = loadImage('./assets/Corp-phone2.png');
-
+    p5.preload = () => {
+        p5.screens = [];
+        p5.selectedScreen = 0;
+        p5.mainWidjets = [];
+        p5.screens.push(new Row(config.gridPoints));
+        p5.screens[0].unSortedWidjets = [];
+        p5.screens[0].backgroundColor = [0,0,0];
+        p5.screens[p5.selectedScreen].canMove = false;
+        p5.selected = p5.screens[p5.selectedScreen];
+        main.createMainWidjet(p5.mainWidjets);
+        p5.img = p5.loadImage('./assets/phone.png');
+        p5.font = p5.loadFont("./assets/AnonymousPro-Regular.ttf");
+    
+        events.setEvents(p5);
+        
+        p5.modelPhone = p5.loadModel('./assets/phone2.obj', true);
+        p5.txtUpdating = {
+            text : "Updating...",
+            X : -250, 
+            Y : -300
+        };
+        p5.spin = 0;
+        // updateText = createGraphics(200, 200);
+        // updateText.fill(255);
+        // updateText.background(0);
+        // updateText.textAlign(CENTER);
+        // updateText.textSize(30);
+        // updateText.text('Update', 50, 50);
+        p5.bg_phone_forModel = p5.loadImage('./assets/Corp-phone2.png');
+        p5.updateison = false;
+        p5.showBar = false;
+        p5.X_D = 0;
+        p5.Y_D = 0;
+    };
+    p5.setup = () => {
+        p5.cnv = p5.createCanvas(config.canvasWidth, config.canvasHeight, p5.WEBGL);
+        p5.frameRate(120);
+        events.changeTheSelectedProperty(p5);
+    };
+    p5.draw = () => draw(p5);
+    p5.mousePressed = () => pressed(p5);
+    p5.mouseReleased = () => release.released(p5);
 }
 
-function setup() 
-{
-    let cnv = createCanvas(canvasWidth, canvasHeight, WEBGL);
-    frameRate(120);
-    changeTheSelectedProperty();
-}
+const instance = new p5(sketch, 'sketch');
+
 // let  updateText;
-function draw() 
+function draw( p5 ) 
 {
-    clear();
-    textAlign(LEFT,TOP);
-    textFont(font);
-    if (updateison) 
+    p5.clear();
+    p5.textAlign(p5.LEFT,p5.TOP);
+    p5.textFont(p5.font);
+    if (p5.updateison) 
     {
-        push();
+        p5.push();
 
-        textSize(50);
-        fill(0, 102, 153);
-        noStroke();
-        text(txtUpdating.text, txtUpdating.X + 10 , txtUpdating.Y + 15);
+        p5.textSize(50);
+        p5.fill(0, 102, 153);
+        p5.noStroke();
+        p5.text(p5.txtUpdating.text, p5.txtUpdating.X + 10 , p5.txtUpdating.Y + 15);
 
         // translate(mouseX - width/2, mouseY - height/2);
-        rotateX(spin);
-        rotateY(spin * 1.3);
-        rotateZ(spin * 0.7);
-        texture(bg_phone_forModel);
-        scale(2);
-        noStroke();
+        p5.rotateX(p5.spin);
+        p5.rotateY(p5.spin * 1.3);
+        p5.rotateZ(p5.spin * 0.7);
+        p5.texture(p5.bg_phone_forModel);
+        p5.scale(2);
+        p5.noStroke();
         // texture(img);
         // texture(updateText);
         // box(75,170,2);
-        model(modelPhone);
-        spin += 0.03;
+        p5.model(p5.modelPhone);
+        p5.spin += 0.03;
 
-        pop();
+        p5.pop();
     }
     else 
     {
-        translate(width / -2, height / -2, 0);
+        p5.translate(p5.width / -2, p5.height / -2, 0);
         
-        push();
-        fill(255,0,0);
-        stroke(255,0,0);
-        strokeWeight(7);
-        line(vline.x1, vline.y1, vline.x2, vline.y2);
-        pop();
+        p5.push();
+        p5.fill(255,0,0);
+        p5.stroke(255,0,0);
+        p5.strokeWeight(7);
+        p5.line(config.vline.x1, config.vline.y1, config.vline.x2, config.vline.y2);
+        p5.pop();
 
-        push();
-        if (chkorentaion) {
-            imageMode(CENTER);
-            translate(650, -200);
-            rotate(PI / 2.0);
-            image(img, 500, 240, 285, 612);
-        }
-        else
-            image(img, 255, 0, 285, 612);
-        pop();
+        p5.push();
+        // if (chkorentaion) {
+        //     p5.imageMode(p5.CENTER);
+        //     p5.translate(650, -200);
+        //     p5.rotate(p5.PI / 2.0);
+        //     p5.image(p5.img, 500, 240, 285, 612);
+        // }
+        // else
+            p5.image(p5.img, 255, 0, 285, 612);
+        p5.pop();
 
-        push();
-        drawMainShapes();
-        pop();
+        p5.push();
+        main.drawMainShapes(p5);
+        p5.pop();
 
-        for(let item of unSortedWidjets){
-            push();
-            item.sketch();
-            pop();
+        p5.push();
+        p5.screens[p5.selectedScreen].sketch(p5);
+        p5.pop();
+        if(p5.screens[p5.selectedScreen].appBar)
+            p5.screens[p5.selectedScreen].appBar.sketch(p5);
+        
+        for(let item of p5.screens[p5.selectedScreen].unSortedWidjets){
+            p5.push();
+            item.sketch(p5);
+            p5.pop();
         }    
-        push();
-        screens[selectedScreen].sketch();
-        pop();
-        if(screens[selectedScreen].appBar)
-            screens[selectedScreen].appBar.sketch();
-        
         // // noLoop();
         // print(frameRate());
     }
 
-}
-
-function mousePressed() 
-{
-    pressed();   
-}
-
-function mouseReleased() 
-{
-    released();   
 }

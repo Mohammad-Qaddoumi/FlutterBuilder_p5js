@@ -1,4 +1,5 @@
-class Element 
+import UUID from '../lib/idgenerator.js';
+export default class Element 
 {
     constructor(point,drag = false,name = "",type = "",bc)
     {
@@ -29,22 +30,22 @@ class Element
         return this.height;
     }
 
-    sketch() 
+    sketch(p5) 
     {
         throw new Error("Method 'sketch()' must be implemented.");
     }
     
-    move() 
+    move(p5) 
     {
         if(    !this.drag 
-            || (pmouseX === mouseX && pmouseY === mouseY) 
-            || !mouseIsPressed
+            || (p5.pmouseX === p5.mouseX && p5.pmouseY === p5.mouseY) 
+            || !p5.mouseIsPressed
             || !this.canMove
         ) return;
 
         this.moved = true;
-        this.X = mouseX - X_D;
-        this.Y = mouseY - Y_D;
+        this.X = p5.mouseX - p5.X_D;
+        this.Y = p5.mouseY - p5.Y_D;
     }
 }
 

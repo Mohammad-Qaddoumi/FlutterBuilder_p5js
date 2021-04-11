@@ -1,4 +1,5 @@
-class Text extends Widjet
+import Widjet from './widjet.js';
+export default class Text extends Widjet
 {
 
     constructor(point, width, height)
@@ -17,25 +18,25 @@ class Text extends Widjet
         return this.fontSize * 1.1;
     }
 
-    sketch()
+    sketch(p5)
     {       
-        this.move();
+        this.move(p5);
 
         // noFill();
         // rect(this.X - 1, this.Y ,this.Width,this.Height);
 
-        textSize(this.fontSize);
-        fill(this.foregroundColor[0], this.foregroundColor[1], this.foregroundColor[2]);
-        text(this.text, this.X, this.Y);
+        p5.textSize(this.fontSize);
+        p5.fill(this.foregroundColor[0], this.foregroundColor[1], this.foregroundColor[2]);
+        p5.text(this.text, this.X, this.Y);
 
     }
 
-    isInside() 
+    isInside(p5) 
     {
-        if(    mouseX < this.X 
-            || mouseY < this.Y 
-            || mouseX > this.X + this.Width
-            || mouseY > this.Y + this.Height
+        if(    p5.mouseX < this.X 
+            || p5.mouseY < this.Y 
+            || p5.mouseX > this.X + this.Width
+            || p5.mouseY > this.Y + this.Height
         )
             return false;
         return true;

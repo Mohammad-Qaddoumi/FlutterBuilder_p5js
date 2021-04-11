@@ -1,9 +1,11 @@
-class Widjet extends Element
+import Element from '../Element.js';
+import config from '../../lib/config.js';
+export default class Widjet extends Element
 {
 
     constructor(point,drag,type,text = "") 
     {
-        super(point,drag,`${type} ${count++}`,type ,[0,102,153]);
+        super(point,drag,`${type} ${config.count++}`,type ,[0,102,153]);
 
         this.text = text;
 

@@ -1,4 +1,5 @@
-class FlatButton extends Widjet 
+import Widjet from './widjet.js';
+export default class FlatButton extends Widjet 
 {
 
     constructor(point, width, height) 
@@ -6,30 +7,30 @@ class FlatButton extends Widjet
         super({X : point.X , Y : point.Y, W : width, H : height},true,"Flat","Click");
     }
 
-    sketch() 
+    sketch(p5) 
     {
         
-        this.move();
+        this.move(p5);
 
-        strokeWeight(2);
-        stroke(0);
-        rectMode(CORNER);
-        fill(this.backgroundColor[0], this.backgroundColor[1], this.backgroundColor[2]);
-        rect(this.X, this.Y, this.width, this.height);
+        p5.strokeWeight(2);
+        p5.stroke(0);
+        p5.rectMode(p5.CORNER);
+        p5.fill(this.backgroundColor[0], this.backgroundColor[1], this.backgroundColor[2]);
+        p5.rect(this.X, this.Y, this.width, this.height);
         
-        fill(this.foregroundColor[0], this.foregroundColor[1], this.foregroundColor[2]);
-        textSize(this.textFontSize);
-        text(this.text,this.text_X, this.text_Y);
+        p5.fill(this.foregroundColor[0], this.foregroundColor[1], this.foregroundColor[2]);
+        p5.textSize(this.textFontSize);
+        p5.text(this.text,this.text_X, this.text_Y);
         
     }
 
 
-    isInside() 
+    isInside(p5) 
     {
-        if(    mouseX < this.X 
-            || mouseY < this.Y 
-            || mouseX > this.X + this.width
-            || mouseY > this.Y + this.height
+        if(    p5.mouseX < this.X 
+            || p5.mouseY < this.Y 
+            || p5.mouseX > this.X + this.width
+            || p5.mouseY > this.Y + this.height
         )
             return false;
         return true;

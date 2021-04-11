@@ -1,4 +1,9 @@
-class WidjetBuilder 
+import Circle from './widjet/circle.js';
+import FlatButton from './widjet/flatButton.js';
+import Text from './widjet/Text.js';
+import Row from './grid/row.js';
+import Column from './grid/column.js';
+export default class WidjetBuilder 
 {
     static Build(element)
     {

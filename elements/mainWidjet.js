@@ -10,47 +10,51 @@ class MainWidjet
         this.color = [0, 102, 153];
     }
 
-    sketch() 
+    sketch(p5) 
     {        
-        push();
-        rect(this.X, this.Y, this.width, this.height);
-        textSize(this.width * 0.25);
-        fill(this.color[0],this.color[1],this.color[2]);
-        noStroke();
-        text(this._type, this.X + 9 , this.Y + 15);
-        pop();
+        p5.push();
+        p5.rect(this.X, this.Y, this.width, this.height);
+        p5.textSize(this.width * 0.25);
+        p5.fill(this.color[0],this.color[1],this.color[2]);
+        p5.noStroke();
+        p5.text(this._type, this.X + 9 , this.Y + 15);
+        p5.pop();
     }
 
-    isInside() 
+    isInside(p5) 
     {
-        if(    mouseX < this.X 
-            || mouseY < this.Y 
-            || mouseX > this.X + this.width
-            || mouseY > this.Y + this.height
+        if(    p5.mouseX < this.X 
+            || p5.mouseY < this.Y 
+            || p5.mouseX > this.X + this.width
+            || p5.mouseY > this.Y + this.height
         )
             return false;
         return true;
     }
 
 }
-function createMainWidjet()
+function createMainWidjet(mainWidjets)
 {
-    mainParticleArray.push(new MainWidjet({ X: 11, Y: 30  }, "Column"));
-    mainParticleArray.push(new MainWidjet({ X: 11, Y: 80  }, "Row"));
-    mainParticleArray.push(new MainWidjet({ X: 11, Y: 130 }, "Flat"));
-    mainParticleArray.push(new MainWidjet({ X: 11, Y: 180 }, "Text"));
+    mainWidjets.push(new MainWidjet({ X: 11, Y: 30  }, "Column"));
+    mainWidjets.push(new MainWidjet({ X: 11, Y: 80  }, "Row"));
+    mainWidjets.push(new MainWidjet({ X: 11, Y: 130 }, "Flat"));
+    mainWidjets.push(new MainWidjet({ X: 11, Y: 180 }, "Text"));
     // mainParticleArray.push(new MainWidjet({ X: 11, Y: 230 }, "Circle"));
 
 
 }
-function drawMainShapes()
+function drawMainShapes(p5)
 {
-    fill(255,255,255,255);
-    strokeWeight(3);
-    stroke(0);
-    rectMode(CORNER);
-    for( let i = 0 ; i < mainParticleArray.length ; i++ )
+    p5.fill(255,255,255,255);
+    p5.strokeWeight(3);
+    p5.stroke(0);
+    p5.rectMode(p5.CORNER);
+    for( let i = 0 ; i < p5.mainWidjets.length ; i++ )
     {
-        mainParticleArray[i].sketch();
+        p5.mainWidjets[i].sketch(p5);
     }
+}
+export default {
+    createMainWidjet,
+    drawMainShapes
 }

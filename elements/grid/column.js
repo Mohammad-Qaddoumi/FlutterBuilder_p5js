@@ -1,4 +1,5 @@
-class Column extends Grid{
+import Grid from './grid.js';
+export default class Column extends Grid{
     constructor(point) 
     {
         super(point,false,"Column");

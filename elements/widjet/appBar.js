@@ -1,4 +1,5 @@
-class AppBar extends Widjet 
+import Widjet from './widjet.js';
+export default class AppBar extends Widjet 
 {
     constructor(point, width, height) 
     {
@@ -7,23 +8,20 @@ class AppBar extends Widjet
         this.fontSize = 30;
     }
 
-    sketch() 
+    sketch(p5) 
     {
-
-        this.move();
-
         push();
 
-        rectMode(CORNER);
-        noStroke();
-        fill(this.backgroundColor[0], this.backgroundColor[1], this.backgroundColor[2]);
-        rect(this.X, this.Y, this.width, this.height);
+        p5.rectMode(p5.CORNER);
+        p5.noStroke();
+        p5.fill(this.backgroundColor[0], this.backgroundColor[1], this.backgroundColor[2]);
+        p5.rect(this.X, this.Y, this.width, this.height);
 
-        fill(this.foregroundColor[0], this.foregroundColor[1], this.foregroundColor[2]);
-        textSize(this.textFontSize);
-        text(this.text, this.text_X, this.text_Y);
+        p5.fill(this.foregroundColor[0], this.foregroundColor[1], this.foregroundColor[2]);
+        p5.textSize(this.textFontSize);
+        p5.text(this.text, this.text_X, this.text_Y);
 
-        pop();
+        p5.pop();
     }
     get text_X () 
     {
@@ -40,12 +38,12 @@ class AppBar extends Widjet
         return this.Y + (this.height * 0.2);
     }
 
-    isInside() 
+    isInside(p5) 
     {
-        if(    mouseX < this.X 
-            || mouseY < this.Y 
-            || mouseX > this.X + this.width
-            || mouseY > this.Y + this.height
+        if(    p5.mouseX < this.X 
+            || p5.mouseY < this.Y 
+            || p5.mouseX > this.X + this.width
+            || p5.mouseY > this.Y + this.height
         )
             return false;
         return true;
