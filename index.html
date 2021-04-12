@@ -105,14 +105,23 @@
                     <input type="checkbox" name="lock" id="lock" checked>
                     <Label for="lock">lock</Label>
                 </div>
-                <div class="alignment transition-animation">
-                    <div class="horizontal">
-                        <select>
-                            <option value="0" selected>center</option>
-
+                <div class="alignment">
+                    <div class="horizontal transition-animation">
+                        <span>Horizontal : </span>
+                        <select id="horizontal">
+                            <option value="0" >Left</option>
+                            <option value="1" selected>Center</option>
+                            <option value="2" >Right</option>
                         </select>
                     </div>
-                    <div class="vertical"></div>
+                    <div class="vertical transition-animation">
+                        <span>Vertical : </span>
+                        <select id="vertical">
+                            <option value="0" >Top</option>
+                            <option value="1" selected>Center</option>
+                            <option value="2" >Bottom</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="backgroundColor transition-animation">
                     <label for="backgroundColor" >Background Color</label>
@@ -132,7 +141,7 @@
                 <div class="size transition-animation">
                     <div class="size-name">Size:&nbsp;</div>
                     <input class="userSize" type="number" name="userSize" id="userSize" value="40" min="10" max="100">
-                    <div>%</div>
+                    <div class="percentage">%</div>
                 </div>
                 <div class="widthAndHeight transition-animation">
                     <div>Width:</div>
