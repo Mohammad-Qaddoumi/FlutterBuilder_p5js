@@ -1,10 +1,10 @@
 @font-face {
     font-family: Poppins;
-    src: url(../assets/Poppins-Regular.ttf);
+    src: url('../assets/Poppins-Regular.ttf');
 }
 @font-face {
     font-family: Anonymous;
-    src: url(../assets/AnonymousPro-Regular.ttf);
+    src: url('../assets/Anonymous Pro.ttf');
 }
 * {
     margin: 0%;

@@ -20,16 +20,34 @@ function sketch(p5)
         p5.lockSelected = false;
         main.createMainWidjet(p5.mainWidjets);
         p5.img = p5.loadImage('./assets/phone.png');
-        p5.font = p5.loadFont("./assets/AnonymousPro-Regular.ttf");
-    
+        p5.font = p5.loadFont("./assets/Anonymous Pro.ttf");
+        p5.updateison = false;
         events.setEvents(p5);
-        
-        p5.modelPhone = p5.loadModel('./assets/phone2.obj', true);
+
         p5.txtUpdating = {
-            text : "Updating...",
-            X : -250, 
-            Y : -300
+            text : "Updating...🛺",
+            X : 130, 
+            Y : 15
         };
+    
+        p5.showBar = false;
+        p5.X_D = 0;
+        p5.Y_D = 0;
+    };
+    p5.setup = () => {
+        p5.cnv = p5.createCanvas(config.canvasWidth, config.canvasHeight);
+        p5.frameRate(120);
+        p5.cnv.position(0,0,'absolute');
+        events.changeTheSelectedProperty(p5);
+    };
+    p5.draw = () => draw(p5);
+    p5.mousePressed = () => pressed(p5);
+    p5.mouseReleased = () => release.released(p5);
+}
+function sketch2(p5)
+{
+    p5.preload = () => {
+        p5.modelPhone = p5.loadModel('./assets/phone2.obj', true);
         p5.spin = 0;
         // updateText = createGraphics(200, 200);
         // updateText.fill(255);
@@ -38,38 +56,18 @@ function sketch(p5)
         // updateText.textSize(30);
         // updateText.text('Update', 50, 50);
         p5.bg_phone_forModel = p5.loadImage('./assets/Corp-phone2.png');
-        p5.updateison = false;
-        p5.showBar = false;
-        p5.X_D = 0;
-        p5.Y_D = 0;
-    };
+    }
     p5.setup = () => {
         p5.cnv = p5.createCanvas(config.canvasWidth, config.canvasHeight, p5.WEBGL);
         p5.frameRate(120);
-        events.changeTheSelectedProperty(p5);
-    };
-    p5.draw = () => draw(p5);
-    p5.mousePressed = () => pressed(p5);
-    p5.mouseReleased = () => release.released(p5);
-}
-
-const instance = new p5(sketch, 'sketch');
-
-// let  updateText;
-function draw( p5 ) 
-{
-    p5.clear();
-    p5.textAlign(p5.LEFT,p5.TOP);
-    p5.textFont(p5.font);
-    if (p5.updateison) 
-    {
-        p5.push();
-
-        p5.textSize(50);
-        p5.fill(0, 102, 153);
-        p5.noStroke();
-        p5.text(p5.txtUpdating.text, p5.txtUpdating.X + 10 , p5.txtUpdating.Y + 15);
-
+        p5.cnv.position(0,0,'absolute');
+        p5.noLoop();
+        setTimeout( () => {
+            p5.clear();
+        },0);
+    }
+    p5.draw = () => {
+        p5.clear();
         // translate(mouseX - width/2, mouseY - height/2);
         p5.rotateX(p5.spin);
         p5.rotateY(p5.spin * 1.3);
@@ -82,13 +80,28 @@ function draw( p5 )
         // box(75,170,2);
         p5.model(p5.modelPhone);
         p5.spin += 0.03;
-
+    }
+}
+const instance = new p5(sketch, 'sketch');
+instance.stopModel = new p5(sketch2,'sketch');
+// let  updateText;
+function draw( p5 ) 
+{
+    p5.clear();
+    p5.textAlign(p5.LEFT,p5.TOP);
+    if (p5.updateison) 
+    {
+        p5.push();
+        p5.textSize(50);
+        p5.fill(0, 102, 153);
+        p5.noStroke();
+        p5.text(p5.txtUpdating.text, p5.txtUpdating.X + 10 , p5.txtUpdating.Y + 15);
         p5.pop();
     }
     else 
     {
-        p5.translate(p5.width / -2, p5.height / -2, 0);
-        
+        // p5.translate(p5.width / -2, p5.height / -2, 0);
+        p5.textFont(p5.font);
         p5.push();
         p5.fill(255,0,0);
         p5.stroke(255,0,0);

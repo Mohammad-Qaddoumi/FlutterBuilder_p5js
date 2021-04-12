@@ -8,7 +8,7 @@
     .tools {
         flex-direction: column;
     }
-    main {
+    #sketch {
         width: 100%;
         max-width: fit-content;
         overflow: hidden;
