@@ -17,6 +17,7 @@ function sketch(p5)
         p5.screens[0].backgroundColor = [0,0,0];
         p5.screens[p5.selectedScreen].canMove = false;
         p5.selected = p5.screens[p5.selectedScreen];
+        p5.lockSelected = false;
         main.createMainWidjet(p5.mainWidjets);
         p5.img = p5.loadImage('./assets/phone.png');
         p5.font = p5.loadFont("./assets/AnonymousPro-Regular.ttf");

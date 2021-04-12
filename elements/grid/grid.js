@@ -9,8 +9,8 @@ export default class Grid extends Element
         this.children = [];
         this.size = 0.3333333;
         this.noBackground = false;
-        this.alignHorizontal = "center";
-        this.alignVertical = "center";
+        this.alignHorizontal = 1;
+        this.alignVertical   = 1;
         if (this.constructor == Grid) 
         {
             throw new Error("Abstract classes can't be instantiated.");
