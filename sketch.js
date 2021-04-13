@@ -21,12 +21,12 @@ function sketch(p5)
         main.createMainWidjet(p5.mainWidjets);
         p5.img = p5.loadImage('./assets/phone.png');
         p5.font = p5.loadFont("./assets/Anonymous Pro.ttf");
-        p5.updateison = false;
+        p5.updateison = true;
         events.setEvents(p5);
 
         p5.txtUpdating = {
-            text : "Updating...🛺",
-            X : 130, 
+            text : "Loading...🛺",
+            X : 120, 
             Y : 15
         };
     
@@ -39,6 +39,9 @@ function sketch(p5)
         p5.frameRate(120);
         p5.cnv.position(0,0,'absolute');
         events.changeTheSelectedProperty(p5);
+        setTimeout( () => {
+            p5.updateison = false;
+        },1000);
     };
     p5.draw = () => draw(p5);
     p5.mousePressed = () => pressed(p5);
@@ -61,13 +64,14 @@ function sketch2(p5)
         p5.cnv = p5.createCanvas(config.canvasWidth, config.canvasHeight, p5.WEBGL);
         p5.frameRate(120);
         p5.cnv.position(0,0,'absolute');
-        p5.noLoop();
-        setTimeout( () => {
-            p5.clear();
-        },0);
+        // p5.noLoop();
+        // setTimeout( () => {
+        //     p5.clear();
+        // },0);
     }
     p5.draw = () => {
         p5.clear();
+        if(p5.parent && !p5.parent.updateison) return;
         // translate(mouseX - width/2, mouseY - height/2);
         p5.rotateX(p5.spin);
         p5.rotateY(p5.spin * 1.3);
@@ -82,8 +86,7 @@ function sketch2(p5)
         p5.spin += 0.03;
     }
 }
-const instance = new p5(sketch, 'sketch');
-instance.stopModel = new p5(sketch2,'sketch');
+
 // let  updateText;
 function draw( p5 ) 
 {
@@ -101,6 +104,9 @@ function draw( p5 )
     else 
     {
         // p5.translate(p5.width / -2, p5.height / -2, 0);
+        p5.push();
+
+
         p5.textFont(p5.font);
         p5.push();
         p5.fill(255,0,0);
@@ -137,6 +143,15 @@ function draw( p5 )
         }    
         // // noLoop();
         // print(frameRate());
+
+        p5.pop();
     }
 
 }
+
+const stopModel = new p5(sketch2,'sketch');
+setTimeout( () => {
+    const mainSketch = new p5(sketch, 'sketch');
+    mainSketch.stopModel = stopModel;
+    stopModel.parent = mainSketch;
+},1000);
