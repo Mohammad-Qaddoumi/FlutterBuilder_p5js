@@ -41,6 +41,7 @@ function sketch(p5)
         events.changeTheSelectedProperty(p5);
         setTimeout( () => {
             p5.updateison = false;
+            document.querySelector('.container').style.display = 'flex';
         },1000);
     };
     p5.draw = () => draw(p5);

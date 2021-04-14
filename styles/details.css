@@ -68,7 +68,8 @@ button:active , a:active ,input[type="button"]:active{
     padding: 0.2rem;
     width : 25vw;
     min-width: 270px;
-    display: flex;
+    display:none;
+    /* display: flex; */
     flex-direction: column;
     border: 1px solid #BFBFBF;
     box-shadow: 5px 5px 5px #aaaaaa;
