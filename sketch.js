@@ -43,6 +43,11 @@ function sketch(p5)
             p5.updateison = false;
             document.querySelector('.container').style.display = 'flex';
         },1000);
+        p5.socket = io.connect('http://localhost:3000');
+        p5.socket.on('mouse', data => {
+          console.log("Got: " + data.x + " " + data.y);
+        });
+        p5.socket.emit('mouse',"Sending to the server");
     };
     p5.draw = () => draw(p5);
     p5.mousePressed = () => pressed(p5);
@@ -150,6 +155,7 @@ function draw( p5 )
 
 }
 
+// const socket;
 const stopModel = new p5(sketch2,'sketch');
 setTimeout( () => {
     const mainSketch = new p5(sketch, 'sketch');

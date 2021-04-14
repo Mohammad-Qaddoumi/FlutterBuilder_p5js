@@ -1,0 +1,22 @@
+{
+  "name": "design",
+  "version": "1.0.0",
+  "description": "* The web site still under development, not ready for use and needs alot of work.",
+  "main": "sketch.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mohammad-Qaddoumi/FlutterBuilder_p5js.git"
+  },
+  "author": "Mohammad Qaddoumi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Mohammad-Qaddoumi/FlutterBuilder_p5js/issues"
+  },
+  "homepage": "https://github.com/Mohammad-Qaddoumi/FlutterBuilder_p5js#readme"
+}
