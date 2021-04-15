@@ -4,7 +4,7 @@ import config from './lib/config.js';
 import main from './elements/mainWidjet.js';
 import events from './lib/events.js';
 import Row from './elements/grid/row.js';
-
+/** @param { p5 } */
 function sketch(p5)
 {
     
@@ -20,6 +20,7 @@ function sketch(p5)
         p5.lockSelected = false;
         main.createMainWidjet(p5.mainWidjets);
         p5.img = p5.loadImage('./assets/phone.png');
+        p5.cursorImg = p5.loadImage('./assets/cursor.png');
         p5.font = p5.loadFont("./assets/Anonymous Pro.ttf");
         p5.updateison = true;
         events.setEvents(p5);
@@ -43,13 +44,73 @@ function sketch(p5)
             p5.updateison = false;
             document.querySelector('.container').style.display = 'flex';
         },1000);
-        p5.socket = io.connect('http://localhost:3000');
+        // TODO: Work on multi user for one project.......
+        // p5.socket = io.connect('http://localhost:3000');
+        p5.socket = io.connect('https://flutter-server-with-p5.herokuapp.com/');
+        p5.t_X = 0;
+        p5.t_Y = 0;
+        setInterval( () => {
+            p5.socket.emit('mouse',JSON.stringify({X:p5.mouseX,Y:p5.mouseY}));
+        },200);
         p5.socket.on('mouse', data => {
-          console.log("Got: " + data.x + " " + data.y);
+            data = JSON.parse(data);  
+            p5.t_X = data.X;
+            p5.t_Y = data.Y;
         });
-        p5.socket.emit('mouse',"Sending to the server");
     };
-    p5.draw = () => draw(p5);
+    p5.draw = () => {
+        p5.clear();
+        p5.textAlign(p5.LEFT,p5.TOP);
+        
+        if (p5.updateison) 
+        {
+            p5.push();
+            p5.textSize(50);
+            p5.fill(0, 102, 153);
+            p5.noStroke();
+            p5.text(p5.txtUpdating.text, p5.txtUpdating.X + 10 , p5.txtUpdating.Y + 15);
+            p5.pop();
+        }
+        else 
+        {
+            p5.push();
+    
+            p5.textFont(p5.font);
+            p5.push();
+            p5.fill(255,0,0);
+            p5.stroke(255,0,0);
+            p5.strokeWeight(7);
+            p5.line(config.vline.x1, config.vline.y1, config.vline.x2, config.vline.y2);
+            p5.pop();
+    
+            p5.image(p5.img, 255, 0, 285, 612);
+    
+            p5.push();
+            main.drawMainShapes(p5);
+            p5.pop();
+    
+            p5.push();
+            p5.screens[p5.selectedScreen].sketch(p5);
+            p5.pop();
+            if(p5.screens[p5.selectedScreen].appBar)
+                p5.screens[p5.selectedScreen].appBar.sketch(p5);
+            
+            for(let item of p5.screens[p5.selectedScreen].unSortedWidjets){
+                p5.push();
+                item.sketch(p5);
+                p5.pop();
+            }    
+    
+            p5.pop();
+        }
+        p5.stroke(0);
+        p5.fill(255,255,255);
+        if(p5.t_X !== 0 && p5.t_Y !== 0)
+            p5.image(p5.cursorImg,p5.t_X,p5.t_Y,25,25);
+    }
+    p5.mouseDragged = () => {
+        p5.socket.emit('mouse',JSON.stringify({X:p5.mouseX,Y:p5.mouseY}));
+    };
     p5.mousePressed = () => pressed(p5);
     p5.mouseReleased = () => release.released(p5);
 }
@@ -93,69 +154,6 @@ function sketch2(p5)
     }
 }
 
-// let  updateText;
-function draw( p5 ) 
-{
-    p5.clear();
-    p5.textAlign(p5.LEFT,p5.TOP);
-    if (p5.updateison) 
-    {
-        p5.push();
-        p5.textSize(50);
-        p5.fill(0, 102, 153);
-        p5.noStroke();
-        p5.text(p5.txtUpdating.text, p5.txtUpdating.X + 10 , p5.txtUpdating.Y + 15);
-        p5.pop();
-    }
-    else 
-    {
-        // p5.translate(p5.width / -2, p5.height / -2, 0);
-        p5.push();
-
-
-        p5.textFont(p5.font);
-        p5.push();
-        p5.fill(255,0,0);
-        p5.stroke(255,0,0);
-        p5.strokeWeight(7);
-        p5.line(config.vline.x1, config.vline.y1, config.vline.x2, config.vline.y2);
-        p5.pop();
-
-        p5.push();
-        // if (chkorentaion) {
-        //     p5.imageMode(p5.CENTER);
-        //     p5.translate(650, -200);
-        //     p5.rotate(p5.PI / 2.0);
-        //     p5.image(p5.img, 500, 240, 285, 612);
-        // }
-        // else
-            p5.image(p5.img, 255, 0, 285, 612);
-        p5.pop();
-
-        p5.push();
-        main.drawMainShapes(p5);
-        p5.pop();
-
-        p5.push();
-        p5.screens[p5.selectedScreen].sketch(p5);
-        p5.pop();
-        if(p5.screens[p5.selectedScreen].appBar)
-            p5.screens[p5.selectedScreen].appBar.sketch(p5);
-        
-        for(let item of p5.screens[p5.selectedScreen].unSortedWidjets){
-            p5.push();
-            item.sketch(p5);
-            p5.pop();
-        }    
-        // // noLoop();
-        // print(frameRate());
-
-        p5.pop();
-    }
-
-}
-
-// const socket;
 const stopModel = new p5(sketch2,'sketch');
 setTimeout( () => {
     const mainSketch = new p5(sketch, 'sketch');

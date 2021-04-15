@@ -4,6 +4,7 @@ import events from './events.js';
 
 function released(p5) 
 {
+    //TODO: Fix removing items when a row or column get moved from the main tree...
     if (p5.selected === null) return;
     if (p5.selected.Id === p5.screens[p5.selectedScreen].Id) return;
     p5.selected.drag = false;
