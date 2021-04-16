@@ -1,9 +1,10 @@
-import pressed from './lib/mousePressed.js';
+import mousePressed from './lib/mousePressed.js';
 import release from './lib/mouseRelease.js';
 import config from './lib/config.js';
 import main from './elements/mainWidjet.js';
 import events from './lib/events.js';
 import Row from './elements/grid/row.js';
+import buildSocketConnection from './lib/socket.js';
 /** @param { p5 } */
 function sketch(p5)
 {
@@ -44,19 +45,7 @@ function sketch(p5)
             p5.updateison = false;
             document.querySelector('.container').style.display = 'flex';
         },1000);
-        // TODO: Work on multi user for one project.......
-        // p5.socket = io.connect('http://localhost:3000');
-        p5.socket = io.connect('https://flutter-server-with-p5.herokuapp.com/');
-        p5.t_X = 0;
-        p5.t_Y = 0;
-        setInterval( () => {
-            p5.socket.emit('mouse',JSON.stringify({X:p5.mouseX,Y:p5.mouseY}));
-        },200);
-        p5.socket.on('mouse', data => {
-            data = JSON.parse(data);  
-            p5.t_X = data.X;
-            p5.t_Y = data.Y;
-        });
+        buildSocketConnection(p5);
     };
     p5.draw = () => {
         p5.clear();
@@ -111,7 +100,7 @@ function sketch(p5)
     p5.mouseDragged = () => {
         p5.socket.emit('mouse',JSON.stringify({X:p5.mouseX,Y:p5.mouseY}));
     };
-    p5.mousePressed = () => pressed(p5);
+    p5.mousePressed = () => mousePressed.pressed(p5);
     p5.mouseReleased = () => release.released(p5);
 }
 function sketch2(p5)

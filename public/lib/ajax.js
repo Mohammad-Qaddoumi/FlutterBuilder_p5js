@@ -7,7 +7,7 @@ export default async function saveAsJson(p5)
     {
         return data; 
     }
-    const url = "https://less-code.000webhostapp.com/Design/save.php";
+    const url = "https://less-code.000webhostapp.com/save.php";
     try
     {
         const response = await fetch(url, {

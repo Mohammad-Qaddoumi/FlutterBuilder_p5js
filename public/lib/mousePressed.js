@@ -3,7 +3,7 @@ import WidjetBuilder from '../elements/WidjetBuilder.js';
 import Grid from '../elements/grid/grid.js';
 import events from './events.js';
 
-export default function pressed(p5)
+function pressed(p5)
 {
     if(p5.lockSelected) return;
     if (p5.mouseX < 0 || p5.mouseX > config.canvasWidth)
@@ -11,7 +11,7 @@ export default function pressed(p5)
     if (p5.mouseY < 0 || p5.mouseY > config.canvasHeight)
         return;
     let foundItemFlag = false;
-
+    let newItem = false;
     for(let i = 0; i < p5.screens[p5.selectedScreen].children.length; i++)
     {
         if(p5.screens[p5.selectedScreen].children[i] instanceof Grid && p5.screens[p5.selectedScreen].children[i].isInside(p5))
@@ -56,6 +56,11 @@ export default function pressed(p5)
                 p5.screens[p5.selectedScreen].unSortedWidjets.push(p5.selected);
                 foundItemFlag = true;
                 events.addTheScreenElement(p5);
+                newItem = true;
+                p5.socket.emit('newItem',JSON.stringify({
+                    "type": p5.selected._type,
+                    "Id"  : p5.selected.Id
+                }));
                 break;
             }
         }
@@ -68,6 +73,10 @@ export default function pressed(p5)
     if (!foundItemFlag) 
     {
         p5.selected = p5.screens[p5.selectedScreen];
+    }
+    if(!newItem)
+    {
+        p5.socket.emit('selected',JSON.stringify({Id:p5.selected.Id}));
     }
     events.changeTheSelectedProperty(p5);
     p5.X_D = p5.mouseX - p5.selected.X;
@@ -100,3 +109,80 @@ function foundPressedElement(item , p5)
     }
     return found;
 }
+
+function foundTargetSelected(p5,Id)
+{
+    if( p5.screens[p5.selectedScreen].Id === Id )
+    {
+        p5.selected = p5.screens[p5.selectedScreen];
+        events.changeTheSelectedProperty(p5);
+    }
+    else
+    {
+        let found = false;
+        for(let i=0;i<p5.screens[p5.selectedScreen].children.length ;i++)
+        {
+            let item = p5.screens[p5.selectedScreen].children[i];
+            if( item.Id === Id )
+            {
+                p5.selected = item;
+                found = true;
+                p5.selected.drag = true;
+                events.changeTheSelectedProperty(p5);
+                break;
+            }
+            else if( item instanceof Grid )
+            {
+                found = foundTargetInChildren(p5,item.children,Id);
+                if(found) break;
+            }
+        }
+        if(!found)
+        {
+            for(let j=0;j<p5.screens[p5.selectedScreen].unSortedWidjets.length;j++)
+            {
+                let i = p5.screens[p5.selectedScreen].unSortedWidjets[j];
+                if( i.Id === Id )
+                {
+                    p5.selected = i;
+                    found = true;
+                    p5.selected.drag = true;
+                    events.changeTheSelectedProperty(p5);
+                    break;
+                }
+                else if( i instanceof Grid )
+                {
+                    found = foundTargetInChildren(p5,i.children,Id);
+                    if(found) break;
+                }
+            }
+        }
+    }
+}
+function foundTargetInChildren(p5,children,Id)
+{
+    let found = false;
+    for(let i = 0; i < children.length ; i++ )
+    {
+        let item = children[i];
+        if( item.Id === Id )
+        {
+            p5.selected = item;
+            found = true;
+            p5.selected.drag = true;
+            events.changeTheSelectedProperty(p5);
+            break;
+        }
+        else if( item instanceof Grid )
+        {
+            found = foundTargetInChildren(p5,item.children,Id);
+            if(found) break;
+        }
+    }
+    return found;
+}
+
+export default {
+    pressed,
+    foundTargetSelected
+};

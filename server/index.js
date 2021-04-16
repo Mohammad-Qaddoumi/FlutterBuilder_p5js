@@ -1,14 +1,7 @@
 
 const express = require('express');
 const app = express();
-/**
-header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token'); */
-// app.use((req, res, next) => {
-//     res.header('Access-Control-Allow-Origin', '*');
-//     res.header('Access-Control-Allow-Methods','GET, POST, PATCH, PUT, DELETE, OPTIONS');
-//     res.header('Access-Control-Allow-Headers','Origin, Content-Type, X-Auth-Token');
-//     next();
-// });
+
 const server = app.listen(process.env.PORT || 3000, listen);
 
 function listen() {
@@ -18,7 +11,11 @@ function listen() {
 
 app.use(express.static('public'));
 
-const io = require('socket.io')(server);
+const io = require('socket.io')(server,{
+  cors: {
+    origin: '*',
+  }
+});
 
 io.sockets.on('connection',
   function (socket) {
@@ -27,15 +24,31 @@ io.sockets.on('connection',
   
     socket.on('mouse',
       function(data) {
-        console.log("Received: 'mouse' " + data);
+        // console.log("Received: 'mouse' " + data);
       
         // Send it to all other clients
         socket.broadcast.emit('mouse', data);
         // This is a way to send to everyone including sender
         // io.sockets.emit('message', "this goes to everyone");
-
       }
     );
+    socket.on('selected' , (data) => {
+      socket.broadcast.emit('selected', data);
+    });
+    socket.on('stopped' , (data) => {
+      socket.broadcast.emit('stopped', data);
+    });
+    socket.on('newItem' , (data) => {
+      socket.broadcast.emit('newItem', data);
+    });
+    socket.on('moving' , (data) => {
+      socket.broadcast.emit('moving', data);
+    });
+    socket.on('unDragged' , (data) => {
+      socket.broadcast.emit('unDragged', data);
+    });
+
+
     socket.on('disconnect', function() {
       console.log("Client has disconnected");
     });

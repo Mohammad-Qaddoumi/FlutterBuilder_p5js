@@ -46,6 +46,11 @@ export default class Element
         this.moved = true;
         this.X = p5.mouseX - p5.X_D;
         this.Y = p5.mouseY - p5.Y_D;
+        p5.socket.emit('moving', JSON.stringify({
+            Id : this.Id,
+            X : this.X,
+            Y : this.Y
+        }));
     }
 }
 

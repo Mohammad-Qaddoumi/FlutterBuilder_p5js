@@ -8,10 +8,11 @@ function released(p5)
     if (p5.selected === null) return;
     if (p5.selected.Id === p5.screens[p5.selectedScreen].Id) return;
     p5.selected.drag = false;
-
+    p5.socket.emit('unDragged',p5.selected.Id);
     if(p5.selected.moved) 
     {
         p5.selected.moved = false;
+        p5.socket.emit('stopped','false');
         if(p5.selected.parent)
         {
             let index = p5.selected.parent.children.findIndex(e => e.Id === p5.selected.Id);
