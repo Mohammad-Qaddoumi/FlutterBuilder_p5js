@@ -10,13 +10,13 @@ export default function buildSocketConnection(p5)
     // p5.socket = io.connect('http://localhost:3000');
     p5.t_X = 0;
     p5.t_Y = 0;
-    setInterval( () => {
-        p5.socket.emit('mouse',JSON.stringify({
-            X:p5.mouseX,
-            Y:p5.mouseY,
-            useName : _userName
-        }));
-    },200);
+    // setInterval( () => {
+    //     p5.socket.emit('mouse',JSON.stringify({
+    //         X:p5.mouseX,
+    //         Y:p5.mouseY,
+    //         useName : _userName
+    //     }));
+    // },200);
     p5.socket.on('mouse', data => {
         if(data)
         {
@@ -65,6 +65,13 @@ export default function buildSocketConnection(p5)
         if(data)
         {
             p5.selected.drag = false;
+        }
+    });
+    //TODO: send the whole system the new entered user...
+    p5.socket.on('newEnter', data => {
+        if(data)
+        {
+            data = JSON.parse(data);
         }
     });
 }

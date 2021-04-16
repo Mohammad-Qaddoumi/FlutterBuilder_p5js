@@ -97,8 +97,8 @@ function sketch(p5)
         if(p5.t_X !== 0 && p5.t_Y !== 0)
             p5.image(p5.cursorImg,p5.t_X,p5.t_Y,25,25);
     }
-    p5.mouseDragged = () => {
-        p5.socket.emit('mouse',JSON.stringify({X:p5.mouseX,Y:p5.mouseY}));
+    p5.mouseMoved = () => {
+        p5.socket.emit('mouse',JSON.stringify({X:p5.mouseX,Y:p5.mouseY})); 
     };
     p5.mousePressed = () => mousePressed.pressed(p5);
     p5.mouseReleased = () => release.released(p5);

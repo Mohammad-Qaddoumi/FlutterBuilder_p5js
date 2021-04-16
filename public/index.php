@@ -132,7 +132,7 @@ $cname = 'myname';
                     <input type="checkbox" name="lock" id="lock"  checked>
                     <Label for="lock">lock</Label>
                 </div>
-                <div class="alignment">
+                <!-- <div class="alignment">
                     <div class="horizontal">
                         <span>Horizontal : </span>
                         <select class="transition-animation" id="horizontal">
@@ -149,7 +149,7 @@ $cname = 'myname';
                             <option value="2" >Bottom</option>
                         </select>
                     </div>
-                </div>
+                </div> -->
                 <div class="backgroundColor">
                     <span>Background Color</span>
                     <input type="color" id="backgroundColor" class="transition-animation" value="#ff0000">
@@ -204,8 +204,6 @@ $cname = 'myname';
     </div>
 
     <script src="https://cdn.socket.io/4.0.1/socket.io.min.js" integrity="sha384-LzhRnpGmQP+lOvWruF/lgkcqD+WDVt9fU3H4BWmwP5u5LTmkUGafMcpZKNObVMLU" crossorigin="anonymous"></script>
-
-    <!-- <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script> -->
     <script src="./lib/p5.min.js"></script>
     <script src="./sketch.js" type="module"></script>
 

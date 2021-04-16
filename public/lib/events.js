@@ -34,8 +34,8 @@ const backgroundColor = document.querySelector('.backgroundColor');
 const bgCV = document.querySelector('.backgroundColor > input');
 const foregroundColor = document.querySelector('.foreColor');
 const fgCV = document.querySelector('.foreColor > input');
-const aligment_H =  document.querySelector('.horizontal');
-const aligment_V =  document.querySelector('.vertical');
+// const aligment_H =  document.querySelector('.horizontal');
+// const aligment_V =  document.querySelector('.vertical');
 const image_BG = document.querySelector('#image-BG');
 
 function setEvents(p5)
@@ -97,7 +97,7 @@ function setEvents(p5)
             p5.lockSelected = false;
         }, 2000);
         let result = await saveAsJson(p5);
-        !result ? alert('Error😢 while trying to update💔!!!') : print(`${result}`);
+        !result ? alert('Error😢 while trying to update💔!!!') : console.log(`${result}`);
     });
 
     uSize.addEventListener('input', e => {
@@ -261,18 +261,18 @@ function setEvents(p5)
         }
         p5.selected.height = boxHeight.value - 0;
     });
-    document.querySelector('#horizontal').addEventListener('input', (e) => {
-        if(p5.selected instanceof Grid)
-        {
-            console.log(e.target.value);
-        }
-    });
-    document.querySelector('#vertical').addEventListener('input', (e) => {
-        if(p5.selected instanceof Grid)
-        {
-            console.log(e.target.value);
-        }
-    });
+    // document.querySelector('#horizontal').addEventListener('input', (e) => {
+    //     if(p5.selected instanceof Grid)
+    //     {
+    //         console.log(e.target.value);
+    //     }
+    // });
+    // document.querySelector('#vertical').addEventListener('input', (e) => {
+    //     if(p5.selected instanceof Grid)
+    //     {
+    //         console.log(e.target.value);
+    //     }
+    // });
 }
 
 const rgbToHex = (r, g, b) => '#' + [r, g, b]
@@ -324,8 +324,8 @@ function changeTheSelectedProperty(p5)
         slcItem.innerText = `SelectedItem: Screen ${p5.selectedScreen + 1}`;
         type.innerText = `Type: Screen_"Row"`;
         iText.style.display = 'none';
-        aligment_H.style.display = 'flex';
-        aligment_V.style.display = 'flex';
+        // aligment_H.style.display = 'flex';
+        // aligment_V.style.display = 'flex';
         
     }
     else
@@ -339,8 +339,8 @@ function changeTheSelectedProperty(p5)
         document.querySelector('.size').style.display = 'flex';
         slcItem.innerText = `SelectedItem: ${p5.selected.name}`;
         type.innerText = `Type: ${p5.selected._type}`;
-        aligment_H.style.display = 'none';
-        aligment_V.style.display = 'none';
+        // aligment_H.style.display = 'none';
+        // aligment_V.style.display = 'none';
     
         if(p5.selected instanceof Text)
         {
@@ -357,8 +357,8 @@ function changeTheSelectedProperty(p5)
             uSize.value = Math.floor(p5.selected.size * 100);
             sizeName.innerText = "Size : ";
             foregroundColor.style.display = 'none';
-            aligment_H.style.display = 'flex';
-            aligment_V.style.display = 'flex';
+            // aligment_H.style.display = 'flex';
+            // aligment_V.style.display = 'flex';
         }
         else if (p5.selected instanceof AppBar)
         {

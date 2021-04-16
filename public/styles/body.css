@@ -1,3 +1,6 @@
+:root{
+    scroll-behavior: smooth;
+}
 @font-face {
     font-family: Poppins;
     src: url('../assets/Poppins-Regular.ttf');

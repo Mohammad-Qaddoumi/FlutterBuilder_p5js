@@ -74,6 +74,7 @@ button:active , a:active ,input[type="button"]:active{
     border: 1px solid #BFBFBF;
     box-shadow: 5px 5px 5px #aaaaaa;
     margin: 0.25rem;
+    resize: horizontal;
 }
 
 .itemId {
@@ -185,6 +186,7 @@ button:active , a:active ,input[type="button"]:active{
     overflow: hidden;
     overflow-x: auto;
     white-space: nowrap;
+    resize: horizontal;
 }
 
 .treeDiv .list {
