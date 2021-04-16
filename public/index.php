@@ -1,3 +1,26 @@
+<?php
+
+// session_start();
+// session_regenerate_id(true);
+
+// if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) 
+// {
+//     header("location: ./admin/login.php");
+//     exit;
+// }
+// if( $_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["app_id"]) )
+// {
+
+// }
+// else 
+// {
+//     header("location: ./admin/login.php");
+//     exit;
+// }
+$cname = 'myname';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +38,10 @@
     <link rel="stylesheet" href="./styles/details.css">
     <link rel="stylesheet" href="./styles/mediaQuery.css">
 
+    <script>
+        const _userName =  <?php echo json_encode($cname); ?>;
+        const this_url  = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>";
+    </script>
     <script src="./setting.js"></script>
 
 </head>
