@@ -2,14 +2,14 @@ import Grid from './grid.js';
 export default class Row extends Grid{
     constructor(point) 
     {
-        super(point,false,"Row");
+        super(point,false,"Row",[118,119,81]);
     }
 
     get Width() 
     {
         let width;
         if(this.parent )
-            if(this.parent._type == 'Column')
+            if(this.parent._type == 'Row')
             {
                 width = this.parent.Width * this.size;
             }
@@ -25,7 +25,7 @@ export default class Row extends Grid{
     { 
         let height;
         if(this.parent )
-            if( this.parent._type == 'Column')
+            if( this.parent._type == 'Row')
             {
                 height = this.parent.Height - 4;
             }

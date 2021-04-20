@@ -9,7 +9,7 @@ export default class Column extends Grid{
     {
         let width;
         if(this.parent )
-            if(this.parent._type == 'Column')
+            if(this.parent._type == 'Row')
             {
                 width = this.parent.Width * this.size;
             }
@@ -25,7 +25,7 @@ export default class Column extends Grid{
     { 
         let height;
         if(this.parent )
-            if( this.parent._type == 'Column')
+            if( this.parent._type == 'Row')
             {
                 height = this.parent.Height - 4;
             }

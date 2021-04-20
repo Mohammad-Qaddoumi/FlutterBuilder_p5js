@@ -1,15 +1,9 @@
-
 const express = require('express');
 const app = express();
 
-const server = app.listen(process.env.PORT || 3000, listen);
-
-function listen() {
-  const port = server.address().port;
-  console.log('listening at PORT: ' + port);
-}
-
-app.use(express.static('public'));
+const server = app.listen(process.env.PORT || 3000, () => {
+  console.log('listening at PORT: ' + server.address().port);
+});
 
 const io = require('socket.io')(server,{
   cors: {
@@ -17,13 +11,16 @@ const io = require('socket.io')(server,{
   }
 });
 
-io.sockets.on('connection',
-  function (socket) {
+io.sockets.on('connection', (socket) => {
   
     console.log("We have a new client: " + socket.id);
+
+    // socket.on('join-room', (roomId,userId) => {
+    //   socket.join(roomId);
+    //   socket.to(roomId).broadcast.emit('user-connected',userId);
+    // });
   
-    socket.on('mouse',
-      function(data) {
+    socket.on('mouse', (data) => {
         // console.log("Received: 'mouse' " + data);
       
         // Send it to all other clients
@@ -49,7 +46,7 @@ io.sockets.on('connection',
     });
 
 
-    socket.on('disconnect', function() {
+    socket.on('disconnect', () => {
       console.log("Client has disconnected");
     });
   }

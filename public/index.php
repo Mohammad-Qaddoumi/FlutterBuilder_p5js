@@ -1,5 +1,4 @@
-<?php
-
+<?php 
 // session_start();
 // session_regenerate_id(true);
 
@@ -10,15 +9,20 @@
 // }
 // if( $_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["app_id"]) )
 // {
-
+    $email = 'email@computer.com';
+    $user_name = 'user_name';
+    $app_id  = 'app_id';
+    $room_id = 'room id';
+    $number_of_team_member = 2;
+    $design = 'APP 
+    test
+    JSON';
 // }
 // else 
 // {
 //     header("location: ./admin/login.php");
 //     exit;
 // }
-$cname = 'myname';
-
 ?>
 
 <!DOCTYPE html>
@@ -33,20 +37,29 @@ $cname = 'myname';
     <link rel="icon" type="image/gif" href="./assets/animated_favicon1.gif" >
 
     <link rel="stylesheet" href="./styles/body.css" />
+    <link rel="stylesheet" href="./styles/header_footer.css" />
     <link rel="stylesheet" href="./styles/mainContant.css">
     <link rel="stylesheet" href="./styles/canves.css">
     <link rel="stylesheet" href="./styles/details.css">
     <link rel="stylesheet" href="./styles/mediaQuery.css">
 
     <script>
-        const _userName =  <?php echo json_encode($cname); ?>;
-        const this_url  = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>";
+        const EMAIL =  <?php echo json_encode($email); ?>;
+        const APP_ID =  <?php echo json_encode($app_id); ?>;
+        const ROOM_ID =  <?php echo json_encode($room_id); ?>;
+        const USER_NAME =  <?php echo json_encode($user_name); ?>;
+        let DESIGN =  `<?php echo json_encode($design); ?>`;
     </script>
-    <script src="./setting.js"></script>
 
 </head>
 
 <body>
+
+    <div class="mainheader">
+        <div class="header logo">
+            <h3>Codeless</h3>
+        </div>
+    </div>
     
     <div class="mainContant">
 
@@ -132,24 +145,7 @@ $cname = 'myname';
                     <input type="checkbox" name="lock" id="lock"  checked>
                     <Label for="lock">lock</Label>
                 </div>
-                <!-- <div class="alignment">
-                    <div class="horizontal">
-                        <span>Horizontal : </span>
-                        <select class="transition-animation" id="horizontal">
-                            <option value="0" >Left</option>
-                            <option value="1" selected>Center</option>
-                            <option value="2" >Right</option>
-                        </select>
-                    </div>
-                    <div class="vertical">
-                        <span>Vertical : </span>
-                        <select class="transition-animation" id="vertical">
-                            <option value="0" >Top</option>
-                            <option value="1" selected>Center</option>
-                            <option value="2" >Bottom</option>
-                        </select>
-                    </div>
-                </div> -->
+
                 <div class="backgroundColor">
                     <span>Background Color</span>
                     <input type="color" id="backgroundColor" class="transition-animation" value="#ff0000">
@@ -203,9 +199,15 @@ $cname = 'myname';
         
     </div>
 
+    <footer id="footer">
+        <div class="footer-bottom">
+            &copy; 
+        </div>
+    </footer>
+
     <script src="https://cdn.socket.io/4.0.1/socket.io.min.js" integrity="sha384-LzhRnpGmQP+lOvWruF/lgkcqD+WDVt9fU3H4BWmwP5u5LTmkUGafMcpZKNObVMLU" crossorigin="anonymous"></script>
     <script src="./lib/p5.min.js"></script>
-    <script src="./sketch.js" type="module"></script>
+    <script src="./app.js" type="module"> </script>
 
 </body>
 

@@ -1,4 +1,4 @@
-import Row from '../elements/grid/row.js';
+import Column from '../elements/grid/column.js';
 import AppBar from '../elements/widjet/appBar.js';
 import Text from '../elements/widjet/Text.js';
 import Grid from '../elements/grid/grid.js';
@@ -192,7 +192,7 @@ function setEvents(p5)
 
     btnAddScreen.addEventListener('click', e => {
         // screens.push(new Grid(gridPoints));
-        p5.screens.push(new Row(config.gridPoints));
+        p5.screens.push(new Column(config.gridPoints));
         p5.selectedScreen = p5.screens.length - 1;
         p5.selected = p5.screens[p5.selectedScreen];
         p5.screens[p5.selectedScreen].unSortedWidjets = [];
@@ -322,7 +322,7 @@ function changeTheSelectedProperty(p5)
         dlebtn.style.display = 'none';
         foregroundColor.style.display = 'none';
         slcItem.innerText = `SelectedItem: Screen ${p5.selectedScreen + 1}`;
-        type.innerText = `Type: Screen_"Row"`;
+        type.innerText = `Type: Screen_"Column"`;
         iText.style.display = 'none';
         // aligment_H.style.display = 'flex';
         // aligment_V.style.display = 'flex';

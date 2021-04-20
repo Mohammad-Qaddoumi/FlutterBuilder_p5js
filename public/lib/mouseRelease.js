@@ -59,7 +59,7 @@ function restTheCoordinates( items )
     }
     for(let i = 1; i < items.length; i++)
     {
-        if(items[i].parent._type == "Column")
+        if(items[i].parent._type == "Row")
         {
             items[i].X = items[i - 1].X + items[i - 1].Width + 2 ;
             items[i].Y = items[i - 1].Y ;  
@@ -82,7 +82,7 @@ function restTheCoordinates( items )
         {
             if(i.parent)
             {
-                if(i.parent._type == "Column")
+                if(i.parent._type == "Row")
                 {
                     i.Y += (i.parent.Height/2)  - (i.Height/2);
                 }

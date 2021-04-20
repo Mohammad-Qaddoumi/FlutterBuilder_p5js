@@ -2,9 +2,9 @@ import Element from '../Element.js';
 import config from '../../lib/config.js';
 export default class Grid extends Element
 {
-    constructor(point,drag = false,type = "Grid") 
+    constructor(point,drag = false,type = "Grid",bgC = [100,100,100]) 
     {
-        super(point ,drag , `${type} ${config.count++}`,type,[100,100,100]);
+        super(point ,drag , `${type} ${config.count++}`,type,bgC);
 
         this.children = [];
         this.size = 0.3333333;

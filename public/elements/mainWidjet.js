@@ -4,20 +4,38 @@ class MainWidjet
     {
         this.X = point.X;
         this.Y = point.Y;
-        this.width = 75;
+        this.width = 99;
         this.height = 45;
         this._type = _type;
         this.color = [0, 102, 153];
+    }
+
+    get text_X () 
+    {
+        return this.X + ((this.width - (this._type.length * this.textFontSize  * 0.9 / 1.85)) / 2);
+    }
+    get text_Y ()
+    {
+        return this.Y + (this.height * 0.28);
+    }
+    get textFontSize () 
+    {
+        let fontSize = this.height * 0.4 ;
+        while(this._type.length * fontSize  / 1.85 > this.width)
+        {
+            fontSize -= 1;
+        }
+        return fontSize;
     }
 
     sketch(p5) 
     {        
         p5.push();
         p5.rect(this.X, this.Y, this.width, this.height);
-        p5.textSize(this.width * 0.25);
+        p5.textSize(this.textFontSize * 0.9);
         p5.fill(this.color[0],this.color[1],this.color[2]);
         p5.noStroke();
-        p5.text(this._type, this.X + 9 , this.Y + 15);
+        p5.text(this._type, this.text_X , this.text_Y);
         p5.pop();
     }
 
@@ -35,10 +53,10 @@ class MainWidjet
 }
 function createMainWidjet(mainWidjets)
 {
-    mainWidjets.push(new MainWidjet({ X: 11, Y: 30  }, "Column"));
-    mainWidjets.push(new MainWidjet({ X: 11, Y: 80  }, "Row"));
-    mainWidjets.push(new MainWidjet({ X: 11, Y: 130 }, "Flat"));
-    mainWidjets.push(new MainWidjet({ X: 11, Y: 180 }, "Text"));
+    mainWidjets.push(new MainWidjet({ X: 8, Y: 30  }, "Column"));
+    mainWidjets.push(new MainWidjet({ X: 8, Y: 80  }, "Row"));
+    mainWidjets.push(new MainWidjet({ X: 8, Y: 130 }, "FlatButton"));
+    mainWidjets.push(new MainWidjet({ X: 8, Y: 180 }, "Text"));
     // mainParticleArray.push(new MainWidjet({ X: 11, Y: 230 }, "Circle"));
 
 

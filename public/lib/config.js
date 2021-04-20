@@ -2,9 +2,9 @@ const canvasWidth = 715;
 const canvasHeight = 601; 
 
 const vline = {
-    x1: 100,
+    x1: 120,
     y1: 0,
-    x2: 100,
+    x2: 120,
     y2: canvasHeight + 5
 }
 

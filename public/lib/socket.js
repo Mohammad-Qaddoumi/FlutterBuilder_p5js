@@ -2,14 +2,16 @@ import mousePressed from './mousePressed.js';
 import events from './events.js';
 import WidjetBuilder from '../elements/WidjetBuilder.js';
 import release from './mouseRelease.js';
+import Partner from '../elements/team/partner.js';
 
 export default function buildSocketConnection(p5)
 {
     // TODO: Work on multi user for one project.......
-    p5.socket = io.connect('https://flutter-server-with-p5.herokuapp.com/');
-    // p5.socket = io.connect('http://localhost:3000');
-    p5.t_X = 0;
-    p5.t_Y = 0;
+    // p5.socket = io.connect('https://flutter-server-with-p5.herokuapp.com/');
+    p5.socket = io.connect('http://localhost:3000');
+    p5.partners = [];
+    // p5.t_X = 0;
+    // p5.t_Y = 0;
     // setInterval( () => {
     //     p5.socket.emit('mouse',JSON.stringify({
     //         X:p5.mouseX,
@@ -17,12 +19,21 @@ export default function buildSocketConnection(p5)
     //         useName : _userName
     //     }));
     // },200);
+
+    // [EMAIL,USER_NAME,APP_ID,ROOM_ID,DESIGN]
+    // socket.emit('join-room', ROOM_ID,EMAIL);
+    // socket.on('user-connected' , userId => {
+        //Frends connected .... 
+            // for(let i=1;i<number_of_team_member;i++)
+            // {
+                // partners.push(new Partner('mohammad','moh@computer.com'));
+            // } 
+    // });
+
     p5.socket.on('mouse', data => {
         if(data)
         {
-            data = JSON.parse(data);  
-            p5.t_X = data.X;
-            p5.t_Y = data.Y;
+            setPartner(p5,data);
         }
     });
     p5.socket.on('selected' , data => {
@@ -74,4 +85,24 @@ export default function buildSocketConnection(p5)
             data = JSON.parse(data);
         }
     });
+}
+function setPartner(p5,data)
+{
+    data = JSON.parse(data);  
+    const index = p5.partners.findIndex( i => i.email === data.email);
+    if( index !== -1 )
+    {
+        p5.partners[index].X = data.X;
+        p5.partners[index].Y = data.Y;
+    }
+    else
+    {
+        const newPartner = new Partner(
+            data.user_name,
+            data.email
+        );
+        newPartner.X = data.X;
+        newPartner.Y = data.Y;
+        p5.partners.push(newPartner);
+    } 
 }

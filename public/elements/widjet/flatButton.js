@@ -4,7 +4,7 @@ export default class FlatButton extends Widjet
 
     constructor(point, width, height) 
     {
-        super({X : point.X , Y : point.Y, W : width, H : height},true,"Flat","Click");
+        super({X : point.X , Y : point.Y, W : width, H : height},true,"FlatButton","Click");
     }
 
     sketch(p5) 
