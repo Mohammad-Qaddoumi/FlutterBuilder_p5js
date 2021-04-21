@@ -11,7 +11,11 @@ export default class Widjet extends Element
 
         this.foregroundColor = [255, 255, 255];
 
-        this.size = 0.2;
+        this.position = [0.0,0.0];
+
+        this.fontSize = 23;
+
+        this.events = ["null()"];
         if (this.constructor == Widjet) 
         {
             throw new Error("Abstract classes can't be instantiated.");

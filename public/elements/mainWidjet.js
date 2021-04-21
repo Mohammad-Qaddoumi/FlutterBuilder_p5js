@@ -53,8 +53,8 @@ class MainWidjet
 }
 function createMainWidjet(mainWidjets)
 {
-    mainWidjets.push(new MainWidjet({ X: 8, Y: 30  }, "Column"));
-    mainWidjets.push(new MainWidjet({ X: 8, Y: 80  }, "Row"));
+    // mainWidjets.push(new MainWidjet({ X: 8, Y: 30  }, "Column"));
+    // mainWidjets.push(new MainWidjet({ X: 8, Y: 80  }, "Row"));
     mainWidjets.push(new MainWidjet({ X: 8, Y: 130 }, "FlatButton"));
     mainWidjets.push(new MainWidjet({ X: 8, Y: 180 }, "Text"));
     // mainParticleArray.push(new MainWidjet({ X: 11, Y: 230 }, "Circle"));

@@ -6,7 +6,6 @@ export default class Text extends Widjet
     {
         super({X : point.X , Y : point.Y, W : width, H : height},true,"Text");
         this.text = "Text";
-        this.fontSize = 40;
     }
 
     get Width()

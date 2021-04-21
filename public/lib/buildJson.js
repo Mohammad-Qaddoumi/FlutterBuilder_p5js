@@ -2,10 +2,11 @@ export default function buildJSON(p5)
 {
     let screens = p5.screens;
     let mJSON = {};
-    mJSON[`screenNumber`] = `${screens.length}`;
+    mJSON[`numberOfScreens`] = `${screens.length}`;
     for( let j = 0 ; j < screens.length ; j++ )
     {
         mJSON[`screen${j}`] = {};
+        mJSON[`screen${j}`]["id"] = screens[j].Id;
 
         if(screens[j].appBar)
         {
@@ -16,74 +17,38 @@ export default function buildJSON(p5)
 
         mJSON[`screen${j}`]["screenColor"] = screens[j].backgroundColor; 
 
-        mJSON[`screen${j}`]["body"] = {
-                "type": "Row",
-                "size": Math.floor(screens[j].size * 100),
-                "children": getChildsAsJson(screens[j].children)
-            };
+        mJSON[`screen${j}`]["body"] = getChildsAsJson( {}, screens[j].children );
 
-        mJSON[`screen${j}`][`unSortedWidjets`] = getChildsAsJson(screens[j].unSortedWidjets);
+        mJSON[`screen${j}`][`unSortedWidjets`] = getChildsAsJson({}, screens[j].unSortedWidjets );
 
     }
     return mJSON;
 }
 
-function getChildsAsJson(collection)
+function getChildsAsJson( collection, children )
 {
-    let child = {
-        "childrenNumber": collection.length
-    };
-    for(let i = 0; i < collection.length; i++)
+    collection["childrenNumber"] = children.length;
+    for(let i = 0; i < children.length; i++)
     {
-        child[`child${i+1}`] = {};
-        child[`child${i+1}`]["type"] = collection[i]._type;
-        
-        if(collection[i]._type == "Column" || collection[i]._type == "Row")
-        {
-            child[`child${i+1}`]["size"] = `${Math.floor(collection[i].size * 100)}`;
-            child[`child${i+1}`]["children"] = getChildsAsJson(collection[i].children);
-        }
-        else if (collection[i]._type == "Text")
-        {
-            child[`child${i+1}`] = { ...child[`child${i+1}`] , ...buildTextJson(collection[i]) };
-        }
-        else if (collection[i]._type == "Flat")
-        {
-            child[`child${i+1}`] = { ...child[`child${i+1}`] , ...buildFlatButtonJson(collection[i]) };
-        }
-        else if (collection[i]._type == "Circle")
-        {
-            child[`child${i+1}`] = { ...child[`child${i+1}`] , ...buildCircleJson(collection[i]) };
-        }
+        const position  = [
+            Math.ceil(children[i].position[0] * 100) / 100 ,
+            Math.ceil(children[i].position[1] * 100) / 100
+        ];
+        collection[`child${i+1}`] = {};
+        collection[`child${i+1}`].X = children[i].X;
+        collection[`child${i+1}`].Y = children[i].Y;
+        collection[`child${i+1}`].width = children[i].width;
+        collection[`child${i+1}`].height = children[i].height;
+        collection[`child${i+1}`]["type"]           =  children[i]._type;
+        collection[`child${i+1}`]["name"]           =  children[i].name;
+        collection[`child${i+1}`]["content"]        =  children[i].text;
+        collection[`child${i+1}`]["colorFromRGB"]   =  children[i].foregroundColor;
+        collection[`child${i+1}`]["backgroundColor"]=  children[i].backgroundColor;
+        collection[`child${i+1}`]["fontSize"]       =  Math.floor(children[i].fontSize);
+        collection[`child${i+1}`]["id"]             =  children[i].Id;
+        collection[`child${i+1}`]["position"]       =  position;
+        collection[`child${i+1}`]["onPress"]        =  children[i].events.join(';');
+
     }
-    return child;
-}
-function buildTextJson(text)
-{
-    return {
-        name         : `${text.name}`,
-        content      : `${text.text}`,
-        colorFromRGB : [`${0}`,`${0}`,`${0}`],
-        fontSize     : `${Math.floor(text.fontSize)}`,
-        id           : `${text.Id}`,
-    };
-}
-function buildFlatButtonJson(re)
-{
-    return {
-        name         : `${re.name}`,
-        content      : `${re.text}`,
-        id           : `${re.Id}`,
-        width        : `${Math.floor(re.width)}`,
-        height       : `${Math.floor(re.height)}`
-    };
-}
-function buildCircleJson(cicle)
-{
-    return {
-        name         : `${cicle.name}`,
-        content      : `${cicle.text}`,
-        id           : `${cicle.Id}`,
-        radius       : `${Math.floor(cicle.width)}`,
-    };
+    return collection;
 }

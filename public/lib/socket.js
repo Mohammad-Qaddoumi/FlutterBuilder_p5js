@@ -7,8 +7,8 @@ import Partner from '../elements/team/partner.js';
 export default function buildSocketConnection(p5)
 {
     // TODO: Work on multi user for one project.......
-    // p5.socket = io.connect('https://flutter-server-with-p5.herokuapp.com/');
-    p5.socket = io.connect('http://localhost:3000');
+    p5.socket = io.connect('https://flutter-server-with-p5.herokuapp.com/');
+    // p5.socket = io.connect('http://localhost:3000');
     p5.partners = [];
     // p5.t_X = 0;
     // p5.t_Y = 0;
@@ -39,7 +39,6 @@ export default function buildSocketConnection(p5)
     p5.socket.on('selected' , data => {
         if(data){
             data = JSON.parse(data);
-            console.log('selected',data);
             mousePressed.foundTargetSelected(p5,data.Id);
         }
     });

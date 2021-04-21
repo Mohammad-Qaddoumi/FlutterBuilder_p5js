@@ -1,7 +1,6 @@
-import Column from '../elements/grid/column.js';
+import Grid from '../elements/grid/grid.js';
 import AppBar from '../elements/widjet/appBar.js';
 import Text from '../elements/widjet/Text.js';
-import Grid from '../elements/grid/grid.js';
 import config from './config.js';
 import release from './mouseRelease.js';
 import saveAsJson from './ajax.js';
@@ -80,7 +79,7 @@ function setEvents(p5)
                 p5.screens[p5.selectedScreen].unSortedWidjets.splice(index, 1);
         }
         p5.selected = p5.screens[p5.selectedScreen];
-        release.restTheCoordinates( p5.screens[p5.selectedScreen].children );
+        release.setElementStation( p5 );
         changeTheSelectedProperty(p5);
         addTheScreenElement(p5);
     });
@@ -181,18 +180,17 @@ function setEvents(p5)
     
     btnAppbar.addEventListener('click', () => {
         if(p5.screens[p5.selectedScreen].appBar) return;
-        p5.screens[p5.selectedScreen].appBar = new AppBar({X : config.gridPoints.X , Y : config.gridPoints.Y},config.gridPoints.W,config.gridPoints.H * 0.1);
-        p5.screens[p5.selectedScreen].size = (config.gridPoints.H - (config.gridPoints.H * 0.1)) / config.gridPoints.H;
-        p5.screens[p5.selectedScreen].Y = config.gridPoints.Y + (config.gridPoints.H * 0.1);
-        p5.screens[p5.selectedScreen].height -= config.gridPoints.H * 0.1;
+        p5.screens[p5.selectedScreen].appBar = new AppBar({X : config.gridPoints.X , Y : config.gridPoints.Y},config.gridPoints.W,config.gridPoints.H * 0.09);
+        p5.screens[p5.selectedScreen].size = (config.gridPoints.H - (config.gridPoints.H * 0.09)) / config.gridPoints.H;
+        p5.screens[p5.selectedScreen].Y = config.gridPoints.Y + (config.gridPoints.H * 0.09);
+        p5.screens[p5.selectedScreen].height -= config.gridPoints.H * 0.09;
         p5.selected = p5.screens[p5.selectedScreen].appBar;
-        release.restTheCoordinates( p5.screens[p5.selectedScreen].children );
+        release.setElementStation( p5 );
         changeTheSelectedProperty( p5 );
     });
 
     btnAddScreen.addEventListener('click', e => {
-        // screens.push(new Grid(gridPoints));
-        p5.screens.push(new Column(config.gridPoints));
+        p5.screens.push(new Grid(config.gridPoints));
         p5.selectedScreen = p5.screens.length - 1;
         p5.selected = p5.screens[p5.selectedScreen];
         p5.screens[p5.selectedScreen].unSortedWidjets = [];
@@ -261,18 +259,7 @@ function setEvents(p5)
         }
         p5.selected.height = boxHeight.value - 0;
     });
-    // document.querySelector('#horizontal').addEventListener('input', (e) => {
-    //     if(p5.selected instanceof Grid)
-    //     {
-    //         console.log(e.target.value);
-    //     }
-    // });
-    // document.querySelector('#vertical').addEventListener('input', (e) => {
-    //     if(p5.selected instanceof Grid)
-    //     {
-    //         console.log(e.target.value);
-    //     }
-    // });
+
 }
 
 const rgbToHex = (r, g, b) => '#' + [r, g, b]
@@ -322,11 +309,8 @@ function changeTheSelectedProperty(p5)
         dlebtn.style.display = 'none';
         foregroundColor.style.display = 'none';
         slcItem.innerText = `SelectedItem: Screen ${p5.selectedScreen + 1}`;
-        type.innerText = `Type: Screen_"Column"`;
+        type.innerText = `Type: Screen`;
         iText.style.display = 'none';
-        // aligment_H.style.display = 'flex';
-        // aligment_V.style.display = 'flex';
-        
     }
     else
     {
@@ -339,8 +323,7 @@ function changeTheSelectedProperty(p5)
         document.querySelector('.size').style.display = 'flex';
         slcItem.innerText = `SelectedItem: ${p5.selected.name}`;
         type.innerText = `Type: ${p5.selected._type}`;
-        // aligment_H.style.display = 'none';
-        // aligment_V.style.display = 'none';
+        fgCV.value = rgbToHex(p5.selected.foregroundColor[0], p5.selected.foregroundColor[1], p5.selected.foregroundColor[2]);
     
         if(p5.selected instanceof Text)
         {
@@ -350,20 +333,10 @@ function changeTheSelectedProperty(p5)
             document.querySelector('.percentage').style.display = "none";
             iText.style.display = 'flex';
             innerText.value = p5.selected.text;
-            fgCV.value = rgbToHex(p5.selected.foregroundColor[0], p5.selected.foregroundColor[1], p5.selected.foregroundColor[2]);
-        }
-        else if(p5.selected instanceof Grid)
-        {
-            uSize.value = Math.floor(p5.selected.size * 100);
-            sizeName.innerText = "Size : ";
-            foregroundColor.style.display = 'none';
-            // aligment_H.style.display = 'flex';
-            // aligment_V.style.display = 'flex';
         }
         else if (p5.selected instanceof AppBar)
         {
             iText.style.display = 'flex';
-            foregroundColor.style.display = 'none';
             innerText.value = p5.selected.text;
             document.querySelector('.size').style.display = 'none';
             document.querySelector('.locked').style.display = 'none';
@@ -371,7 +344,6 @@ function changeTheSelectedProperty(p5)
         else
         {
             document.querySelector('.size').style.display = 'none';
-            fgCV.value = rgbToHex(p5.selected.foregroundColor[0], p5.selected.foregroundColor[1], p5.selected.foregroundColor[2]);
             iText.style.display = 'flex';
             widthAndHeight.style.display = 'flex';
             innerText.value = p5.selected.text;

@@ -1,10 +1,11 @@
-import mousePressed from './lib/mousePressed.js';
-import release from './lib/mouseRelease.js';
-import config from './lib/config.js';
-import main from './elements/mainWidjet.js';
-import events from './lib/events.js';
-import Column from './elements/grid/column.js';
-import buildSocketConnection from './lib/socket.js';
+import mousePressed from '../lib/mousePressed.js';
+import release from '../lib/mouseRelease.js';
+import config from '../lib/config.js';
+import parseJson from '../lib/parseJson.js';
+import main from '../elements/mainWidjet.js';
+import events from '../lib/events.js';
+import Grid from '../elements/grid/grid.js';
+import buildSocketConnection from '../lib/socket.js';
 
 function sketch(p5)
 {
@@ -13,12 +14,7 @@ function sketch(p5)
         p5.screens = [];
         p5.selectedScreen = 0;
         p5.mainWidjets = [];
-        p5.screens.push(new Column(config.gridPoints));
-        p5.screens[0].unSortedWidjets = [];
-        p5.screens[0].backgroundColor = [0,0,0];
-        p5.screens[p5.selectedScreen].canMove = false;
-        p5.selected = p5.screens[p5.selectedScreen];
-        p5.lockSelected = false;
+        parseJson(p5);
         main.createMainWidjet(p5.mainWidjets);
         p5.img = p5.loadImage('./assets/phone.png');
         p5.cursorImg = p5.loadImage('./assets/cursor.png');
@@ -37,6 +33,7 @@ function sketch(p5)
         p5.Y_D = 0;
     };
     p5.setup = () => {
+        buildSocketConnection(p5);
         p5.cnv = p5.createCanvas(config.canvasWidth, config.canvasHeight);
         p5.frameRate(120);
         p5.cnv.position(0,0,'absolute');
@@ -45,7 +42,6 @@ function sketch(p5)
             p5.updateison = false;
             document.querySelector('.container').style.display = 'flex';
         },1000);
-        buildSocketConnection(p5);
     };
     p5.draw = () => {
         p5.clear();
@@ -99,19 +95,21 @@ function sketch(p5)
             p5.image(p5.cursorImg,p.X,p.Y,25,25);
         }
     }
-    p5.mouseMoved = () => {
-        if(p5.socket && p5.socket.emit)
-            p5.socket.emit('mouse',JSON.stringify(
-                {
-                    email : EMAIL,
-                    user_name : USER_NAME,
-                    X : p5.mouseX,
-                    Y : p5.mouseY
-                })
-            ); 
-    };
-    p5.mousePressed = () => mousePressed.pressed(p5);
-    p5.mouseReleased = () => release.released(p5);
+    setTimeout( () => {
+        p5.mouseMoved = () => {
+            if(p5.socket && p5.socket.emit)
+                p5.socket.emit('mouse',JSON.stringify(
+                    {
+                        email : EMAIL,
+                        user_name : USER_NAME,
+                        X : p5.mouseX,
+                        Y : p5.mouseY
+                    })
+                ); 
+        };
+        p5.mousePressed = () => mousePressed.pressed(p5);
+        p5.mouseReleased = () => release.released(p5);
+    },1000);
 }
 function sketch2(p5)
 {

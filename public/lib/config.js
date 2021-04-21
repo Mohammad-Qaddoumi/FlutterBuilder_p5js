@@ -22,6 +22,17 @@ const rowGap = topRight.X - topLeft.X;
 const columnGap = bottonLeft.Y - topLeft.Y;
 const rowGap_O = topRight_O.X - topLeft_O.X;    
 const columnGap_O = bottonLeft_O.Y - topLeft_O.Y;
+const X_zero = (rowGap / 2) + topLeft.X ;
+const Y_zero = (columnGap / 2) + topLeft.Y;
+const W = rowGap /2;
+const H = columnGap /2;
+
+const midPoint = {
+    X_zero,
+    Y_zero,
+    W,
+    H
+};
 
 const gridPoints = {
     X: topLeft.X,
@@ -31,7 +42,8 @@ const gridPoints = {
     W: rowGap,
     H : columnGap,
     W_O: rowGap_O,
-    H_O: columnGap_O
+    H_O: columnGap_O,
+    midPoint
 }
 
 export default {

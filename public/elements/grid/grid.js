@@ -9,12 +9,7 @@ export default class Grid extends Element
         this.children = [];
         this.size = 0.3333333;
         this.noBackground = false;
-        this.alignHorizontal = 1;
-        this.alignVertical   = 1;
-        if (this.constructor == Grid) 
-        {
-            throw new Error("Abstract classes can't be instantiated.");
-        }
+        this.midPoint = point.midPoint;
     }
 
     sketch(p5)
@@ -62,54 +57,5 @@ export default class Grid extends Element
         )
             return false;
         return true;
-    }
-
-    static setTheWidjetParent(item, parent) {
-        let x,y;
-        x = item.X;
-        y = item.Y;
-        let found = false;
-        
-        for(let i = parent.children.length - 1 ; i >= 0 ; i--)
-        {
-            if(parent.children[i].Id === item.Id)
-                continue;
-            if(parent.children[i] instanceof Grid )
-            {
-                if( x >= parent.children[i].X &&
-                    y >= parent.children[i].Y &&
-                    x <= parent.children[i].X+parent.children[i].Width && 
-                    y <= parent.children[i].Y+parent.children[i].Height )
-                {
-                    found = Grid.setTheWidjetParent(item, parent.children[i]);
-                    if(found)break;
-                }
-            }
-            else if(parent.children[i].X + parent.children[i].Width <= x && 
-                    parent.children[i].Y + parent.children[i].Height <= y)
-            {
-                // parent.children.splice(i,0,item);
-                parent.children.push(item);
-                // item.index = parent.children.length-1;
-                // item.index = i;
-                item.parent = parent;
-                // parent.reIndex(i);
-                found = true;
-                break;
-            }
-        }
-        if(!found) 
-        {
-            if(x >= parent.X && y >= parent.Y &&
-                x <= parent.X+parent.Width && y <= parent.Y+parent.Height
-                && parent.Id !== item.Id)
-            {
-                found = true;
-                parent.children.push(item);
-                // item.index = parent.children.length - 1;
-                item.parent = parent;
-            }            
-        }
-        return found;
     }
 }

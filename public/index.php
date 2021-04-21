@@ -11,18 +11,27 @@
 // {
     $email = 'email@computer.com';
     $user_name = 'user_name';
-    $app_id  = 'app_id';
-    $room_id = 'room id';
-    $number_of_team_member = 2;
-    $design = 'APP 
-    test
-    JSON';
+    // $app_id = $_POST["app_id"];
+    $app_id  = '25';
+    $room_id = 'generated room id';
+    $url = 'https://less-code.000webhostapp.com/recieve.php';
+    $json = json_encode(['app_id' => "$app_id"]);
+    
+    $options = ['http' => [
+        'method' => 'POST',
+        'header' => 'Content-type:application/json',
+        'content' => $json
+    ]];
+    $context = stream_context_create($options);
+    $response = file_get_contents($url, false, $context);
+    $design = $response;
 // }
 // else 
 // {
 //     header("location: ./admin/login.php");
 //     exit;
 // }
+
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +57,9 @@
         const APP_ID =  <?php echo json_encode($app_id); ?>;
         const ROOM_ID =  <?php echo json_encode($room_id); ?>;
         const USER_NAME =  <?php echo json_encode($user_name); ?>;
-        let DESIGN =  `<?php echo json_encode($design); ?>`;
+        let DESIGN = `<?php echo $design; ?>`;
+        DESIGN = DESIGN.replace(/(\r+|\n+)/g, " ");
+        DESIGN = JSON.parse( DESIGN );
     </script>
 
 </head>
@@ -206,8 +217,8 @@
     </footer>
 
     <script src="https://cdn.socket.io/4.0.1/socket.io.min.js" integrity="sha384-LzhRnpGmQP+lOvWruF/lgkcqD+WDVt9fU3H4BWmwP5u5LTmkUGafMcpZKNObVMLU" crossorigin="anonymous"></script>
-    <script src="./lib/p5.min.js"></script>
-    <script src="./app.js" type="module"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.3.1/p5.min.js" integrity="sha512-gQVBYBvfC+uyor5Teonjr9nmY1bN+DlOCezkhzg4ShpC5q81ogvFsr5IV4xXAj6HEtG7M1Pb2JCha97tVFItYQ==" crossorigin="anonymous"></script>
+    <script src="./src/app.js" type="module"> </script>
 
 </body>
 
