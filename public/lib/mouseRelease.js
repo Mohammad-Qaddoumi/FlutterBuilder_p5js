@@ -2,7 +2,7 @@ import events from './events.js';
 
 function released(p5,data) 
 {
-    selected = p5.selected;
+    let selected = p5.selected;
     if(data)
     {
         const index = p5.partners.findIndex( i => i.email === data.EMAIL );

@@ -27,7 +27,7 @@ export default function buildSocketConnection(p5)
     // },200);
 
     // [EMAIL,USER_NAME,APP_ID,ROOM_ID,DESIGN]
-    socket.emit('join-room', ROOM_ID,{EMAIL,USER_NAME,X:0,Y:0}); 
+    p5.socket.emit('join-room', ROOM_ID,{EMAIL,USER_NAME,X:0,Y:0}); 
 
     p5.socket.on('mouse', data => {
         if(data)
@@ -54,7 +54,7 @@ export default function buildSocketConnection(p5)
     p5.socket.on('stopped', data => {
         if(data)
         {
-            data = JSON.parse( data );
+            // data = JSON.parse( data );
             release.released( p5 , data);
         }
     }); 
@@ -91,18 +91,20 @@ export default function buildSocketConnection(p5)
     p5.socket.on('unDragged', data => {
         if(data)
         {
-            data = JSON.parse(data);
+            // data = JSON.parse(data);
             const index = p5.partners.findIndex( i => i.email === data.EMAIL);
             if( index !== -1 )
             {
-                p5.partners[index].selected.drag = false;
+                if(p5.partners[index].selected)
+                    p5.partners[index].selected.drag = false;
             }
         }
     });
     p5.socket.on('user-connected', data => {
         if(data)
         {
-            data = JSON.parse(data);
+            // console.log(data);
+            // data = JSON.parse(data);
             const index = p5.partners.findIndex( i => i.email === data.EMAIL);
             if( index !== -1 ) return; 
             const newPartner = new Partner(
