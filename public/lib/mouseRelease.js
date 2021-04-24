@@ -1,52 +1,61 @@
 import events from './events.js';
 
-function released(p5) 
+function released(p5,data) 
 {
-    if (p5.selected === null) return;
-    p5.selected.drag = false;
-    p5.socket.emit('unDragged',p5.selected.Id);
+    selected = p5.selected;
+    if(data)
+    {
+        const index = p5.partners.findIndex( i => i.email === data.EMAIL );
+        if( index !== -1 )
+        {
+            selected = p5.partners[index].selected;
+        }
+    }
+    if (selected === null) return;
+    selected.drag = false;
+    p5.socket.emit('unDragged',ROOM_ID, { EMAIL });
     if(p5.selected.moved) 
     {
-        p5.selected.moved = false;
-        p5.socket.emit('stopped','false');
-        if(p5.selected.parent)
+        selected.moved = false;
+        p5.socket.emit('stopped',ROOM_ID,{EMAIL});
+        if(selected.parent)
         {
-            let index = p5.selected.parent.children.findIndex(e => e.Id === p5.selected.Id);
-            p5.selected.parent.children.splice(index, 1);
-            p5.selected.parent = null;
+            let index = selected.parent.children.findIndex(e => e.Id === selected.Id);
+            selected.parent.children.splice(index, 1);
+            selected.parent = null;
         }
         let found = false;
         if(p5.screens[p5.selectedScreen].isInside(p5))
         {
             found = true;
-            p5.screens[p5.selectedScreen].children.push(p5.selected);
-            p5.selected.parent = p5.screens[p5.selectedScreen];
-            setElementStation(p5);
+            p5.screens[p5.selectedScreen].children.push(selected);
+            selected.parent = p5.screens[p5.selectedScreen];
+            setElementPosition(p5 , selected);
         }
         if(found) 
         {
-            if(p5.screens[p5.selectedScreen].unSortedWidjets.includes(p5.selected))
-                p5.screens[p5.selectedScreen].unSortedWidjets.pop(p5.selected);
+            if(p5.screens[p5.selectedScreen].unSortedWidjets.includes(selected))
+                p5.screens[p5.selectedScreen].unSortedWidjets.pop(selected);
         }
-        else if(!p5.screens[p5.selectedScreen].unSortedWidjets.includes(p5.selected))
+        else if(!p5.screens[p5.selectedScreen].unSortedWidjets.includes(selected))
         {
-            p5.screens[p5.selectedScreen].unSortedWidjets.push(p5.selected);
+            p5.screens[p5.selectedScreen].unSortedWidjets.push(selected);
         }
     }
     events.changeTheSelectedProperty(p5);
 }
 
-function setElementStation(p5)
+function setElementPosition(p5,selected)
 {
-    let x = p5.selected.X ;
-    let y = p5.selected.Y ;
+    let x = selected.X ;
+    let y = selected.Y ;
     let s_x = ( x - p5.screens[p5.selectedScreen].midPoint.X_zero ) / p5.screens[p5.selectedScreen].midPoint.W;
-    p5.selected.position[0] = s_x;
+    selected.position[0] = s_x;
     let s_y = ( y - p5.screens[p5.selectedScreen].midPoint.Y_zero ) / p5.screens[p5.selectedScreen].midPoint.H;
-    p5.selected.position[1] = s_y;
+    selected.position[1] = s_y;
 }
 
 export default {
     released,
-    setElementStation
+    setElementStation: setElementPosition
 }

@@ -13,7 +13,7 @@
     $user_name = 'user_name';
     // $app_id = $_POST["app_id"];
     $app_id  = '25';
-    $room_id = 'generated room id';
+    $room_id = 'generated_room_id';
     $url = 'https://less-code.000webhostapp.com/recieve.php';
     $json = json_encode(['app_id' => "$app_id"]);
     
@@ -58,8 +58,13 @@
         const ROOM_ID =  <?php echo json_encode($room_id); ?>;
         const USER_NAME =  <?php echo json_encode($user_name); ?>;
         let DESIGN = `<?php echo $design; ?>`;
-        DESIGN = DESIGN.replace(/(\r+|\n+)/g, " ");
-        DESIGN = JSON.parse( DESIGN );
+        try{
+            DESIGN = DESIGN.replace(/(\r+|\n+)/g, " ");
+            DESIGN = JSON.parse( DESIGN );
+        }
+        catch(e){
+            DESIGN = {};
+        }
     </script>
 
 </head>
@@ -216,6 +221,7 @@
         </div>
     </footer>
 
+    <!-- <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script> -->
     <script src="https://cdn.socket.io/4.0.1/socket.io.min.js" integrity="sha384-LzhRnpGmQP+lOvWruF/lgkcqD+WDVt9fU3H4BWmwP5u5LTmkUGafMcpZKNObVMLU" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.3.1/p5.min.js" integrity="sha512-gQVBYBvfC+uyor5Teonjr9nmY1bN+DlOCezkhzg4ShpC5q81ogvFsr5IV4xXAj6HEtG7M1Pb2JCha97tVFItYQ==" crossorigin="anonymous"></script>
     <script src="./src/app.js" type="module"> </script>

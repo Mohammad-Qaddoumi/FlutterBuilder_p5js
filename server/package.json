@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "startPeer" : "peerjs --port 3001"
   },
   "author": "Mohammad Qaddoumi",
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
+    "peer": "^0.6.1",
     "socket.io": "^4.0.1"
   },
   "engines": {

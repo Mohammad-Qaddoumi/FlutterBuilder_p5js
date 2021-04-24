@@ -2,6 +2,7 @@
 
 $data = file_get_contents('php://input',true);
 $json = json_decode($data,true);
+$sql = "";
 if (count((array)$json) === 0){
     $sql = "SELECT design_json FROM `apps` WHERE app_id=25 AND email='moh@lesscode.com'";
 }

@@ -2,7 +2,7 @@
   "name": "design",
   "version": "1.0.0",
   "description": "* The web site still under development, not ready for use and needs alot of work.",
-  "main": "sketch.js",
+  "main": "app.js",
   "directories": {
     "lib": "lib"
   },
@@ -17,6 +17,5 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Mohammad-Qaddoumi/FlutterBuilder_p5js/issues"
-  },
-  "homepage": "https://github.com/Mohammad-Qaddoumi/FlutterBuilder_p5js#readme"
+  }
 }

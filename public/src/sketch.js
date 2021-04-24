@@ -4,7 +4,6 @@ import config from '../lib/config.js';
 import parseJson from '../lib/parseJson.js';
 import main from '../elements/mainWidjet.js';
 import events from '../lib/events.js';
-import Grid from '../elements/grid/grid.js';
 import buildSocketConnection from '../lib/socket.js';
 
 function sketch(p5)
@@ -14,6 +13,7 @@ function sketch(p5)
         p5.screens = [];
         p5.selectedScreen = 0;
         p5.mainWidjets = [];
+        buildSocketConnection(p5);
         parseJson(p5);
         main.createMainWidjet(p5.mainWidjets);
         p5.img = p5.loadImage('./assets/phone.png');
@@ -33,7 +33,7 @@ function sketch(p5)
         p5.Y_D = 0;
     };
     p5.setup = () => {
-        buildSocketConnection(p5);
+        
         p5.cnv = p5.createCanvas(config.canvasWidth, config.canvasHeight);
         p5.frameRate(120);
         p5.cnv.position(0,0,'absolute');
@@ -98,10 +98,10 @@ function sketch(p5)
     setTimeout( () => {
         p5.mouseMoved = () => {
             if(p5.socket && p5.socket.emit)
-                p5.socket.emit('mouse',JSON.stringify(
+                p5.socket.emit('mouse',ROOM_ID,JSON.stringify(
                     {
-                        email : EMAIL,
-                        user_name : USER_NAME,
+                        EMAIL,
+                        USER_NAME,
                         X : p5.mouseX,
                         Y : p5.mouseY
                     })
