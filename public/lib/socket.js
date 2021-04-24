@@ -164,6 +164,9 @@ export default function buildSocketConnection(p5)
             // DESIGN = OldDesign;
         }
     });
+    p5.socket.on('disconnect-user', data => {
+
+    });
 }
 
 function getUserList(p5) 
