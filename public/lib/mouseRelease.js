@@ -6,12 +6,12 @@ function released(p5,data)
     if(data)
     {
         const index = p5.partners.findIndex( i => i.email === data.EMAIL );
-        if( index !== -1 )
+        if( index !== -1  && data.EMAIL !== EMAIL)
         {
             selected = p5.partners[index].selected;
         }
     }
-    if (selected === null) return;
+    if (!selected) return;
     selected.drag = false;
     p5.socket.emit('unDragged',ROOM_ID, { EMAIL });
     if(p5.selected.moved) 

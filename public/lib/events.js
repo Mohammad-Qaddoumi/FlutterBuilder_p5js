@@ -297,11 +297,12 @@ function addTheScreenElement(p5) {
 
 function changeTheSelectedProperty(p5) 
 {
+    if(!p5.selected) return;
     widthAndHeight.style.display = 'none';
     bgCV.value = rgbToHex(p5.selected.backgroundColor[0], p5.selected.backgroundColor[1], p5.selected.backgroundColor[2]);
     backgroundColor.style.display = 'flex';
     foregroundColor.style.display = 'flex';
-    if (p5.selected === null || p5.selected.Id === p5.screens[p5.selectedScreen].Id)
+    if (p5.selected.Id === p5.screens[p5.selectedScreen].Id)
     {
         document.querySelector('.locked').style.display = 'none';
         document.querySelector('.screenaction').style.display = 'block';

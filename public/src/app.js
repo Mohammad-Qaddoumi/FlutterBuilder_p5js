@@ -1,9 +1,6 @@
 import sketchs from './sketch.js';
 
-let app;
-
 window.onload = async () => {
-
     if(window.location.href.includes('000webhostapp'))
     {
         const body = window.document.children[0].children[1];
@@ -11,12 +8,12 @@ window.onload = async () => {
         const div = body.children[index];
         div.style.display = 'none';
     }
-  
-    const stopModel = new p5(sketchs.sketch2,'sketch');
-    setTimeout( () => {
-        app = new p5(sketchs.sketch, 'sketch');
-        app.stopModel = stopModel;
-        stopModel.parent = app;
-    },1000);
+}
 
-};
+let app;
+const stopModel = new p5(sketchs.sketch2,'sketch');
+setTimeout( () => {
+    app = new p5(sketchs.sketch, 'sketch');
+    app.stopModel = stopModel;
+    stopModel.parent = app;
+},1000);

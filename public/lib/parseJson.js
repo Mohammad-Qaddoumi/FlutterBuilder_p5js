@@ -6,11 +6,16 @@ import config from './config.js';
 
 export default function parseJson(p5)
 {
+    p5.screens = [];
+    p5.selectedScreen = 0;
     if(Object.keys(DESIGN).length !== 0)
     {
         for(let i=0; i < DESIGN.numberOfScreens; i++)
         {
             let screen = new Grid(config.gridPoints);
+            screen.unSortedWidjets = [];
+            screen.backgroundColor = [0,0,0];
+            screen.canMove = false;
             if(DESIGN[`screen${i}`])
             {
                 screen.Id = DESIGN[`screen${i}`]["id"];
@@ -27,6 +32,7 @@ export default function parseJson(p5)
                 screen.backgroundColor = DESIGN[`screen${i}`]["screenColor"];
                 screen.children = getchildren( DESIGN[`screen${i}`].body );
                 screen.unSortedWidjets = getchildren( DESIGN[`screen${i}`].unSortedWidjets );
+
             }
             p5.screens.push(screen);
         }
@@ -64,6 +70,8 @@ function getchildren( children )
             childs[i].Id = children[`child${i+1}`]["id"];  
             childs[i].position = children[`child${i+1}`]["position"];  
             childs[i].events = children[`child${i+1}`]["onPress"].split(';');  
+            childs[i].drag = false;
+            childs[i].moved = false;
         }
     }
 

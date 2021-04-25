@@ -1,7 +1,5 @@
 const express = require('express');
 const app = express();
-// const { PeerServer } = require('peer');
-// const peerServer = PeerServer({ port: 9000, path: '/myapp' });
  
 const server = app.listen(process.env.PORT || 3000, () => {
   console.log('listening at PORT: ' + server.address().port);
@@ -17,9 +15,10 @@ io.sockets.on('connection', (socket) => {
   
     console.log("new client: " + socket.id);
 
-    socket.on('join-room', function(roomId,userId){
+    socket.on('join-room', (roomId,userId) => {
+      if(!roomId) return;
       socket.join(roomId);
-      socket.private_data = {roomId,userId};
+      socket.private_data = {R_id : roomId, email : userId.EMAIL};
       socket.to(roomId).emit('user-connected',userId);
     });
     socket.on('mouse', (roomId,data) => {
@@ -47,11 +46,18 @@ io.sockets.on('connection', (socket) => {
       socket.to(roomId).emit('usersList', data);
     });
   
-
-
     socket.on('disconnect', () => {
-      socket.to(socket.private_data.roomId).emit('disconnect-user',{EMAIL : socket.private_data.userId});
-      console.log(`Client has disconnected ${socket.id} ${socket.private_data.userId}`);
+      try{
+        socket.to(socket.private_data.R_id).emit('disconnect-user',{EMAIL : socket.private_data.email});
+        console.log(`Client has disconnected ${socket.id} ${socket.private_data.email}`);
+        console.log(io.sockets.adapter.rooms);
+        console.log(socket.rooms);
+        // socket.leave(socket.private_data.R_id);
+      }
+      catch(e)
+      {
+        console.log(e);
+      }
     });
   }
 );

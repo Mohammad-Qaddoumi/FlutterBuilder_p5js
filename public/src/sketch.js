@@ -13,6 +13,7 @@ function sketch(p5)
         p5.screens = [];
         p5.selectedScreen = 0;
         p5.mainWidjets = [];
+        p5.selected = null;
         buildSocketConnection(p5);
         parseJson(p5);
         main.createMainWidjet(p5.mainWidjets);
@@ -96,17 +97,17 @@ function sketch(p5)
         }
     }
     setTimeout( () => {
-        p5.mouseMoved = () => {
-            if(p5.socket && p5.socket.emit)
-                p5.socket.emit('mouse',ROOM_ID,JSON.stringify(
-                    {
-                        EMAIL,
-                        USER_NAME,
-                        X : p5.mouseX,
-                        Y : p5.mouseY
-                    })
-                ); 
-        };
+        // p5.mouseMoved = () => {
+        //     if(p5.socket && p5.socket.emit)
+        //         p5.socket.emit('mouse',ROOM_ID,JSON.stringify(
+        //             {
+        //                 EMAIL,
+        //                 USER_NAME,
+        //                 X : p5.mouseX,
+        //                 Y : p5.mouseY
+        //             })
+        //         ); 
+        // };
         p5.mousePressed = () => mousePressed.pressed(p5);
         p5.mouseReleased = () => release.released(p5);
     },1000);
