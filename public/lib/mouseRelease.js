@@ -13,7 +13,6 @@ function released(p5,data)
     }
     if (!selected) return;
     selected.drag = false;
-    p5.socket.emit('unDragged',ROOM_ID, { EMAIL });
     if(p5.selected.moved) 
     {
         selected.moved = false;

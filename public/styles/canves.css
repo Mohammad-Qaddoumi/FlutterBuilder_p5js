@@ -1,7 +1,7 @@
 #sketch{
     position: relative;
-    background-color: rgba(0, 0, 0, 0.05);
     background-image: linear-gradient(to right, #eacda3, #d6ae7b);
+    background-color: rgba(0, 0, 0, 0.05);
     width: 715px;
     height: 601px;
     outline: none;

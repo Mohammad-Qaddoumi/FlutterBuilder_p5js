@@ -26,10 +26,15 @@ html {
 }
 body{
     user-select: none;
-    /* width : 100vw; */
-    /* height : 100vh; */
-    background:transparent;
-    /* display: flex; */
-    /* align-items: center; */
-    /* justify-content: center; */
+    background : transparent;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex-basis: 725px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: auto;
+    white-space: nowrap;
 }

@@ -54,7 +54,6 @@
     <link rel="stylesheet" href="./styles/mainContant.css">
     <link rel="stylesheet" href="./styles/canves.css">
     <link rel="stylesheet" href="./styles/details.css">
-    <link rel="stylesheet" href="./styles/mediaQuery.css">
 
     <script>
         const EMAIL =  <?php echo json_encode($email); ?>;

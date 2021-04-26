@@ -36,9 +36,6 @@ io.sockets.on('connection', (socket) => {
     socket.on('moving' , (roomId,data) => {
       socket.to(roomId).emit('moving', data);
     });
-    socket.on('unDragged' , (roomId,data) => {
-      socket.to(roomId).emit('unDragged', data);
-    });
     socket.on('DESIGN' , (roomId,data) => {
       socket.to(roomId).emit('DESIGN', data);
     });
@@ -50,9 +47,9 @@ io.sockets.on('connection', (socket) => {
       try{
         socket.to(socket.private_data.R_id).emit('disconnect-user',{EMAIL : socket.private_data.email});
         console.log(`Client has disconnected ${socket.id} ${socket.private_data.email}`);
-        console.log(io.sockets.adapter.rooms);
-        console.log(socket.rooms);
-        // socket.leave(socket.private_data.R_id);
+        // console.log(io.sockets.adapter.rooms);
+        // console.log(socket.rooms);
+        socket.leave(socket.private_data.R_id);
       }
       catch(e)
       {

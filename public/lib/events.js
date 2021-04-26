@@ -43,14 +43,15 @@ function setEvents(p5)
     // https://stackoverflow.com/questions/52892333/javascript-generic-async-await-debounce
     // https://davidwalsh.name/javascript-debounce-function
     /**
-        let debounceTimeout;
-        watch(() => searchTerm.value, () => {
-                clearTimeout(debounceTimeout);
-                debounceTimeout = setTimeout(() => {
-                getResults();
-                }, 100);
-        });
-     */
+    let debounceTimeout;
+    watch(() => searchTerm.value, () => {
+            clearTimeout(debounceTimeout);
+            debounceTimeout = setTimeout(() => {
+            getResults();
+            }, 100);
+    });
+    */
+    
 
     image_BG.addEventListener('input', e => {
         binaryToBase64(p5,image_BG.files);

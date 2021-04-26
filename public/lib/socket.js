@@ -47,7 +47,6 @@ export default function buildSocketConnection(p5)
     p5.socket.on('stopped', data => {
         if(data)
         {
-            // data = JSON.parse( data );
             release.released( p5 , data);
         }
     }); 
@@ -57,7 +56,6 @@ export default function buildSocketConnection(p5)
             data = JSON.parse(data);
             let item = p5.mainWidjets.findIndex( t => t._type === data.type);
             let newItem = WidjetBuilder.Build(p5.mainWidjets[item]);
-            // newItem.drag = true;
             newItem.Id = data.Id;
             p5.screens[p5.selectedScreen].unSortedWidjets.push(newItem);
             if(data.EMAIL === EMAIL)return;
@@ -83,26 +81,9 @@ export default function buildSocketConnection(p5)
             }
         }
     });
-    // p5.socket.on('unDragged', data => {
-    //     if(data)
-    //     {
-    //         // data = JSON.parse(data);
-    //         if(data.EMAIL === EMAIL)return;
-    //         const index = p5.partners.findIndex( i => i.email === data.EMAIL);
-    //         if( index !== -1 )
-    //         {
-    //             if(p5.partners[index].selected)
-    //                 p5.partners[index].selected.drag = false;
-    //         }
-    //     }
-    // });
     p5.socket.on('user-connected', data => {
         if(data)
         {
-            // console.log(data);
-            // data = JSON.parse(data);
-            console.log('user-connected');
-            console.log(data);
             const index = p5.partners.findIndex( i => i.email === data.EMAIL);
             if( index !== -1 ) return; 
             if(data.EMAIL === EMAIL)return;
@@ -113,10 +94,7 @@ export default function buildSocketConnection(p5)
             newPartner.X = data.X;
             newPartner.Y = data.Y;
             p5.partners.push(newPartner);
-            console.log('userAdded');
-            console.log(p5.partners);
             let newDesign = buildJSON(p5);
-            // console.log(newDesign);
             p5.socket.emit('DESIGN' , ROOM_ID, newDesign);
             p5.socket.emit('usersList',ROOM_ID, getUserList(p5));
         }
@@ -141,13 +119,9 @@ export default function buildSocketConnection(p5)
         try{
             if(data)
             {
-                // data = JSON.parse(data);
-                console.log('Add usersList');
-                console.log(data);
                 for(let i=0;i<data.length;i++)
                 {
                     if(data[i].email === EMAIL)continue;
-                    console.log(data[i]);
                     const index = p5.partners.findIndex( t => t.email === data[i].email);
                     if( index !== -1 ) continue;
                     const newPartner = new Partner(
@@ -169,14 +143,11 @@ export default function buildSocketConnection(p5)
                             newPartner.selected = p5.screens[p5.selectedScreen];
                     }
                 }
-                console.log('new user list');
-                console.log(p5.partners);
             }
         }
         catch(e){
             console.log(e);
             console.log(e.message);
-            // DESIGN = OldDesign;
         }
     });
     p5.socket.on('disconnect-user', data => {
@@ -216,6 +187,5 @@ function getUserList(p5)
             Id : item.selected ? item.selected.Id : ''
         };
     }
-    // console.log(`user array ${userList}`);
     return userList;
 }
