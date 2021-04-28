@@ -93,6 +93,7 @@ export default function buildSocketConnection(p5)
             );
             newPartner.X = data.X;
             newPartner.Y = data.Y;
+            newPartner.selected = p5.screens[p5.selectedScreen];
             p5.partners.push(newPartner);
             let newDesign = buildJSON(p5);
             p5.socket.emit('DESIGN' , ROOM_ID, newDesign);
@@ -153,7 +154,6 @@ export default function buildSocketConnection(p5)
     p5.socket.on('disconnect-user', data => {
         if(data)
         {
-            // data = JSON.parse(data);
             if(data.EMAIL === EMAIL)return;
             const index = p5.partners.findIndex( i => i.email === data.EMAIL);
             if(index !== -1)
@@ -161,8 +161,6 @@ export default function buildSocketConnection(p5)
                 p5.partners.splice(index,1);
             }
         }
-        console.log('deleting user');
-        console.log(p5.partners);
     });
 }
 
