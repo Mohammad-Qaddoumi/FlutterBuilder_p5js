@@ -418,7 +418,7 @@
 <div class="input-data">
     <form action='./public/index.php' method='post'>
         <label for='email' >Email : </label>
-        <input name='email' type='email' required  value='email@email.com'>
+        <input name='email' type='email' required  value='@email.com'>
         <input type='submit' value='&nbsp;&nbsp;Submit&nbsp;&nbsp;'>
     </form>
 </div>

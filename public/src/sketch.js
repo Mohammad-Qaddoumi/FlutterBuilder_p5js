@@ -93,7 +93,8 @@ function sketch(p5)
         p5.fill(255,255,255);
         for (const p of p5.partners)
         {
-            p5.image(p5.cursorImg,p.X,p.Y,25,25);
+            p.sketch(p5);
+            // p5.image(p5.cursorImg,p.X,p.Y,25,25);
         }
     }
     setTimeout( () => {
