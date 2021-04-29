@@ -310,7 +310,8 @@
     color: red;
     }
     .input-data,.input-data > form ,
-    .input-data > form > *{
+    .input-data > form > *,
+    .input-data > form > div > *{
         position: unset;
         top:unset;
         left:unset;
@@ -322,7 +323,10 @@
     .input-data{
         z-index: 9999999;
         position:fixed;
-
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         /* size: 10em; */
         /* margin:0.1rem; */
         left:1px;
@@ -332,22 +336,39 @@
         /* font-size: 3em; */
         /* padding:0.1em; */
     }
+    /* .input-data > form > *,
+    .input-data > form > div > * {
+      position : absolute;
+    } */
     .input-data > form{
-        position: absolute;
+        position: relative;
         padding:0.2em;
-        width: 100vw;
+        width:100%;
         height: fit-content;
         top:0;
         left:0;
         display: flex;
-        align-items: center;
-        justify-content: center;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
         flex-wrap: wrap;
     }
-    .input-data > form > *{
-        z-index: 9999999;
+    /* .input-data > form > *, */
+    .input-data > form > div > *,
+    .input-data > form > input[type="submit"]
+    {
+        /* position:relative; */
+        /* z-index: 9999999; */
+        /* width:100%; */
+        /* height: 100%; */
         margin:0.2em;
         font-size: 3em;
+        color :rgba(0,0,0,0.9);
+      }
+      .input-data > form > input ,
+      .input-data > form > div > input{
+        background: rgba(255,255,255,0.3);
+        
     }
 </style>
 
@@ -417,8 +438,14 @@
 
 <div class="input-data">
     <form action='./public/index.php' method='post'>
-        <label for='email' >Email : </label>
-        <input name='email' type='email' required  value='@email.com'>
+        <div>
+          <label for='email' >Email : </label>
+          <input name='email' type='email' required  value='@email.com'>
+        </div>
+        <div>
+          <label for='name' >Name : </label>
+          <input name='name' type='text' required  value='username'>
+        </div>
         <input type='submit' value='&nbsp;&nbsp;Submit&nbsp;&nbsp;'>
     </form>
 </div>

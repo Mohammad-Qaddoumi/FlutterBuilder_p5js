@@ -1,7 +1,7 @@
 {
   "name": "design",
   "version": "1.0.0",
-  "description": "* The web site still under development, not ready for use and needs alot of work.",
+  "description": "*",
   "main": "app.js",
   "directories": {
     "lib": "lib"

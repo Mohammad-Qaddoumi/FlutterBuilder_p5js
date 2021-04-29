@@ -15,6 +15,10 @@
         $email = $_POST['email'];
     }
     $user_name = 'user_name';
+    if(isset($_POST['name']))
+    {
+        $user_name = $_POST['name']; 
+    }
     // $app_id = $_POST["app_id"];
     $app_id  = '25';
     $room_id = 'roomid';
