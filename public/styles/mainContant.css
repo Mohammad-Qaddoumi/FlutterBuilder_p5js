@@ -1,12 +1,17 @@
-
 .mainContant {
     margin-top: 0.3rem;
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    width: fit-content;
+    height: var(--mainContant);
     /* min-width: 720; */
     background:transparent;
+}
+.flex-start{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
 }

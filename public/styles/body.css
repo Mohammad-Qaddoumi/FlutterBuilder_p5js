@@ -26,7 +26,7 @@ html {
 }
 body{
     user-select: none;
-    background : transparent;
+    background-image: linear-gradient(to right, #eacda3, #d6ae7b);
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -37,4 +37,5 @@ body{
     overflow-y: auto;
     overflow-x: auto;
     white-space: nowrap;
+    --mainContant : Max(calc(100vh - 110px), 601px);
 }
