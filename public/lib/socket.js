@@ -100,9 +100,7 @@ export default function buildSocketConnection(p5)
             p5.socket.emit('usersList',ROOM_ID, getUserList(p5));
         }
     });
-    let newest = false;
-    p5.socket.on('DESIGN', data => {
-        if(newest) return;
+    p5.socket.once('DESIGN', data => {
         const OldDesign = DESIGN;
         try{
             DESIGN = data;
@@ -113,10 +111,7 @@ export default function buildSocketConnection(p5)
         }
         newest = true;
     });
-    let getList = false;
-    p5.socket.on('usersList', data => {
-        if(getList) return;
-        getList = true;
+    p5.socket.once('usersList', data => {
         try{
             if(data)
             {
