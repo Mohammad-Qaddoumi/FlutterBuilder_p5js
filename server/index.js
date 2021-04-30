@@ -27,6 +27,18 @@ io.sockets.on('connection', (socket) => {
     socket.on('selected' , (roomId,data) => {
       socket.to(roomId).emit('selected', data);
     });
+    socket.on('selectedScreen' , (roomId,data) => {
+      socket.to(roomId).emit('selectedScreen', data);
+    });
+    socket.on('newScreen' , (roomId,data) => {
+      socket.to(roomId).emit('newScreen', data);
+    });
+    socket.on('addAppBar' , (roomId,data) => {
+      socket.to(roomId).emit('addAppBar', data);
+    });
+    socket.on('deleteItem' , (roomId,data) => {
+      socket.to(roomId).emit('deleteItem', data);
+    });
     socket.on('stopped' , (roomId,data) => {
       socket.to(roomId).emit('stopped', data);
     });

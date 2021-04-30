@@ -44,10 +44,58 @@ export default function buildSocketConnection(p5)
             }
         }
     });
+    p5.socket.on('selectedScreen' , data => {
+        if(data){ 
+            data = JSON.parse(data);
+            if(p5.screens.children.length <= data.screen_number)
+                return;
+            p5.selectedScreen = data.screen_number;
+            p5.selected = p5.screens[p5.selectedScreen];
+            for(let p in p5.partners)
+                p.selected = p5.screens[p5.selectedScreen];
+        }
+    });
     p5.socket.on('stopped', data => {
         if(data)
         {
             release.released( p5 , data);
+        }
+    }); 
+    p5.socket.on('newScreen', data => {
+        if(data)
+        {
+            events.addNewScreen(p5,data.Id);
+            for(let p in p5.partners)
+                p.selected = p5.screens[p5.selectedScreen];
+        }
+    }); 
+    p5.socket.on('addAppBar', data => {
+        if(data)
+        {
+            if( events.addAppBar(p5,data.Id) )
+            {
+                const index = p5.partners.findIndex( i => i.email === data.EMAIL );
+                if( index !== -1 )
+                {
+                    p5.partners[index].selected = p5.screens[p5.selectedScreen].appBar;
+                }
+                for(let p in p5.partners)
+                    p.selected = p5.screens[p5.selectedScreen];
+            }
+        }
+    }); 
+    p5.socket.on('deleteItem', data => {
+        if(data)
+        {
+            let index = p5.screens[p5.selectedScreen].children.findIndex(e => e.Id === data.Id);
+            if(index >= 0)
+                p5.screens[p5.selectedScreen].children.splice(index, 1);
+            else
+            {
+                index = p5.screens[p5.selectedScreen].unSortedWidjets.findIndex(e => e.Id === data.Id); 
+                if(index >= 0)
+                    p5.screens[p5.selectedScreen].unSortedWidjets.splice(index, 1);
+            }
         }
     }); 
     p5.socket.on('newItem', data => {
