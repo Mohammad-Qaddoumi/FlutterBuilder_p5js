@@ -17,26 +17,21 @@ function released(p5,data)
     {
         selected.moved = false;
         p5.socket.emit('stopped',ROOM_ID,{EMAIL});
-        if(selected.parent)
+        let index = p5.screens[p5.selectedScreen].children.findIndex(e => e.Id === selected.Id);
+        if(index !== -1)
+            p5.screens[p5.selectedScreen].children.splice(index, 1);
+        else 
         {
-            let index = selected.parent.children.findIndex(e => e.Id === selected.Id);
-            selected.parent.children.splice(index, 1);
-            selected.parent = null;
+            index = p5.screens[p5.selectedScreen].unSortedWidjets.findIndex(e => e.Id === selected.Id);
+            if(index !== -1)
+                p5.screens[p5.selectedScreen].unSortedWidjets.splice(index, 1);
         }
-        let found = false;
         if(p5.screens[p5.selectedScreen].isInside(p5))
         {
-            found = true;
             p5.screens[p5.selectedScreen].children.push(selected);
-            selected.parent = p5.screens[p5.selectedScreen];
             setElementPosition(p5 , selected);
         }
-        if(found) 
-        {
-            if(p5.screens[p5.selectedScreen].unSortedWidjets.includes(selected))
-                p5.screens[p5.selectedScreen].unSortedWidjets.pop(selected);
-        }
-        else if(!p5.screens[p5.selectedScreen].unSortedWidjets.includes(selected))
+        else 
         {
             p5.screens[p5.selectedScreen].unSortedWidjets.push(selected);
         }

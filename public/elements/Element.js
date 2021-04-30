@@ -9,7 +9,6 @@ export default class Element
         this.width = point.W;
         this.height = point.H;
         this.drag = drag;
-        this.parent = null;
         this.name = name;
         this.moved = false;
         this._type = type;

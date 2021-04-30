@@ -110,7 +110,6 @@ export default function buildSocketConnection(p5)
         catch{
             DESIGN = OldDesign;
         }
-        newest = true;
     });
     p5.socket.once('usersList', data => {
         try{
