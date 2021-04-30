@@ -19,6 +19,7 @@ function sketch(p5)
         main.createMainWidjet(p5.mainWidjets);
         p5.img = p5.loadImage('./assets/phone.png');
         p5.cursorImg = p5.loadImage('./assets/cursor.png');
+        p5.lockImg = p5.loadImage('./assets/lock.svg');
         p5.font = p5.loadFont("./assets/Anonymous Pro.ttf");
         p5.updateison = true;
         events.setEvents(p5);

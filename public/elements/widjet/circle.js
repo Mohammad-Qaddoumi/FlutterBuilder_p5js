@@ -21,6 +21,9 @@ export default class Circle extends Widjet
         p5.fill(this.foregroundColor[0], this.foregroundColor[1], this.foregroundColor[2]);
         p5.textSize(this.textFontSize);
         p5.text(this.text,this.text_X, this.text_Y);
+
+        if(!this.canMove)
+            p5.image(p5.lockImg,this.X,this.Y,20,25);
     }
     isInside(p5) 
     {

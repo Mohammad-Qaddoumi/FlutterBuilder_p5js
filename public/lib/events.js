@@ -24,7 +24,6 @@ const btnAddScreen = document.querySelector('.btnAddScreen');
 const sc = document.querySelector('.screen-collection');
 const type = document.querySelector('.itemType');
 const slcItem = document.querySelector('.selectedItem');
-const itemId = document.querySelector('.itemId');
 const widthAndHeight = document.querySelector('.widthAndHeight');
 const boxWidth = document.querySelector('.width');
 const boxHeight = document.querySelector('.height');
@@ -84,7 +83,6 @@ function setEvents(p5)
         }
         p5.selected = p5.screens[p5.selectedScreen];
         p5.socket.emit('selected',ROOM_ID,JSON.stringify({EMAIL,Id:p5.selected.Id}));
-        // release.setElementStation( p5 );
         changeTheSelectedProperty(p5);
         addTheScreenElement(p5);
     });
@@ -192,7 +190,6 @@ function setEvents(p5)
         p5.screens[p5.selectedScreen].height -= config.gridPoints.H * 0.09;
         p5.selected = p5.screens[p5.selectedScreen].appBar;
         p5.socket.emit('selected',ROOM_ID,JSON.stringify({EMAIL,Id:p5.selected.Id}));
-        release.setElementStation( p5 );
         changeTheSelectedProperty( p5 );
     });
 
@@ -228,7 +225,7 @@ function setEvents(p5)
         sc.value = p5.selectedScreen;
 
         changeTheSelectedProperty(p5);
-        // showT.innerHTML = "Screen " + (selectedScreen + 1);
+        addTheScreenElement(p5);
     });
 
     sc.addEventListener('input', (e) => {
@@ -393,9 +390,7 @@ function changeTheSelectedProperty(p5)
         }
 
     }
-    itemId.innerText = `Id:${p5.selected.Id}`;
     txtName.value = p5.selected.name;
-    
 }
 
 export default {

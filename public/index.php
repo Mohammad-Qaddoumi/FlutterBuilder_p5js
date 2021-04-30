@@ -194,7 +194,6 @@ else
                         <input autocomplete="off" placeholder="Enter Widget name here" type="text" class="txtName transition-animation"
                             id="name" />
                     </div>
-                    <div class="itemId"></div>
                     <div class="itemType">Type :</div>
                     <div class="size">
                         <div class="size-name transition-animation">Size:&nbsp;</div>

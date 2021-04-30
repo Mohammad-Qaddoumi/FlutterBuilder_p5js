@@ -46,6 +46,7 @@ function released(p5,data)
 
 function setElementPosition(p5,selected)
 {
+    if(selected.Id === p5.screens[p5.selectedScreen].Id) return;
     let x = selected.X ;
     let y = selected.Y ;
     let s_x = ( x - p5.screens[p5.selectedScreen].midPoint.X_zero ) / p5.screens[p5.selectedScreen].midPoint.W;

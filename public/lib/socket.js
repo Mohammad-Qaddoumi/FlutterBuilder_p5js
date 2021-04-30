@@ -78,6 +78,7 @@ export default function buildSocketConnection(p5)
                 p5.partners[index].selected.X = data.X;
                 p5.partners[index].selected.Y = data.Y;
                 p5.partners[index].selected.moved = true;
+                setElementPosition(p5,p5.partners[index].selected);
             }
         }
     });
