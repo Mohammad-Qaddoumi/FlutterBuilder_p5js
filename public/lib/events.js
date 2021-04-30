@@ -173,7 +173,7 @@ function setEvents(p5)
         s.addEventListener('click', e => {
             p5.selectedScreen = s.dataset.value - 0;
             sc.value = p5.selectedScreen;
-            selected = p5.screens[p5.selectedScreen];
+            p5.selected = p5.screens[p5.selectedScreen];
             addTheScreenElement(p5);
             changeTheSelectedProperty(p5) ;
         });
@@ -283,17 +283,41 @@ function removeAllChildNodes(e)
 
 //TODO: Fix the tree elements .........................
 function addTheScreenElement(p5) {
-    // const scrnChilds = document.querySelector('.childs');
-    // removeAllChildNodes(scrnChilds);
-    // for (let i = 0; i < screens[selectedScreen].children.length; i++) {
-    //     let div = document.createElement('div');
-    //     // let a = document.createElement('a');
-    //     div.className += ' list-item screen-value';
-    //     div.innerText = screens[selectedScreen].children[i].name;
-    //     scrnChilds.appendChild(div);
-    // }
-    // selected = null;
-    // changeTheSelectedProperty();
+    const scrnChilds = document.querySelector('.childs');
+    removeAllChildNodes(scrnChilds);
+    for (let i = 0; i < p5.screens[p5.selectedScreen].children.length; i++) {
+        let div = document.createElement('a');
+        div.className += ' list-item screen-value';
+        div.innerText = p5.screens[p5.selectedScreen].children[i].name;
+        div.dataset.value = p5.screens[p5.selectedScreen].children[i].Id;
+        div.addEventListener('click', e => {
+            const index = p5.screens[p5.selectedScreen].children.findIndex( t => t.Id === e.target.dataset.value);
+            if( index !== -1 )
+            {
+                p5.selected = p5.screens[p5.selectedScreen].children[index];
+                changeTheSelectedProperty(p5);
+            }
+        });
+        scrnChilds.appendChild(div);
+    }
+    for(let i=0; i< p5.screens[p5.selectedScreen].unSortedWidjets.length;i++)
+    {
+        let div = document.createElement('a');
+        div.className += ' list-item screen-value';
+        div.innerText = p5.screens[p5.selectedScreen].unSortedWidjets[i].name;
+        div.dataset.value = p5.screens[p5.selectedScreen].unSortedWidjets[i].Id;
+        div.addEventListener('click', e => {
+            const index = p5.screens[p5.selectedScreen].unSortedWidjets.findIndex( t => t.Id === e.target.dataset.value);
+            if( index !== -1 )
+            {
+                p5.selected = p5.screens[p5.selectedScreen].unSortedWidjets[index];
+                changeTheSelectedProperty(p5);
+            }
+        });
+        scrnChilds.appendChild(div);
+    }
+    p5.selected = p5.screens[p5.selectedScreen];
+    changeTheSelectedProperty(p5);
 }
 
 function changeTheSelectedProperty(p5) 

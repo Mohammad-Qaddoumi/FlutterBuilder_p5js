@@ -217,6 +217,12 @@ button:active , a:active ,input[type="button"]:active{
     color: rgb(82, 104, 49);
 }
 
+.childs {
+    display: flex;
+    flex-direction: column;
+    
+}
+
 .btnShowProperties, .btnShowTree, .btnDeleteScreen , .btnAppbar {
     margin: 0.25rem;
 }

@@ -1,4 +1,8 @@
 <?php 
+session_start();
+session_regenerate_id(true);
+$_SESSION["loggedin"] = true;
+// $_SESSION["email"] = 'email@computer.com';
 
 ?>
 <style>
@@ -446,6 +450,7 @@
           <label for='name' >Name : </label>
           <input name='name' type='text' required  value='username'>
         </div>
+        <input type="hidden" name="appid" value="25">
         <input type='submit' value='&nbsp;&nbsp;Submit&nbsp;&nbsp;'>
     </form>
 </div>

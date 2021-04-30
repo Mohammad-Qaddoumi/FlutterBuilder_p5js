@@ -1,26 +1,36 @@
 <?php 
-// session_start();
-// session_regenerate_id(true);
+session_start();
+session_regenerate_id(true);
 
-// if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) 
-// {
-//     header("location: ./admin/login.php");
-//     exit;
-// }
-// if( $_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["app_id"]) )
-// {
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) 
+{
+    header("location: ../connect.php");
+    exit;
+}
+// echo '<pre>';
+// print_r ($_POST);
+// echo '</pre>';
+
+if( $_SERVER["REQUEST_METHOD"] === "POST" )
+{
     $email = 'email@computer.com';
+    $user_name = 'user_name';
+    $app_id  = '25';
+
+    // if(isset($_SESSION['email']))
     if(isset($_POST['email']))
     {
         $email = $_POST['email'];
     }
-    $user_name = 'user_name';
     if(isset($_POST['name']))
     {
         $user_name = $_POST['name']; 
     }
-    // $app_id = $_POST["app_id"];
-    $app_id  = '25';
+    if(isset($_POST['appid']))
+    {
+        $app_id = $_POST['appid'];
+    }
+
     $room_id = 'roomid';
     $url = 'https://less-code.000webhostapp.com/recieve2.php';
     $json = json_encode(['app_id' => "$app_id"]); 
@@ -33,12 +43,12 @@
     $context = stream_context_create($options);
     $response = file_get_contents($url, false, $context);
     $design = $response;
-// }
-// else 
-// {
-//     header("location: ./admin/login.php");
-//     exit;
-// }
+}
+else 
+{
+    header("location: ../connect.php");
+    exit;
+}
 
 ?>
 
@@ -86,7 +96,7 @@
     
     <div class="mainContant">
         <div class="flex-start">
-            
+
             <div id="sketch"> </div>
 
             <div class="details">
@@ -236,7 +246,7 @@
 
     <noscript>
         <style>html{display:none;}</style>
-        <meta http-equiv="refresh" content="0.0;url=nojs/index.php">
+        <meta http-equiv="refresh" content="0.0;url=../connect.php">
     </noscript>
 </body>
 
