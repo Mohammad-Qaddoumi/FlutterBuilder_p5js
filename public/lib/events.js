@@ -155,7 +155,7 @@ function setEvents(p5)
     lock.addEventListener('click', e => {
         if (p5.selected === null) return;
         if(p5.selected.Id === p5.screens[p5.selectedScreen].Id) return;
-        p5.selected.canMove = lock.checked;
+        p5.selected.canMove = !lock.checked;
     });
 
     showProperty.addEventListener('click' , e => {
@@ -360,7 +360,7 @@ function changeTheSelectedProperty(p5)
         iText.style.display = 'none';
         dlebtn.style.display = 'block';
         document.querySelector('.locked').style.display = 'flex';
-        document.querySelector('.locked').checked = !p5.selected.canMove;
+        lock.checked= !p5.selected.canMove;
         document.querySelector('.size').style.display = 'flex';
         slcItem.innerText = `SelectedItem: ${p5.selected.name}`;
         type.innerText = `Type: ${p5.selected._type}`;
