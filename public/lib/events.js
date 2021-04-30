@@ -66,21 +66,25 @@ function setEvents(p5)
 
     dlebtn.addEventListener('click', e => {
         if(p5.selected.Id === p5.screens[p5.selectedScreen].Id) return;
+        if(p5.selected.Id === p5.screens[p5.selectedScreen].appBar.Id)return;
         if (!confirm(`Do you want to delete ${p5.selected.name}?`)) return;
-        if(p5.selected.parent)
+        console.log(p5.selected);
+        let index = p5.screens[p5.selectedScreen].children.findIndex(e => e.Id === p5.selected.Id);
+        if(index >= 0)
         {
-            let index = p5.selected.parent.children.findIndex(e => e.Id === p5.selected.Id);
-            if(index >= 0)
-                p5.selected.parent.children.splice(index, 1);
-        }
+            p5.screens[p5.selectedScreen].children.splice(index, 1);
+            console.log(p5.screens[p5.selectedScreen].children);
+        }    
         else
         {
-            let index = p5.screens[p5.selectedScreen].unSortedWidjets.findIndex(e => e.Id === p5.selected.Id); 
+            index = p5.screens[p5.selectedScreen].unSortedWidjets.findIndex(e => e.Id === p5.selected.Id); 
             if(index >= 0)
                 p5.screens[p5.selectedScreen].unSortedWidjets.splice(index, 1);
+            console.log(p5.screens[p5.selectedScreen].unSortedWidjets);
         }
         p5.selected = p5.screens[p5.selectedScreen];
-        release.setElementStation( p5 );
+        p5.socket.emit('selected',ROOM_ID,JSON.stringify({EMAIL,Id:p5.selected.Id}));
+        // release.setElementStation( p5 );
         changeTheSelectedProperty(p5);
         addTheScreenElement(p5);
     });
@@ -174,6 +178,7 @@ function setEvents(p5)
             p5.selectedScreen = s.dataset.value - 0;
             sc.value = p5.selectedScreen;
             p5.selected = p5.screens[p5.selectedScreen];
+            p5.socket.emit('selected',ROOM_ID,JSON.stringify({EMAIL,Id:p5.selected.Id}));
             addTheScreenElement(p5);
             changeTheSelectedProperty(p5) ;
         });
@@ -186,6 +191,7 @@ function setEvents(p5)
         p5.screens[p5.selectedScreen].Y = config.gridPoints.Y + (config.gridPoints.H * 0.09);
         p5.screens[p5.selectedScreen].height -= config.gridPoints.H * 0.09;
         p5.selected = p5.screens[p5.selectedScreen].appBar;
+        p5.socket.emit('selected',ROOM_ID,JSON.stringify({EMAIL,Id:p5.selected.Id}));
         release.setElementStation( p5 );
         changeTheSelectedProperty( p5 );
     });
@@ -194,6 +200,7 @@ function setEvents(p5)
         p5.screens.push(new Grid(config.gridPoints));
         p5.selectedScreen = p5.screens.length - 1;
         p5.selected = p5.screens[p5.selectedScreen];
+        p5.socket.emit('selected',ROOM_ID,JSON.stringify({EMAIL,Id:p5.selected.Id}));
         p5.screens[p5.selectedScreen].unSortedWidjets = [];
         p5.screens[p5.selectedScreen].backgroundColor = [0,0,0];
         p5.screens[p5.selectedScreen].canMove = false;
@@ -203,6 +210,7 @@ function setEvents(p5)
         newScreen.addEventListener('click', e => {
             p5.selectedScreen = newScreen.dataset.value - 0;
             p5.selected = p5.screens[p5.selectedScreen];
+            p5.socket.emit('selected',ROOM_ID,JSON.stringify({EMAIL,Id:p5.selected.Id}));
             sc.value = p5.selectedScreen;
             addTheScreenElement(p5);
             changeTheSelectedProperty(p5) ;
@@ -226,6 +234,7 @@ function setEvents(p5)
     sc.addEventListener('input', (e) => {
         p5.selectedScreen = sc.value - 0;
         p5.selected = p5.screens[p5.selectedScreen];
+        p5.socket.emit('selected',ROOM_ID,JSON.stringify({EMAIL,Id:p5.selected.Id}));
         addTheScreenElement(p5);
         changeTheSelectedProperty(p5) ;
     });
@@ -260,7 +269,7 @@ function setEvents(p5)
         }
         p5.selected.height = boxHeight.value - 0;
     });
-
+    addTheScreenElement(p5);
 }
 
 const rgbToHex = (r, g, b) => '#' + [r, g, b]
@@ -282,7 +291,7 @@ function removeAllChildNodes(e)
 }
 
 //TODO: Fix the tree elements .........................
-function addTheScreenElement(p5) {
+function addTheScreenElement(p5,newItem = false) {
     const scrnChilds = document.querySelector('.childs');
     removeAllChildNodes(scrnChilds);
     for (let i = 0; i < p5.screens[p5.selectedScreen].children.length; i++) {
@@ -296,6 +305,7 @@ function addTheScreenElement(p5) {
             {
                 p5.selected = p5.screens[p5.selectedScreen].children[index];
                 changeTheSelectedProperty(p5);
+                p5.socket.emit('selected',ROOM_ID,JSON.stringify({EMAIL,Id:p5.selected.Id}));
             }
         });
         scrnChilds.appendChild(div);
@@ -312,12 +322,17 @@ function addTheScreenElement(p5) {
             {
                 p5.selected = p5.screens[p5.selectedScreen].unSortedWidjets[index];
                 changeTheSelectedProperty(p5);
+                p5.socket.emit('selected',ROOM_ID,JSON.stringify({EMAIL,Id:p5.selected.Id}));
             }
         });
         scrnChilds.appendChild(div);
     }
-    p5.selected = p5.screens[p5.selectedScreen];
-    changeTheSelectedProperty(p5);
+    if(!newItem)
+    {
+        p5.selected = p5.screens[p5.selectedScreen];
+        p5.socket.emit('selected',ROOM_ID,JSON.stringify({EMAIL,Id:p5.selected.Id}));
+        changeTheSelectedProperty(p5);
+    }
 }
 
 function changeTheSelectedProperty(p5) 
@@ -382,6 +397,7 @@ function changeTheSelectedProperty(p5)
     txtName.value = p5.selected.name;
     
 }
+
 export default {
     setEvents,
     addTheScreenElement,

@@ -106,9 +106,13 @@ function sketch(p5)
         //             })
         //         ); 
         // };
-        p5.mousePressed = () => mousePressed.pressed(p5);
-        p5.mouseReleased = () => release.released(p5);
     },1000);
+    p5.mousePressed = () => mousePressed.pressed(p5);
+    p5.mouseReleased = () => release.released(p5);
+    p5.mouseDragged = () => {
+        p5.selected.move(p5);
+        return false;
+    }
 }
 function sketch2(p5)
 {

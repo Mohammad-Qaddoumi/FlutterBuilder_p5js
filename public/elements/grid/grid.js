@@ -14,7 +14,7 @@ export default class Grid extends Element
 
     sketch(p5)
     {
-        this.move(p5);
+        // this.move(p5);
         
         p5.push();
         if(!p5.showBar)

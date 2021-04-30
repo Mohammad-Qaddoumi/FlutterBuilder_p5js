@@ -9,8 +9,8 @@ import parseJson from './parseJson.js';
 export default function buildSocketConnection(p5)
 {
     // TODO: Work on multi user for one project.......
-    p5.socket = io.connect('https://flutter-server-with-p5.herokuapp.com/');
-    // p5.socket = io.connect('http://localhost:3000');
+    // p5.socket = io.connect('https://flutter-server-with-p5.herokuapp.com/');
+    p5.socket = io.connect('http://localhost:3000');
     p5.partners = [];
     p5.socket.emit('join-room', ROOM_ID,{EMAIL,USER_NAME,X:0,Y:0}); 
     setInterval( () => {
@@ -35,7 +35,7 @@ export default function buildSocketConnection(p5)
         }
     });
     p5.socket.on('selected' , data => {
-        if(data){
+        if(data){ 
             data = JSON.parse(data);
             const index = p5.partners.findIndex( i => i.email === data.EMAIL);
             if( index !== -1 )
@@ -54,11 +54,11 @@ export default function buildSocketConnection(p5)
         if(data)
         {
             data = JSON.parse(data);
+            if(data.EMAIL === EMAIL)return;
             let item = p5.mainWidjets.findIndex( t => t._type === data.type);
             let newItem = WidjetBuilder.Build(p5.mainWidjets[item]);
             newItem.Id = data.Id;
             p5.screens[p5.selectedScreen].unSortedWidjets.push(newItem);
-            if(data.EMAIL === EMAIL)return;
             const index = p5.partners.findIndex( i => i.email === data.EMAIL);
             if( index !== -1 )
             {

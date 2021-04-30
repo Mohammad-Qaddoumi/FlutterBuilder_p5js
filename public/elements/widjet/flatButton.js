@@ -10,7 +10,7 @@ export default class FlatButton extends Widjet
     sketch(p5) 
     {
         
-        this.move(p5);
+        // this.move(p5);
 
         p5.strokeWeight(2);
         p5.stroke(0);

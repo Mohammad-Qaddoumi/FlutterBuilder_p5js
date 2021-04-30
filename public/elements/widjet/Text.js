@@ -19,7 +19,7 @@ export default class Text extends Widjet
 
     sketch(p5)
     {       
-        this.move(p5);
+        // this.move(p5);
 
         p5.noFill();
         p5.rect(this.X - 1, this.Y ,this.Width,this.Height);

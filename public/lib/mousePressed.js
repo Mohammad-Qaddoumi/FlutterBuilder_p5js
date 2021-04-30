@@ -55,7 +55,7 @@ function pressed(p5)
                 p5.selected.drag = true;
                 p5.screens[p5.selectedScreen].unSortedWidjets.push(p5.selected);
                 foundItemFlag = true;
-                events.addTheScreenElement(p5);
+                events.addTheScreenElement(p5,true);
                 newItem = true;
                 p5.socket.emit('newItem',ROOM_ID,JSON.stringify({
                     EMAIL,
@@ -122,7 +122,7 @@ function foundTargetSelected(p5,Id)
         let item = p5.screens[p5.selectedScreen].children[i];
         if( item.Id === Id )
         {
-            item.drag = true;
+            // item.drag = true;
             return item;
         }
     }
@@ -131,10 +131,13 @@ function foundTargetSelected(p5,Id)
         let i = p5.screens[p5.selectedScreen].unSortedWidjets[j];
         if( i.Id === Id )
         {
-            i.drag = true;
+            // i.drag = true;
             return i;
         }
     }
+    if(p5.screens[p5.selectedScreen].appBar 
+        && p5.screens[p5.selectedScreen].appBar.Id === Id)
+        return p5.screens[p5.selectedScreen].appBar;
     return p5.screens[p5.selectedScreen];
 }
 
