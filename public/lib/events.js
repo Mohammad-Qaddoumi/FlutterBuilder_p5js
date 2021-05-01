@@ -60,7 +60,18 @@ function setEvents(p5)
     });
     document.querySelector('.btn-cancel-label').addEventListener('click',e => {
         document.querySelector('.form-add-image').style.display = 'none';
+        document.querySelector('.form-add-image > form').reset();
+        image_BG.disabled  = true;
+        document.querySelector('.image-url-box').disabled  = false;
         p5.lockSelected = false;
+    });
+    document.querySelector('#rdo-2').addEventListener('change', e => {
+        document.querySelector('.image-url-box').disabled  = false;
+        image_BG.disabled  = true;
+    });
+    document.querySelector('#rdo-3').addEventListener('change', e => {
+        document.querySelector('.image-url-box').disabled  = true;
+        image_BG.disabled  = false;
     });
     document.querySelector('.btn-add-image').addEventListener('click',async e => {
         p5.updateison = true;
@@ -79,6 +90,7 @@ function setEvents(p5)
             result = await binaryToBase64(p5,image_BG.files);
         }
         document.querySelector('.form-add-image > form').reset();
+        image_BG.disabled  = true;
         if(result)
         {   
             alert("Can't load the image ...");

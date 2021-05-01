@@ -9,7 +9,8 @@ export default class ImageWidjet extends Widjet
             loading : true,
             error : "",
             name : "",
-            url  : "",
+            originalURL : "",
+            newURL: "",
             p5Image : null
         };
     }

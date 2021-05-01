@@ -18,7 +18,7 @@ export default async function binaryToBase64(p5,selectedfile,url)
         }
         else
         {
-            throw new Exception('Error Wrong inputs');
+            throw new Error('Error Wrong or empty inputs');
         }
     }
     catch(e)
