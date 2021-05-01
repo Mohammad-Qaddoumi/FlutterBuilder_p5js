@@ -1,8 +1,9 @@
 import Circle from './widjet/circle.js';
 import FlatButton from './widjet/flatButton.js';
 import Text from './widjet/Text.js';
-import Row from './grid/row.js';
-import Column from './grid/column.js';
+import ImageWidjet from './widjet/image.js';
+// import Row from './grid/row.js';
+// import Column from './grid/column.js';
 export default class WidjetBuilder 
 {
     static Build(element)
@@ -25,6 +26,11 @@ export default class WidjetBuilder
                 case "Text":
                 {
                     widget = new Text({ X: element.X, Y: element.Y }, element.width-15, element.height-15);
+                    break;
+                }
+                case "Image":
+                {
+                    widget = new ImageWidjet({ X: element.X, Y: element.Y }, 99, 40);
                     break;
                 }
                 // case "Row":

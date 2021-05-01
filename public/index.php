@@ -68,6 +68,7 @@ else
     <link rel="stylesheet" href="./styles/mainContant.css">
     <link rel="stylesheet" href="./styles/canves.css">
     <link rel="stylesheet" href="./styles/details.css">
+    <link rel="stylesheet" href="./styles/add_image.css" >
 
     <script>
         const EMAIL =  <?php echo json_encode($email); ?>;
@@ -179,7 +180,9 @@ else
                         <input type="checkbox" name="lock" id="lock"  checked>
                         <Label for="lock">lock</Label>
                     </div>
-
+                    <div>
+                        <input id="btnAddImage" type="button" class="transition-animation" value="Add Image" >
+                    </div>
                     <div class="backgroundColor">
                         <span>Background Color</span>
                         <input type="color" id="backgroundColor" class="transition-animation" value="#ff0000">
@@ -188,7 +191,6 @@ else
                         <span>Fore Color</span>
                         <input type="color" id="foreColor" class="transition-animation" value="#ff0000">
                     </div>
-                    <input id="image-BG" class="transition-animation" type="file" />
                     <div class="divName">
                         <div>Name:&nbsp;</div>
                         <input autocomplete="off" placeholder="Enter Widget name here" type="text" class="txtName transition-animation"
@@ -215,7 +217,9 @@ else
                         <div class="delete"><input type="button" class="btnDelete button-style  transition-animation" value="Delete"></div>
                     </div>
                     <hr>
-                    <div class="update"><input type="button" class="btnUpdate button-style  transition-animation" value="Update The App"></div>
+                    <div class="update">
+                        <input type="button" class="btnUpdate button-style  transition-animation" value="Update The App">
+                    </div>
     
                 </div>
             
@@ -231,6 +235,35 @@ else
             </div>
 
         </div>
+    </div>
+
+    <div class="form-add-image">
+        <form class="form" >
+            <div class="form-group cancel">
+                <div class="bigger-font">
+                    Pick an image
+                </div>
+                <div class="transition-animation btn-cancel-label">
+                    <input type="button" class="btn-cancel" value="X">
+                </div>
+            </div>
+            <hr>
+            <div class="form-group">
+                <input type="radio" value="1" name="choice" checked>
+                <label>Image URL</label>
+                <input type="text" class="transition-animation image-url-box" placeholder="http://google.com/mysuperfancyimg.jpg">
+            </div>
+            <hr>
+            <div class="form-group">
+                <input type="radio" value="2" name="choice">
+                <label>Choose From A File :</label>
+                <input id="image-BG" class="transition-animation" type="file" />
+            </div>
+            <hr>
+            <div class="form-group">
+                <input type="button" class="transition-animation btn-add-image" value="Add">
+            </div>
+        </form>
     </div>
 
     <footer id="footer">

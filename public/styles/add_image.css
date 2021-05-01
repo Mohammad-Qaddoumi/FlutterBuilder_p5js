@@ -1,0 +1,77 @@
+.form-add-image{
+    display:none;
+    justify-content:center;
+    align-items: center;
+    z-index: 9;
+    position:absolute;
+    top:calc(100vh - 50%);
+    left:calc(100vw - 50%);
+    transform: translate(-50%, -50%);
+    background-color: #f4f4f4;
+    padding: 0.4rem;
+    border-radius: 15px;
+    box-shadow: 4px 4px 5px #aaaaaa,
+    -4px -4px 5px #aaaaaa; 
+    animation: shows 300ms ease-in forwards; 
+}
+.form-add-image > .form{
+    background-color: rgba(225, 225, 225, 0.8);
+    border-radius: 9px;
+    padding:0.35rem;  
+}
+.form-add-image > .form > .cancel{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 0.3em;
+}
+.bigger-font{
+    font-size: 1.65em;
+}
+.form-add-image input{
+    font-size: x-large;
+    outline: none;
+}
+.form-add-image input[type="radio"]{
+    height: 1.2em;
+    width: 1.2em;
+}
+.form > .form-group{   
+    background-color: rgba(225, 225, 225, 0.6);
+    margin:0.4em;
+}
+.btn-cancel-label{
+    background-color: rgba(125,255,50,0.8);
+    border-radius: 10px;
+    padding:0.3em;
+}
+.btn-cancel{
+    background: transparent;
+}
+.btn-add-image{
+    background-color: rgba(0,255,0,0.8);
+    padding:0.4em;
+}
+
+@keyframes shows {
+    0%   {
+        opacity: 0;
+        transform: translate(-50%,-20% );
+    }
+    25%  {
+        opacity: 0.25;
+        transform: translate(-50%,-30%);
+    }
+    50%  {
+        opacity: 0.5;
+        transform: translate(-50%,-40% );
+    }
+    75%  {
+        opacity: 0.75;
+        transform: translate(-50%,-50% );
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%,-50% );
+    }
+}

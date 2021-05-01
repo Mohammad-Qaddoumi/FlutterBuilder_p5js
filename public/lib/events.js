@@ -1,6 +1,7 @@
 import Grid from '../elements/grid/grid.js';
 import AppBar from '../elements/widjet/appBar.js';
 import Text from '../elements/widjet/Text.js';
+import ImageWidjet from '../elements/widjet/image.js';
 import config from './config.js';
 import release from './mouseRelease.js';
 import saveAsJson from './ajax.js';
@@ -35,10 +36,12 @@ const fgCV = document.querySelector('.foreColor > input');
 // const aligment_H =  document.querySelector('.horizontal');
 // const aligment_V =  document.querySelector('.vertical');
 const image_BG = document.querySelector('#image-BG');
+const btnAddImage = document.querySelector('#btnAddImage');
+
 
 function setEvents(p5)
 {
-    // TODO: Add debouncing to the events...
+    // TODO: Add debouncing to typing events...
     // https://stackoverflow.com/questions/52892333/javascript-generic-async-await-debounce
     // https://davidwalsh.name/javascript-debounce-function
     /**
@@ -51,10 +54,44 @@ function setEvents(p5)
     });
     */
     
-
-    image_BG.addEventListener('input', e => {
-        binaryToBase64(p5,image_BG.files);
+    btnAddImage.addEventListener('click', e => {
+        document.querySelector('.form-add-image').style.display = 'flex';
+        p5.lockSelected = true;
     });
+    document.querySelector('.btn-cancel-label').addEventListener('click',e => {
+        document.querySelector('.form-add-image').style.display = 'none';
+        p5.lockSelected = false;
+    });
+    document.querySelector('.btn-add-image').addEventListener('click',async e => {
+        p5.updateison = true;
+        p5.stopModel.loop();
+        p5.lockSelected = true;
+        p5.txtUpdating.text = "Loading img ...✨";
+        document.querySelector('.form-add-image').style.display = 'none';
+        const radios = document.getElementsByName('choice');
+        let result ;
+        if (radios[0].checked && radios[0].value == "1") 
+        {
+            const url = document.querySelector('.image-url-box').value;
+            result = await binaryToBase64(p5,null,url);
+        }
+        else{
+            result = await binaryToBase64(p5,image_BG.files);
+        }
+        document.querySelector('.form-add-image > form').reset();
+        if(result)
+        {   
+            alert("Can't load the image ...");
+        }
+        p5.updateison = false;
+        p5.lockSelected = false;
+        p5.txtUpdating.text = "Updating...🛺";
+        p5.stopModel.noLoop();
+    });
+
+
+    // image_BG.addEventListener('input', e => {
+    // });
 
     bgCV.addEventListener('input', e => {
         p5.selected.backgroundColor = hexToRgb(e.target.value);
@@ -352,6 +389,7 @@ function changeTheSelectedProperty(p5)
     bgCV.value = rgbToHex(p5.selected.backgroundColor[0], p5.selected.backgroundColor[1], p5.selected.backgroundColor[2]);
     backgroundColor.style.display = 'flex';
     foregroundColor.style.display = 'flex';
+    btnAddImage.style.display = 'none';
     if (p5.selected.Id === p5.screens[p5.selectedScreen].Id)
     {
         document.querySelector('.locked').style.display = 'none';
@@ -391,6 +429,16 @@ function changeTheSelectedProperty(p5)
             innerText.value = p5.selected.text;
             document.querySelector('.size').style.display = 'none';
             document.querySelector('.locked').style.display = 'none';
+        }
+        else if (p5.selected instanceof ImageWidjet)
+        {
+            btnAddImage.style.display = 'flex';
+            document.querySelector('.size').style.display = 'none';
+            iText.style.display = 'flex';
+            widthAndHeight.style.display = 'flex';
+            innerText.value = p5.selected.text;
+            boxWidth.value = p5.selected.width;
+            boxHeight.value = p5.selected.height;
         }
         else
         {
