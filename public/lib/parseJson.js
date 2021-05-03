@@ -4,7 +4,7 @@ import FlatButton from "../elements/widjet/flatButton.js";
 import ImageWidjet from "../elements/widjet/image.js";
 import Text from "../elements/widjet/Text.js";
 import config from './config.js';
-import loadSavedImage from './base64Encode.js';
+import {loadSavedImage} from './base64Encode.js';
 
 export default function parseJson(p5)
 {
@@ -63,17 +63,17 @@ function getchildren( children , p5 )
             try{
                 if(children[`child${i+1}`].type === "Text")
                 {
-                    childs[i] = new Text({X:children[`child${i+1}`].X,Y:children[`child${i+1}`].Y},children[`child${i+1}`].width,children[`child${i+1}`].height);
+                    childs[i] = new Text({X:children[`child${i+1}`].X,Y:children[`child${i+1}`].Y},children[`child${i+1}`]._width,children[`child${i+1}`]._height);
                     childs[i].text = children[`child${i+1}`]["content"]; 
                 }
                 else if (children[`child${i+1}`].type === "FlatButton")
                 {
-                    childs[i] = new FlatButton({X:children[`child${i+1}`].X,Y:children[`child${i+1}`].Y},children[`child${i+1}`].width,children[`child${i+1}`].height);
+                    childs[i] = new FlatButton({X:children[`child${i+1}`].X,Y:children[`child${i+1}`].Y},children[`child${i+1}`]._width,children[`child${i+1}`]._height);
                     childs[i].text = children[`child${i+1}`]["content"]; 
                 }
                 else if (children[`child${i+1}`].type === "Image")
                 {
-                    childs[i] = new ImageWidjet({X:children[`child${i+1}`].X,Y:children[`child${i+1}`].Y},children[`child${i+1}`].width,children[`child${i+1}`].height);
+                    childs[i] = new ImageWidjet({X:children[`child${i+1}`].X,Y:children[`child${i+1}`].Y},children[`child${i+1}`]._width,children[`child${i+1}`]._height);
                     childs[i].text = children[`child${i+1}`]["content"];
                     childs[i].img.imageType = children[`child${i+1}`]["imageType"];
                     try{

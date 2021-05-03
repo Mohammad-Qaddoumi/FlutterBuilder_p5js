@@ -52,7 +52,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     ]];
     $context = stream_context_create($options);
     $response = file_get_contents($url, false, $context);
+    //TODO: Load the json from the database ...
     $design = $response;
+    // $design = '{}';
 } else {
     header("location: ../connect.php");
     exit;
@@ -214,9 +216,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     </div>
                     <div class="widthAndHeight">
                         <div>Width:</div>
-                        <input class="width transition-animation" type="number" value="20" min="10" max="199" />
+                        <input class="width transition-animation" type="number" value="20" min="10" max="299" />
                         <div>Height:</div>
-                        <input class="height transition-animation" type="number" value="20" min="10" max="199">
+                        <input class="height transition-animation" type="number" value="20" min="10" max="299">
                     </div>
                     <div class="innerText">
                         <div>Text:&nbsp;</div>

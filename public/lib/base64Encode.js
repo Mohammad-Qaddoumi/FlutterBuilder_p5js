@@ -81,7 +81,7 @@ function convertImgToBase64(p5,url,saveToServer){
         canvas.height = img.height;
         canvas.width = img.width;
         ctx.drawImage(img,0,0);
-        let dataURL = canvas.toDataURL(outputFormat || 'image/png');
+        let dataURL = canvas.toDataURL('image/png');
         if(!saveToServer)
         {
             await save(dataURL,selected.Id,selected);

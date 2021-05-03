@@ -40,8 +40,8 @@ function getChildsAsJson( collection, children )
         collection[`child${i+1}`] = {};
         collection[`child${i+1}`].X = children[i].X;
         collection[`child${i+1}`].Y = children[i].Y;
-        collection[`child${i+1}`].width = children[i].width;
-        collection[`child${i+1}`].height = children[i].height;
+        collection[`child${i+1}`]._width = children[i].width;
+        collection[`child${i+1}`]._height = children[i].height;
         collection[`child${i+1}`]["type"]           =  children[i]._type;
         collection[`child${i+1}`]["name"]           =  children[i].name;
         collection[`child${i+1}`]["content"]        =  children[i].text;

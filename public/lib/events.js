@@ -251,9 +251,9 @@ function setEvents(p5)
             boxWidth.value = 10;
             return;
         }
-        else if( boxWidth.value - 0 > 199)
+        else if( boxWidth.value - 0 > 299)
         {
-            boxWidth.value = 199;
+            boxWidth.value = 299;
             return;
         }
         p5.selected.width = boxWidth.value - 0;
@@ -266,9 +266,9 @@ function setEvents(p5)
             boxHeight.value = 10;
             return;
         }
-        else if( boxHeight.value - 0 > 199)
+        else if( boxHeight.value - 0 > 299)
         {
-            boxHeight.value = 199;
+            boxHeight.value = 299;
             return;
         }
         p5.selected.height = boxHeight.value - 0;
