@@ -1,7 +1,7 @@
 import mousePressed from './mousePressed.js';
 import events from './events.js';
 import WidjetBuilder from '../elements/WidjetBuilder.js';
-import release from './mouseRelease.js';
+import released from './mouseRelease.js';
 import Partner from '../elements/team/partner.js';
 import buildJSON from './buildJson.js';
 import parseJson from './parseJson.js';
@@ -58,7 +58,7 @@ export default function buildSocketConnection(p5)
     p5.socket.on('stopped', data => {
         if(data)
         {
-            release.released( p5 , data);
+            released( p5 , data);
         }
     }); 
     p5.socket.on('newScreen', data => {
@@ -126,7 +126,6 @@ export default function buildSocketConnection(p5)
                 p5.partners[index].selected.X = data.X;
                 p5.partners[index].selected.Y = data.Y;
                 p5.partners[index].selected.moved = true;
-                release.setElementPosition(p5,p5.partners[index].selected); 
             }
         }
     });

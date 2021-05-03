@@ -21,6 +21,7 @@ export default function parseJson(p5)
             screen.unSortedWidjets = [];
             screen.backgroundColor = [0,0,0];
             screen.canMove = false;
+            screens.name = DESIGN[`screen${i}`]["name"];
             if(DESIGN[`screen${i}`])
             {
                 screen.Id = DESIGN[`screen${i}`]["id"];
@@ -33,6 +34,7 @@ export default function parseJson(p5)
                     screen.appBar.text = DESIGN[`screen${i}`][`appBar`] ;
                     screen.appBar.backgroundColor = DESIGN[`screen${i}`][`appBarColor`] ;
                     screen.appBar.textColor = DESIGN[`screen${i}`][`appBarTextColor`] ;
+                    screens.appBar.name = DESIGN[`screen${i}`]["appBarName"];
                 }
                 screen.backgroundColor = DESIGN[`screen${i}`]["screenColor"];
                 screen.children = getchildren( DESIGN[`screen${i}`].body , p5 );
@@ -77,8 +79,6 @@ function getchildren( children , p5 )
                     childs[i].text = children[`child${i+1}`]["content"];
                     childs[i].img.imageType = children[`child${i+1}`]["imageType"];
                     try{
-                        // let r = binaryToBase64(p5,null,childs[i].text,childs[i]);
-                        // if(r) throw new Error('Unable to load the image from the server');
                         loadSavedImage(p5,{Id:children[`child${i+1}`]["id"] , type : childs[i].img.imageType},childs[i]);
                     }
                     catch(e){
@@ -89,8 +89,7 @@ function getchildren( children , p5 )
                 childs[i].foregroundColor = children[`child${i+1}`]["colorFromRGB"];  
                 childs[i].backgroundColor = children[`child${i+1}`]["backgroundColor"];  
                 childs[i].fontSize = children[`child${i+1}`]["fontSize"];
-                childs[i].Id = children[`child${i+1}`]["id"];  
-                childs[i].position = children[`child${i+1}`]["position"];  
+                childs[i].Id = children[`child${i+1}`]["id"];   
                 if(children[`child${i+1}`]["onPress"])
                     childs[i].events = children[`child${i+1}`]["onPress"].split(';');  
                 childs[i].drag = false;

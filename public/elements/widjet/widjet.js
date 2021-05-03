@@ -11,8 +11,6 @@ export default class Widjet extends Element
 
         this.foregroundColor = [255, 255, 255];
 
-        this.position = [0.0,0.0];
-
         this.fontSize = 23;
 
         this.events = ["null()"];

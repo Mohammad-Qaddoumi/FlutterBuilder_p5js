@@ -1,5 +1,5 @@
 import mousePressed from '../lib/mousePressed.js';
-import release from '../lib/mouseRelease.js';
+import released from '../lib/mouseRelease.js';
 import config from '../lib/config.js';
 import parseJson from '../lib/parseJson.js';
 import main from '../elements/mainWidjet.js';
@@ -95,7 +95,7 @@ function sketch(p5)
         for (const p of p5.partners)
             p.sketch(p5);
     }
-    setTimeout( () => {
+    // setTimeout( () => {
         // p5.mouseMoved = () => {
         //     if(p5.socket && p5.socket.emit)
         //         p5.socket.emit('mouse',ROOM_ID,JSON.stringify(
@@ -107,9 +107,9 @@ function sketch(p5)
         //             })
         //         ); 
         // };
-    },1000);
+    // },1000);
     p5.mousePressed = () => mousePressed.pressed(p5);
-    p5.mouseReleased = () => release.released(p5);
+    p5.mouseReleased = () => released(p5);
     p5.mouseDragged = () => {
         p5.selected.move(p5);
         return false;

@@ -53,8 +53,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $context = stream_context_create($options);
     $response = file_get_contents($url, false, $context);
     //TODO: Load the json from the database ...
-    $design = $response;
-    // $design = '{}';
+    // $design = $response;
+    $design = '{}';
 } else {
     header("location: ../connect.php");
     exit;

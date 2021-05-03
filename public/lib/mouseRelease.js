@@ -1,6 +1,6 @@
 import events from './events.js';
 
-function released(p5,data) 
+export default function released(p5,data) 
 {
     let selected = p5.selected;
     if(data)
@@ -29,7 +29,6 @@ function released(p5,data)
         if(p5.screens[p5.selectedScreen].isInside(p5))
         {
             p5.screens[p5.selectedScreen].children.push(selected);
-            setElementPosition(p5 , selected);
         }
         else 
         {
@@ -37,20 +36,4 @@ function released(p5,data)
         }
     }
     events.changeTheSelectedProperty(p5);
-}
-
-function setElementPosition(p5,selected)
-{
-    if(selected.Id === p5.screens[p5.selectedScreen].Id) return;
-    let x = selected.X ;
-    let y = selected.Y ;
-    let s_x = ( x - p5.screens[p5.selectedScreen].midPoint.X_zero ) / p5.screens[p5.selectedScreen].midPoint.W;
-    selected.position[0] = s_x;
-    let s_y = ( y - p5.screens[p5.selectedScreen].midPoint.Y_zero ) / p5.screens[p5.selectedScreen].midPoint.H;
-    selected.position[1] = s_y;
-}
-
-export default {
-    released,
-    setElementPosition
 }
