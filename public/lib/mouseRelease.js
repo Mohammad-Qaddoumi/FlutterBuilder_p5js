@@ -52,5 +52,5 @@ function setElementPosition(p5,selected)
 
 export default {
     released,
-    setElementStation: setElementPosition
+    setElementPosition
 }

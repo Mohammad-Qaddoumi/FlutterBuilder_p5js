@@ -1,6 +1,21 @@
 <?php
-session_start();
-session_regenerate_id(true);
+
+$status = session_status();
+if($status == PHP_SESSION_NONE){
+    //There is no active session
+    session_start();
+    session_regenerate_id(true);
+}else
+if($status == PHP_SESSION_DISABLED){
+    //Sessions are not available
+}else
+if($status == PHP_SESSION_ACTIVE){
+    //Destroy current and start new one
+    // session_destroy();
+    // session_start();
+    session_regenerate_id(true);
+}
+
 
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("location: ../connect.php");

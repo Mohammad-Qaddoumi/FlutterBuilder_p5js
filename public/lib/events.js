@@ -101,10 +101,6 @@ function setEvents(p5)
         p5.stopModel.noLoop();
     });
 
-
-    // image_BG.addEventListener('input', e => {
-    // });
-
     bgCV.addEventListener('input', e => {
         p5.selected.backgroundColor = hexToRgb(e.target.value);
     });
@@ -444,11 +440,14 @@ function changeTheSelectedProperty(p5)
         }
         else if (p5.selected instanceof ImageWidjet)
         {
+            backgroundColor.style.display = 'none';
+            foregroundColor.style.display = 'none';
             btnAddImage.style.display = 'flex';
             document.querySelector('.size').style.display = 'none';
-            iText.style.display = 'flex';
+            // iText.style.display = 'flex';
             widthAndHeight.style.display = 'flex';
-            innerText.value = p5.selected.text;
+            // innerText.value = p5.selected.text;
+            // iText.style.display = 'none';
             boxWidth.value = p5.selected.width;
             boxHeight.value = p5.selected.height;
         }

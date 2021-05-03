@@ -1,7 +1,10 @@
+import config from './config.js';
+
 export default function buildJSON(p5)
 {
     let screens = p5.screens;
     let mJSON = {};
+    mJSON['count'] = config.count;
     mJSON[`numberOfScreens`] = `${screens.length}`;
     for( let j = 0 ; j < screens.length ; j++ )
     {
@@ -47,8 +50,10 @@ function getChildsAsJson( collection, children )
         collection[`child${i+1}`]["fontSize"]       =  Math.floor(children[i].fontSize);
         collection[`child${i+1}`]["id"]             =  children[i].Id;
         collection[`child${i+1}`]["position"]       =  position;
-        collection[`child${i+1}`]["onPress"]        =  children[i].events.join(';');
-
+        if(children[i].events)
+            collection[`child${i+1}`]["onPress"]    =  children[i].events.join(';');
+        if(children[i].img)
+            collection[`child${i+1}`]["imageType"] = children[i].img.imageType;
     }
     return collection;
 }

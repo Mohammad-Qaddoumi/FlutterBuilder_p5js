@@ -85,7 +85,6 @@
 .btn-radio {
     cursor: pointer;
     display: inline-block;
-    float: left;
     -webkit-user-select: none;
     user-select: none;
 }

@@ -9,8 +9,8 @@ import parseJson from './parseJson.js';
 export default function buildSocketConnection(p5)
 {
     // TODO: Work on multi user for one project.......
-    // p5.socket = io.connect('https://flutter-server-with-p5.herokuapp.com/');
-    p5.socket = io.connect('http://localhost:3000');
+    p5.socket = io.connect('https://flutter-server-with-p5.herokuapp.com/');
+    // p5.socket = io.connect('http://localhost:3000');
     p5.partners = [];
     p5.socket.emit('join-room', ROOM_ID,{EMAIL,USER_NAME,X:0,Y:0}); 
     setInterval( () => {
@@ -126,7 +126,7 @@ export default function buildSocketConnection(p5)
                 p5.partners[index].selected.X = data.X;
                 p5.partners[index].selected.Y = data.Y;
                 p5.partners[index].selected.moved = true;
-                setElementPosition(p5,p5.partners[index].selected);
+                release.setElementPosition(p5,p5.partners[index].selected); 
             }
         }
     });

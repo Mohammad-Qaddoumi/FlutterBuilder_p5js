@@ -8,9 +8,9 @@ export default class ImageWidjet extends Widjet
         this.img = {
             loading : true,
             error : "",
-            name : "",
-            originalURL : "",
-            newURL: "",
+            imageType : "",
+            // name : "",
+            // newURL: "",
             p5Image : null
         };
     }
