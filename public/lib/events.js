@@ -153,13 +153,14 @@ function setEvents(p5)
         if (uSize.value - 0 < 10)
         {
             uSize.value = 10; 
-            return;
+            // return;
         }
         else if (uSize.value - 0 > 99)
         {
             uSize.value = 99;
-            return;
+            // return;
         }
+
         if(p5.selected instanceof Grid)
         {
             p5.selected.size = uSize.value / 100;
@@ -249,12 +250,12 @@ function setEvents(p5)
         if(boxWidth.value - 0 < 10)
         {
             boxWidth.value = 10;
-            return;
+            // return;
         }
-        else if( boxWidth.value - 0 > 299)
+        else if( boxWidth.value - 0 > 260)
         {
-            boxWidth.value = 299;
-            return;
+            boxWidth.value = 260;
+            // return;
         }
         p5.selected.width = boxWidth.value - 0;
     });
@@ -264,12 +265,12 @@ function setEvents(p5)
         if(boxHeight.value - 0 < 10)
         {
             boxHeight.value = 10;
-            return;
+            // return;
         }
-        else if( boxHeight.value - 0 > 299)
+        else if( boxHeight.value - 0 > 546)
         {
-            boxHeight.value = 299;
-            return;
+            boxHeight.value = 546;
+            // return;
         }
         p5.selected.height = boxHeight.value - 0;
     });
