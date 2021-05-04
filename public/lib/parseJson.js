@@ -21,7 +21,7 @@ export default function parseJson(p5)
             screen.unSortedWidjets = [];
             screen.backgroundColor = [0,0,0];
             screen.canMove = false;
-            screens.name = DESIGN[`screen${i}`]["name"];
+            screen.name = DESIGN[`screen${i}`]["name"];
             if(DESIGN[`screen${i}`])
             {
                 screen.Id = DESIGN[`screen${i}`]["id"];
@@ -34,7 +34,7 @@ export default function parseJson(p5)
                     screen.appBar.text = DESIGN[`screen${i}`][`appBar`] ;
                     screen.appBar.backgroundColor = DESIGN[`screen${i}`][`appBarColor`] ;
                     screen.appBar.textColor = DESIGN[`screen${i}`][`appBarTextColor`] ;
-                    screens.appBar.name = DESIGN[`screen${i}`]["appBarName"];
+                    screen.appBar.name = DESIGN[`screen${i}`]["appBarName"];
                 }
                 screen.backgroundColor = DESIGN[`screen${i}`]["screenColor"];
                 screen.children = getchildren( DESIGN[`screen${i}`].body , p5 );

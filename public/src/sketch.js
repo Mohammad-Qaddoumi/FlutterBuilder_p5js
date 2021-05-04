@@ -30,7 +30,7 @@ function sketch(p5)
             Y : 15
         };
     
-        p5.showBar = false;
+        // p5.showBar = true;
         p5.X_D = 0;
         p5.Y_D = 0;
     };

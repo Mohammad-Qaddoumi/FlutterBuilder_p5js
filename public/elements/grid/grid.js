@@ -18,12 +18,12 @@ export default class Grid extends Element
         // this.move(p5);
         
         p5.push();
-        if(!p5.showBar)
-        {
-            p5.stroke(0);
-            p5.strokeWeight(3);
-        }
-        else 
+        // if(!p5.showBar)
+        // {
+        //     p5.stroke(0);
+        //     p5.strokeWeight(3);
+        // }
+        // else 
             p5.noStroke();
         if(!this.noBackground)
         {

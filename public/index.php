@@ -5,11 +5,9 @@ if($status == PHP_SESSION_NONE){
     //There is no active session
     session_start();
     session_regenerate_id(true);
-}else
-if($status == PHP_SESSION_DISABLED){
+// }elseif($status == PHP_SESSION_DISABLED){
     //Sessions are not available
-}else
-if($status == PHP_SESSION_ACTIVE){
+}elseif($status == PHP_SESSION_ACTIVE){
     //Destroy current and start new one
     // session_destroy();
     // session_start();
@@ -53,8 +51,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $context = stream_context_create($options);
     $response = file_get_contents($url, false, $context);
     //TODO: Load the json from the database ...
-    // $design = $response;
-    $design = '{}';
+    $design = $response;
+    // $design = '{}';
 } else {
     header("location: ../connect.php");
     exit;
@@ -175,10 +173,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <div>Add Screen</div>
                         </a>
                     </div>
-                    <div class="transition-animation">
+                    <!-- <div class="transition-animation">
                         <input type="checkbox" name="showBars" id="showBars">
                         <Label for="showBars">Show Bar</Label>
-                    </div>
+                    </div> -->
                     <hr>
                     <div class="screenaction">
                         <div class="appBar">

@@ -131,7 +131,6 @@ function encodeImageFileAsURL(p5,fileToLoad,saveToServer){
     return false;
 }
 
-//TODO: save the image in the server...
 async function save(base64,img_id,selected){
     if (!( await saveImage(base64,img_id) ))
     {
@@ -144,7 +143,7 @@ export async function loadSavedImage(p5,data,selected)
     let url = "https://less-code.000webhostapp.com/loadImage.php";
     let response = await fetch(url,{
         method : 'POST',
-        body : JSON.stringify( {app_id : APP_ID,img_id:data.Id,type:data.type}, null, 2)
+        body : JSON.stringify( {app_id : APP_ID,img_id:data.Id,type:data.type}, null, 0)
     });
     let base64Text = await response.text();
     const img  = p5.createImg(base64Text,'error');

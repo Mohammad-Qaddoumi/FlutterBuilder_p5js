@@ -14,7 +14,7 @@ const sizeName = document.querySelector('.size-name');
 const innerText = document.querySelector('.inner-Text');
 const iText = document.querySelector('.innerText');
 const txtName = document.querySelector('.txtName');
-const showBars = document.querySelector('#showBars');
+// const showBars = document.querySelector('#showBars');
 const lock = document.querySelector('#lock');
 const showProperty = document.querySelector('#property');
 const showTree = document.querySelector('#tree');
@@ -191,9 +191,9 @@ function setEvents(p5)
         s.innerHTML = `SelectedItem: ${p5.selected.name}`;
     });
 
-    showBars.addEventListener('click', e => {
-        p5.showBar = showBars.checked;
-    });
+    // showBars.addEventListener('click', e => {
+    //     p5.showBar = showBars.checked;
+    // });
 
     lock.addEventListener('click', e => {
         if (p5.selected === null) return;
