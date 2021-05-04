@@ -69,12 +69,13 @@ function setElementPosition(p5,selected,selectedScreen)
         Math.ceil(y * 100) / 100
     ];
 }
-//TODO: calculate Width and Hieght here
 function getCalculatedWidth(p5,selected,selectedScreen)
 {
-    return 0.3;
+    let w = selected.width / p5.screens[selectedScreen].width;
+    return Math.ceil(w * 100) / 100;
 }
 function getCalculatedHeight(p5,selected,selectedScreen)
 {
-    return 0.3;
+    let h = selected.height / p5.screens[selectedScreen].height;
+    return Math.ceil(h * 100) / 100;
 }
