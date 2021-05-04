@@ -5,7 +5,7 @@ export default class AppBar extends Widjet
     {
         super({X : point.X , Y : point.Y, W : width, H : height},true,"AppBar","Title");
         this.canMove = false;
-        this.fontSize = 30;
+        this.fontSize = 20;
     }
 
     sketch(p5) 

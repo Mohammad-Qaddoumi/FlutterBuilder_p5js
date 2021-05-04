@@ -9,7 +9,7 @@ export default class Grid extends Element
         this.children = [];
         this.size = 0.3333333;
         this.noBackground = false;
-        this.midPoint = point.midPoint;
+        // this.midPoint = point.midPoint;
         this.parent = null;
     }
 

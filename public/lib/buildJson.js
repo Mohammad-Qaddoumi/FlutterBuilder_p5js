@@ -47,7 +47,8 @@ function getChildsAsJson( p5, children , selectedScreen )
         collection[`child${i+1}`]["backgroundColor"]=  children[i].backgroundColor;
         collection[`child${i+1}`]["fontSize"]       =  Math.floor(children[i].fontSize);
         collection[`child${i+1}`]["id"]             =  children[i].Id;
-        if(selectedScreen){
+        collection[`child${i+1}`]["canMove"]             =  children[i].canMove;
+        if(!isNaN(selectedScreen)){
             collection[`child${i+1}`]["position"]       =  setElementPosition( p5 , children[i] , selectedScreen);
             collection[`child${i+1}`].width             =  getCalculatedWidth( p5 , children[i] , selectedScreen);
             collection[`child${i+1}`].height            =  getCalculatedHeight( p5 , children[i] , selectedScreen);
@@ -62,8 +63,20 @@ function getChildsAsJson( p5, children , selectedScreen )
 
 function setElementPosition(p5,selected,selectedScreen)
 {
-    const x = ( selected.X - p5.screens[selectedScreen].midPoint.X_zero ) / p5.screens[selectedScreen].midPoint.W;
-    const y = ( selected.Y - p5.screens[selectedScreen].midPoint.Y_zero ) / p5.screens[selectedScreen].midPoint.H;
+    const W = p5.screens[selectedScreen].width / 2;
+    const H = p5.screens[selectedScreen].height / 2;
+    const X_zero = W + p5.screens[selectedScreen].X;
+    const Y_zero = H + p5.screens[selectedScreen].Y;
+
+    let x = ( selected.X - X_zero ) / W;
+    if(x >=0 )
+        x = ( selected.X + (selected.width / 2) - X_zero ) / W;
+    const y = -( selected.Y - Y_zero ) / H;
+    
+    console.log(selected.text);
+    console.log(W);
+    console.log(`X: ${selected.X} X_zero: ${X_zero} result: ${x}`);
+
     return [
         Math.ceil(x * 100) / 100 ,
         Math.ceil(y * 100) / 100

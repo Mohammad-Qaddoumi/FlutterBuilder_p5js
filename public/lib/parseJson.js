@@ -13,8 +13,6 @@ export default function parseJson(p5)
     p5.selectedScreen = 0;
     if(Object.keys(DESIGN).length !== 0)
     {
-        if(DESIGN['count'])
-            config.count = DESIGN['count'];
         for(let i=0; i < DESIGN.numberOfScreens; i++)
         {
             let screen = new Grid(config.gridPoints);
@@ -43,6 +41,8 @@ export default function parseJson(p5)
             }
             p5.screens.push(screen);
         }
+        if(DESIGN['count'])
+            config.count = DESIGN['count'];     
     }
     else 
     {
@@ -90,6 +90,7 @@ function getchildren( children , p5 )
                 childs[i].backgroundColor = children[`child${i+1}`]["backgroundColor"];  
                 childs[i].fontSize = children[`child${i+1}`]["fontSize"];
                 childs[i].Id = children[`child${i+1}`]["id"];   
+                childs[i].canMove = children[`child${i+1}`]["canMove"];   
                 if(children[`child${i+1}`]["onPress"])
                     childs[i].events = children[`child${i+1}`]["onPress"].split(';');  
                 childs[i].drag = false;
