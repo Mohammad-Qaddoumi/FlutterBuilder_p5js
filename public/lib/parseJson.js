@@ -31,7 +31,7 @@ export default function parseJson(p5)
                     screen.height -= config.gridPoints.H * 0.09;
                     screen.appBar.text = DESIGN[`screen${i}`][`appBar`] ;
                     screen.appBar.backgroundColor = DESIGN[`screen${i}`][`appBarColor`] ;
-                    screen.appBar.textColor = DESIGN[`screen${i}`][`appBarTextColor`] ;
+                    screen.appBar.foregroundColor = DESIGN[`screen${i}`][`appBarTextColor`] ;
                     screen.appBar.name = DESIGN[`screen${i}`]["appBarName"];
                 }
                 screen.backgroundColor = DESIGN[`screen${i}`]["screenColor"];

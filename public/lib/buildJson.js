@@ -15,7 +15,7 @@ export default function buildJSON(p5)
         {
             mJSON[`screen${j}`][`appBar`] = screens[j].appBar.text;
             mJSON[`screen${j}`][`appBarColor`] = screens[j].appBar.backgroundColor;
-            mJSON[`screen${j}`][`appBarTextColor`] = screens[j].appBar.textColor;
+            mJSON[`screen${j}`][`appBarTextColor`] = screens[j].appBar.foregroundColor;
             mJSON[`screen${j}`]["appBarName"] = screens[j].appBar.name;
         } 
 
@@ -36,27 +36,35 @@ function getChildsAsJson( p5, children , selectedScreen )
     for(let i = 0; i < children.length; i++)
     {
         collection[`child${i+1}`] = {};
+        if(children[i]._type === "Input")
+        {
+            collection[`child${i+1}`]["type"]     =  children[i]._type;
+            collection[`child${i+1}`]["content"]  =  children[i].text;
+            collection[`child${i+1}`]["position"] =  setElementPosition( p5 , children[i] , selectedScreen);
+            collection[`child${i+1}`]["onPress"]  =  children[i].events.join(';');
+            continue;
+        }
         collection[`child${i+1}`].X                 = children[i].X;
         collection[`child${i+1}`].Y                 = children[i].Y;
         collection[`child${i+1}`]._width            = children[i].width;
         collection[`child${i+1}`]._height           = children[i].height;
-        collection[`child${i+1}`]["type"]           =  children[i]._type;
-        collection[`child${i+1}`]["name"]           =  children[i].name;
-        collection[`child${i+1}`]["content"]        =  children[i].text;
-        collection[`child${i+1}`]["colorFromRGB"]   =  children[i].foregroundColor;
-        collection[`child${i+1}`]["backgroundColor"]=  children[i].backgroundColor;
-        collection[`child${i+1}`]["fontSize"]       =  Math.floor(children[i].fontSize);
-        collection[`child${i+1}`]["id"]             =  children[i].Id;
-        collection[`child${i+1}`]["canMove"]        =  children[i].canMove;
+        collection[`child${i+1}`]["type"]           = children[i]._type;
+        collection[`child${i+1}`]["name"]           = children[i].name;
+        collection[`child${i+1}`]["content"]        = children[i].text;
+        collection[`child${i+1}`]["colorFromRGB"]   = children[i].foregroundColor;
+        collection[`child${i+1}`]["backgroundColor"]= children[i].backgroundColor;
+        collection[`child${i+1}`]["fontSize"]       = Math.floor(children[i].fontSize);
+        collection[`child${i+1}`]["id"]             = children[i].Id;
+        collection[`child${i+1}`]["canMove"]        = children[i].canMove;
         if(!isNaN(selectedScreen)){
-            collection[`child${i+1}`]["position"]   =  setElementPosition( p5 , children[i] , selectedScreen);
-            collection[`child${i+1}`].width         =  getCalculatedWidth( p5 , children[i] , selectedScreen);
-            collection[`child${i+1}`].height        =  getCalculatedHeight( p5 , children[i] , selectedScreen);
+            collection[`child${i+1}`]["position"]   = setElementPosition( p5 , children[i] , selectedScreen);
+            collection[`child${i+1}`].width         = getCalculatedWidth( p5 , children[i] , selectedScreen);
+            collection[`child${i+1}`].height        = getCalculatedHeight( p5 , children[i] , selectedScreen);
         }
         if(children[i].events)
             collection[`child${i+1}`]["onPress"]    =  children[i].events.join(';');
         if(children[i].img)
-            collection[`child${i+1}`]["imageType"] = children[i].img.imageType;
+            collection[`child${i+1}`]["imageType"]  = children[i].img.imageType;
     }
     return collection;
 }

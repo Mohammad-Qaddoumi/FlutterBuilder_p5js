@@ -84,6 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         const APP_ID = <?php echo json_encode($app_id); ?>;
         const ROOM_ID = <?php echo json_encode($room_id); ?>;
         const USER_NAME = <?php echo json_encode($user_name); ?>;
+        let APP;
         let DESIGN = `<?php echo $design; ?>`;
         try {
             DESIGN = DESIGN.replace(/(\r+|\n+)/g, " ");
@@ -191,6 +192,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <input class="transition-animation" type="checkbox" name="lock" id="lock">
                         <Label for="lock">lock</Label>
                     </div>
+                    <div class="itemType">Type :</div>
                     <div>
                         <input id="btnAddImage" type="button" class="button-style transition-animation" value="Add Image">
                     </div>
@@ -206,7 +208,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <div>Name:&nbsp;</div>
                         <input autocomplete="off" placeholder="Enter Widget name here" type="text" class="txtName transition-animation" id="name" />
                     </div>
-                    <div class="itemType">Type :</div>
+                    
                     <div class="size">
                         <div class="size-name transition-animation">Size:&nbsp;</div>
                         <input class="userSize transition-animation" type="number" name="userSize" id="userSize" value="40" min="10" max="100">
