@@ -16,6 +16,10 @@ export default function released(p5,data)
     if(p5.selected.moved) 
     {
         selected.moved = false;
+        if(selected._type === "Input")
+        {
+            selected.fix_X_position(p5);
+        }
         p5.socket.emit('stopped',ROOM_ID,{EMAIL});
         let index = p5.screens[p5.selectedScreen].children.findIndex(e => e.Id === selected.Id);
         if(index !== -1)

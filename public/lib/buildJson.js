@@ -47,11 +47,11 @@ function getChildsAsJson( p5, children , selectedScreen )
         collection[`child${i+1}`]["backgroundColor"]=  children[i].backgroundColor;
         collection[`child${i+1}`]["fontSize"]       =  Math.floor(children[i].fontSize);
         collection[`child${i+1}`]["id"]             =  children[i].Id;
-        collection[`child${i+1}`]["canMove"]             =  children[i].canMove;
+        collection[`child${i+1}`]["canMove"]        =  children[i].canMove;
         if(!isNaN(selectedScreen)){
-            collection[`child${i+1}`]["position"]       =  setElementPosition( p5 , children[i] , selectedScreen);
-            collection[`child${i+1}`].width             =  getCalculatedWidth( p5 , children[i] , selectedScreen);
-            collection[`child${i+1}`].height            =  getCalculatedHeight( p5 , children[i] , selectedScreen);
+            collection[`child${i+1}`]["position"]   =  setElementPosition( p5 , children[i] , selectedScreen);
+            collection[`child${i+1}`].width         =  getCalculatedWidth( p5 , children[i] , selectedScreen);
+            collection[`child${i+1}`].height        =  getCalculatedHeight( p5 , children[i] , selectedScreen);
         }
         if(children[i].events)
             collection[`child${i+1}`]["onPress"]    =  children[i].events.join(';');
@@ -63,23 +63,22 @@ function getChildsAsJson( p5, children , selectedScreen )
 
 function setElementPosition(p5,selected,selectedScreen)
 {
-    const W = p5.screens[selectedScreen].width / 2;
+    const W = p5.screens[selectedScreen].width /3;
     const H = p5.screens[selectedScreen].height / 2;
     const X_zero = W + p5.screens[selectedScreen].X;
     const Y_zero = H + p5.screens[selectedScreen].Y;
 
     let x = ( selected.X - X_zero ) / W;
-    if(x >=0 )
-        x = ( selected.X + (selected.width / 2) - X_zero ) / W;
-    const y = -( selected.Y - Y_zero ) / H;
-    
-    console.log(selected.text);
-    console.log(W);
-    console.log(`X: ${selected.X} X_zero: ${X_zero} result: ${x}`);
-
+    // if(x >= 0 )
+        // x = ( selected.X + (selected.width / 2) - X_zero ) / W;
+    let y = -( selected.Y - Y_zero ) / H;
+    if(selected._type === "Input")
+        {x = 0.0;y=0.0;}
     return [
-        Math.ceil(x * 100) / 100 ,
-        Math.ceil(y * 100) / 100
+        // Math.ceil(x * 100) / 100.0 ,
+        x,
+        y
+        // Math.ceil(y * 100) / 100.0
     ];
 }
 function getCalculatedWidth(p5,selected,selectedScreen)
@@ -92,3 +91,4 @@ function getCalculatedHeight(p5,selected,selectedScreen)
     let h = selected.height / p5.screens[selectedScreen].height;
     return Math.ceil(h * 100) / 100;
 }
+

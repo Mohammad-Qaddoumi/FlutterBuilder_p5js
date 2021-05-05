@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $response = file_get_contents($url, false, $context);
     //TODO: Load the json from the database ...
     $design = '{}';
-    $design = $response;
+    // $design = $response;
 } else {
     header("location: ../connect.php");
     exit;
@@ -187,8 +187,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         </div>
                     </div>
                     <div class="selectedItem">SelectedItem:</div>
-                    <div class="locked transition-animation">
-                        <input type="checkbox" name="lock" id="lock" checked>
+                    <div class="locked">
+                        <input class="transition-animation" type="checkbox" name="lock" id="lock">
                         <Label for="lock">lock</Label>
                     </div>
                     <div>

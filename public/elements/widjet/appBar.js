@@ -15,7 +15,7 @@ export default class AppBar extends Widjet
         p5.rectMode(p5.CORNER);
         p5.noStroke();
         p5.fill(this.backgroundColor[0], this.backgroundColor[1], this.backgroundColor[2]);
-        p5.rect(this.X, this.Y, this.width, this.height);
+        p5.rect(this.X, this.Y, this.width, this.height,7);
 
         p5.fill(this.foregroundColor[0], this.foregroundColor[1], this.foregroundColor[2]);
         p5.textSize(this.textFontSize);

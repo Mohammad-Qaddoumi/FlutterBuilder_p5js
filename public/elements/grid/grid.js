@@ -16,6 +16,17 @@ export default class Grid extends Element
     sketch(p5)
     {
         // this.move(p5);
+        let h,y;
+        if(this.appBar)
+        {
+            y = this.appBar.Y;
+            h = this.appBar.Height + this.Height;
+        }
+        else
+        {
+            y = this.Y;
+            h = this.Height;
+        }
         
         p5.push();
         // if(!p5.showBar)
@@ -27,16 +38,16 @@ export default class Grid extends Element
             p5.noStroke();
         if(!this.noBackground)
         {
-            p5.push();
+            // p5.push();
             p5.fill(this.backgroundColor[0], this.backgroundColor[1], this.backgroundColor[2]);
-            p5.rect(this.X,this.Y,this.Width,this.Height);
-            p5.pop();
+            p5.rect(this.X,y,this.Width,h,9);
+            // p5.pop();
         }
         else{
-            p5.push();
+            // p5.push();
             p5.noFill();
-            p5.rect(this.X,this.Y,this.Width,this.Height);
-            p5.pop();
+            p5.rect(this.X,y,this.Width,h,9);
+            // p5.pop();
         }
         p5.pop();
 

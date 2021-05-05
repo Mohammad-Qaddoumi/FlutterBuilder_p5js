@@ -2,6 +2,7 @@ import Circle from './widjet/circle.js';
 import FlatButton from './widjet/flatButton.js';
 import Text from './widjet/Text.js';
 import ImageWidjet from './widjet/image.js';
+import Input from './widjet/input.js';
 // import Row from './grid/row.js';
 // import Column from './grid/column.js';
 export default class WidjetBuilder 
@@ -31,6 +32,11 @@ export default class WidjetBuilder
                 case "Image":
                 {
                     widget = new ImageWidjet({ X: element.X, Y: element.Y }, 99, 40);
+                    break;
+                }
+                case "Input":
+                {
+                    widget = new Input({ X: element.X, Y: element.Y }, 261, 40);
                     break;
                 }
                 // case "Row":

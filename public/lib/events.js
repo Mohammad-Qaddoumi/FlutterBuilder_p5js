@@ -1,6 +1,7 @@
 import Grid from '../elements/grid/grid.js';
 import AppBar from '../elements/widjet/appBar.js';
 import Text from '../elements/widjet/Text.js';
+import Input from '../elements/widjet/input.js';
 import ImageWidjet from '../elements/widjet/image.js';
 import config from './config.js';
 import release from './mouseRelease.js';
@@ -110,7 +111,7 @@ function setEvents(p5)
 
     dlebtn.addEventListener('click', e => {
         if(p5.selected.Id === p5.screens[p5.selectedScreen].Id) return;
-        if(p5.selected.Id === p5.screens[p5.selectedScreen].appBar.Id)return;
+        // if(p5.selected.Id === p5.screens[p5.selectedScreen].appBar.Id)return;
         if (!confirm(`Do you want to delete ${p5.selected.name}?`)) return;
         let index = p5.screens[p5.selectedScreen].children.findIndex(e => e.Id === p5.selected.Id);
         if(index >= 0)
@@ -125,6 +126,12 @@ function setEvents(p5)
                 p5.screens[p5.selectedScreen].unSortedWidjets.splice(index, 1);
                 p5.socket.emit('deleteItem',ROOM_ID,JSON.stringify({EMAIL,Id:p5.selected.Id}));
             }
+        }
+        if(p5.screens[p5.selectedScreen].appBar && p5.selected.Id === p5.screens[p5.selectedScreen].appBar.Id)
+        {
+            p5.screens[p5.selectedScreen].appBar = undefined;
+            p5.screens[p5.selectedScreen].Y = config.gridPoints.Y;
+            p5.screens[p5.selectedScreen].height = config.gridPoints.H;
         }
         p5.selected = p5.screens[p5.selectedScreen];
         p5.socket.emit('selected',ROOM_ID,JSON.stringify({EMAIL,Id:p5.selected.Id}));
@@ -403,6 +410,10 @@ function changeTheSelectedProperty(p5)
     {
         document.querySelector('.locked').style.display = 'none';
         document.querySelector('.screenaction').style.display = 'block';
+        if(p5.screens[p5.selectedScreen].appBar)
+            btnAppbar.style.display = 'none';
+        else
+            btnAppbar.style.display = 'flex';
         document.querySelector('.size').style.display = 'none';
         dlebtn.style.display = 'none';
         foregroundColor.style.display = 'none';
@@ -461,6 +472,8 @@ function changeTheSelectedProperty(p5)
             boxWidth.value = p5.selected.width;
             boxHeight.value = p5.selected.height;
         }
+        if(p5.selected instanceof Input)
+            widthAndHeight.style.display = 'none';
 
     }
     txtName.value = p5.selected.name;

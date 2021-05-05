@@ -2,11 +2,9 @@ import buildJSON from './buildJson.js';
 
 export default async function saveAsJson(p5) 
 {
-    const data = JSON.stringify( buildJSON(p5), null, 0 );
-    // if ((window.location.href).includes('127.0.0.1') || (window.location.href).includes('localhost')) 
-    // {
-        console.log(data);
-    // }
+    const json = buildJSON(p5);
+    console.log(json);
+    const data = JSON.stringify( json, null, 0 );
     try
     {
         const url = "https://less-code.000webhostapp.com/save.php";
