@@ -39,20 +39,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $app_id = $_POST['appid'];
     }
 
-    $room_id = 'roomid';
-    $url = 'https://less-code.000webhostapp.com/recieve2.php';
     $json = json_encode(['app_id' => "$app_id"]);
-
     $options = ['http' => [
         'method' => 'POST',
         'header' => 'Content-type:application/json',
         'content' => $json
     ]];
+    
+    $room_id = 'roomid';
+    $url = 'https://less-code.000webhostapp.com/getRoomId.php';
     $context = stream_context_create($options);
     $response = file_get_contents($url, false, $context);
-    //TODO: Load the json from the database ...
+    $room_id = $response;
+
+    $url = 'https://less-code.000webhostapp.com/recieve2.php';
+    $context = stream_context_create($options);
+    $response = file_get_contents($url, false, $context);
+    $design = $response;
     $design = '{}';
-    // $design = $response;
 } else {
     header("location: ../connect.php");
     exit;
