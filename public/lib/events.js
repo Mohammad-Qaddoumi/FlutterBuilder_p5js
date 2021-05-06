@@ -105,9 +105,11 @@ function setEvents(p5)
 
     bgCV.addEventListener('input', e => {
         p5.selected.backgroundColor = hexToRgb(e.target.value);
+        p5.socket.emit('backgroundColor',ROOM_ID,{EMAIL,bc:p5.selected.backgroundColor});
     });
     fgCV.addEventListener('input', e => {
         p5.selected.foregroundColor = hexToRgb(e.target.value);
+        p5.socket.emit('foregroundColor',ROOM_ID,{EMAIL,bc:p5.selected.foregroundColor});
     });
 
     dlebtn.addEventListener('click', e => {
@@ -118,14 +120,14 @@ function setEvents(p5)
         if(index >= 0)
         {
             p5.screens[p5.selectedScreen].children.splice(index, 1);
-            p5.socket.emit('deleteItem',ROOM_ID,JSON.stringify({EMAIL,Id:p5.selected.Id}));
+            p5.socket.emit('deleteItem',ROOM_ID,{EMAIL,Id:p5.selected.Id});
         }    
         else
         {
             index = p5.screens[p5.selectedScreen].unSortedWidjets.findIndex(e => e.Id === p5.selected.Id); 
             if(index >= 0){
                 p5.screens[p5.selectedScreen].unSortedWidjets.splice(index, 1);
-                p5.socket.emit('deleteItem',ROOM_ID,JSON.stringify({EMAIL,Id:p5.selected.Id}));
+                p5.socket.emit('deleteItem',ROOM_ID,{EMAIL,Id:p5.selected.Id});
             }
         }
         if(p5.screens[p5.selectedScreen].appBar && p5.selected.Id === p5.screens[p5.selectedScreen].appBar.Id)
@@ -133,6 +135,7 @@ function setEvents(p5)
             p5.screens[p5.selectedScreen].appBar = undefined;
             p5.screens[p5.selectedScreen].Y = config.gridPoints.Y;
             p5.screens[p5.selectedScreen].height = config.gridPoints.H;
+            p5.socket.emit('deleteItem',ROOM_ID,{EMAIL,Id:p5.selected.Id,appBar:true});
         }
         p5.selected = p5.screens[p5.selectedScreen];
         p5.socket.emit('selected',ROOM_ID,JSON.stringify({EMAIL,Id:p5.selected.Id}));
@@ -168,17 +171,15 @@ function setEvents(p5)
             uSize.value = 99;
             // return;
         }
-
-        if(p5.selected instanceof Grid)
-        {
-            p5.selected.size = uSize.value / 100;
-            release.restTheCoordinates( p5.screens[p5.selectedScreen].children );
-        }
-        else if(p5.selected instanceof Text)
-        {
-            p5.selected.fontSize = uSize.value - 0;
-            release.restTheCoordinates( p5.screens[p5.selectedScreen].children );
-        }
+        // if(p5.selected instanceof Grid)
+        // {
+        //     p5.selected.size = uSize.value / 100;
+        // }
+        // else if(p5.selected instanceof Text)
+        // {
+               p5.selected.fontSize = uSize.value - 0;
+               p5.socket.emit('fontSize',ROOM_ID,{EMAIL,fontSize:p5.selected.fontSize});
+        // }
         
 
     });
@@ -189,6 +190,7 @@ function setEvents(p5)
         if(!(p5.selected instanceof Grid))
         {
             p5.selected.text = innerText.value;
+            p5.socket.emit('Itemtext',ROOM_ID,{EMAIL,text:p5.selected.text});
         }
     });
   
@@ -196,6 +198,7 @@ function setEvents(p5)
         if (p5.selected === null) return;
         if(p5.selected.Id === p5.screens[p5.selectedScreen].Id) return;
         p5.selected.name = txtName.value;
+        p5.socket.emit('txtName',ROOM_ID,{EMAIL,name:p5.selected.name});
         const s = document.querySelector('.selectedItem');
         s.innerHTML = `SelectedItem: ${p5.selected.name}`;
     });
@@ -208,6 +211,7 @@ function setEvents(p5)
         if (p5.selected === null) return;
         if(p5.selected.Id === p5.screens[p5.selectedScreen].Id) return;
         p5.selected.canMove = !lock.checked;
+        p5.socket.emit('canMove',ROOM_ID,{EMAIL,canMove:p5.selected.canMove});
     });
 
     showProperty.addEventListener('click' , e => {
@@ -266,6 +270,7 @@ function setEvents(p5)
             // return;
         }
         p5.selected.width = boxWidth.value - 0;
+        p5.socket.emit('boxWidth',ROOM_ID,{EMAIL,width:p5.selected.width});
     });
     boxHeight.addEventListener('input', e =>{
         if (p5.selected === null) return;
@@ -281,6 +286,7 @@ function setEvents(p5)
             // return;
         }
         p5.selected.height = boxHeight.value - 0;
+        p5.socket.emit('boxHeight',ROOM_ID,{EMAIL,height:p5.selected.height});
     });
 
     document.querySelector('.btnDeleteScreen').addEventListener('click', e => {

@@ -5,6 +5,7 @@ import released from './mouseRelease.js';
 import Partner from '../elements/team/partner.js';
 import buildJSON from './buildJson.js';
 import parseJson from './parseJson.js';
+import config from './config.js';
 import {loadSavedImage} from './base64Encode.js';
 
 export default function buildSocketConnection(p5)
@@ -74,13 +75,8 @@ export default function buildSocketConnection(p5)
         {
             if( events.addAppBar(p5,data.Id) )
             {
-                const index = p5.partners.findIndex( i => i.email === data.EMAIL );
-                if( index !== -1 )
-                {
-                    p5.partners[index].selected = p5.screens[p5.selectedScreen].appBar;
-                }
-                // for(let p of p5.partners)
-                //     p.selected = p5.screens[p5.selectedScreen];
+                for(let i=0;i<p5.partners.length;i++)
+                    p5.partners[i].selected = p5.screens[p5.selectedScreen];
 
             }
         }
@@ -96,6 +92,17 @@ export default function buildSocketConnection(p5)
                 index = p5.screens[p5.selectedScreen].unSortedWidjets.findIndex(e => e.Id === data.Id); 
                 if(index >= 0)
                     p5.screens[p5.selectedScreen].unSortedWidjets.splice(index, 1);
+            }
+            if(data.appBar)
+            {
+                p5.screens[p5.selectedScreen].appBar = undefined;
+                p5.screens[p5.selectedScreen].Y = config.gridPoints.Y;
+                p5.screens[p5.selectedScreen].height = config.gridPoints.H;
+            }
+            p5.selected = p5.screens[p5.selectedScreen];
+            for(let i=0;i<p5.partners.length;i++)
+            {
+                p5.partners[i].selected = p5.selected;
             }
         }
     }); 
@@ -147,7 +154,88 @@ export default function buildSocketConnection(p5)
                 }
             }
         }
-    }); 
+    });
+    p5.socket.on('backgroundColor', data => {
+        if(data)
+        {
+            const index = p5.partners.findIndex(t=> t.email === data.EMAIL);
+            if( index !== -1 )
+            {
+                p5.partners[index].selected.backgroundColor = data.bc;
+            }
+        }
+    });
+    p5.socket.on('foregroundColor', data => {
+        if(data)
+        {
+            const index = p5.partners.findIndex(t=> t.email === data.EMAIL);
+            if( index !== -1 )
+            {
+                p5.partners[index].selected.foregroundColor = data.bc;
+            }
+        }
+    });
+    p5.socket.on('fontSize', data => {
+        if(data)
+        {
+            const index = p5.partners.findIndex(t=> t.email === data.EMAIL);
+            if( index !== -1 )
+            {
+                p5.partners[index].selected.fontSize = data.fontSize;
+            }
+        }
+    });
+    p5.socket.on('Itemtext', data => {
+        if(data)
+        {
+            const index = p5.partners.findIndex(t=> t.email === data.EMAIL);
+            if( index !== -1 )
+            {
+                p5.partners[index].selected.text = data.text;
+            }
+        }
+    });
+    p5.socket.on('txtName', data => {
+        if(data)
+        {
+            const index = p5.partners.findIndex(t=> t.email === data.EMAIL);
+            if( index !== -1 )
+            {
+                p5.partners[index].selected.name = data.name;
+            }
+        }
+    });
+    p5.socket.on('canMove', data => {
+        if(data)
+        {
+            const index = p5.partners.findIndex(t=> t.email === data.EMAIL);
+            if( index !== -1 )
+            {
+                p5.partners[index].selected.canMove = data.canMove;
+            }
+        }
+    });
+    p5.socket.on('boxWidth', data => {
+        if(data)
+        {
+            const index = p5.partners.findIndex(t=> t.email === data.EMAIL);
+            if( index !== -1 )
+            {
+                p5.partners[index].selected.width = data.width;
+            }
+        }
+    });
+    p5.socket.on('boxHeight', data => {
+        if(data)
+        {
+            const index = p5.partners.findIndex(t=> t.email === data.EMAIL);
+            if( index !== -1 )
+            {
+                p5.partners[index].selected.height = data.height;
+            }
+        }
+    });
+
     p5.socket.on('newItem', data => {
         if(data)
         {

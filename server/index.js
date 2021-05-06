@@ -45,6 +45,30 @@ io.sockets.on('connection', (socket) => {
     socket.on('addImage' , (roomId,data) => {
       socket.to(roomId).emit('addImage', data);
     });
+    socket.on('backgroundColor' , (roomId,data) => {
+      socket.to(roomId).emit('backgroundColor', data);
+    });
+    socket.on('foregroundColor' , (roomId,data) => {
+      socket.to(roomId).emit('foregroundColor', data);
+    });
+    socket.on('fontSize' , (roomId,data) => {
+      socket.to(roomId).emit('fontSize', data);
+    });
+    socket.on('Itemtext' , (roomId,data) => {
+      socket.to(roomId).emit('Itemtext', data);
+    });
+    socket.on('txtName' , (roomId,data) => {
+      socket.to(roomId).emit('txtName', data);
+    });
+    socket.on('canMove' , (roomId,data) => {
+      socket.to(roomId).emit('canMove', data);
+    });
+    socket.on('boxWidth' , (roomId,data) => {
+      socket.to(roomId).emit('boxWidth', data);
+    });
+    socket.on('boxHeight' , (roomId,data) => {
+      socket.to(roomId).emit('boxHeight', data);
+    });
     socket.on('stopped' , (roomId,data) => {
       socket.to(roomId).emit('stopped', data);
     });
