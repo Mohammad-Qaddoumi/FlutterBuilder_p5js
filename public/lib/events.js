@@ -281,6 +281,28 @@ function setEvents(p5)
         }
         p5.selected.height = boxHeight.value - 0;
     });
+
+    document.querySelector('.btnDeleteScreen').addEventListener('click', e => {
+        p5.socket.emit('deleteScreen',ROOM_ID,{EMAIL,selectedScreen:p5.selectedScreen});
+        console.log('delete screen');
+        if(p5.screens.length === 1)
+        {
+            addNewScreen(p5);
+            p5.selectedScreen = 0;
+            p5.screens.splice(0,1);
+        }
+        else 
+        {
+            p5.screens.splice(p5.selectedScreen,1);
+            p5.selectedScreen--;
+        }
+        p5.selected = p5.screens[p5.selectedScreen];
+        // p5.socket.emit('selected',ROOM_ID,JSON.stringify({EMAIL,Id:p5.selected.Id}));
+        changeTheSelectedProperty(p5);
+        resetScreens(p5);
+        addTheScreenElement(p5);
+    });
+
     addTheScreenElement(p5);
 }
 
@@ -336,6 +358,35 @@ function addNewScreen(p5,id)
     sc.value = p5.selectedScreen;
     changeTheSelectedProperty(p5);
     addTheScreenElement(p5);
+}
+
+function resetScreens(p5)
+{
+    const screensTag = document.querySelector('.screens');
+    removeAllChildNodes(screensTag);
+    removeAllChildNodes(sc);
+    for(let i=0;i<p5.screens.length;i++)
+    {
+        const newScreen = document.createElement('a');
+        newScreen.addEventListener('click', e => {
+            p5.selectedScreen = newScreen.dataset.value - 0;
+            p5.selected = p5.screens[p5.selectedScreen];
+            p5.socket.emit('selectedScreen',ROOM_ID,JSON.stringify({EMAIL,screen_number:p5.selectedScreen}));
+            sc.value = p5.selectedScreen;
+            addTheScreenElement(p5);
+            changeTheSelectedProperty(p5) ;
+        });
+        newScreen.setAttribute('href', '#');
+        newScreen.dataset.value = i;
+        newScreen.innerText = `Screen ${i+1}`;
+        screensTag.appendChild(newScreen);
+        newScreen.className += "list-item screen-value";
+        const option = document.createElement('option');
+        option.value = i;
+        option.innerText = `Screen ${i + 1}`;
+        sc.appendChild(option);
+    }
+    sc.value = p5.selectedScreen;
 }
 
 function addAppBar(p5,id)
@@ -484,5 +535,6 @@ export default {
     addTheScreenElement,
     changeTheSelectedProperty,
     addNewScreen,
-    addAppBar
+    addAppBar,
+    resetScreens
 }

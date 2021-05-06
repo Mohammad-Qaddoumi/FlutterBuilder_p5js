@@ -39,6 +39,9 @@ io.sockets.on('connection', (socket) => {
     socket.on('deleteItem' , (roomId,data) => {
       socket.to(roomId).emit('deleteItem', data);
     });
+    socket.on('deleteScreen' , (roomId,data) => {
+      socket.to(roomId).emit('deleteItem', data);
+    });
     socket.on('stopped' , (roomId,data) => {
       socket.to(roomId).emit('stopped', data);
     });

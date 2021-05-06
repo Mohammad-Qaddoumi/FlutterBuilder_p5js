@@ -98,6 +98,30 @@ export default function buildSocketConnection(p5)
             }
         }
     }); 
+    p5.socket.on('deleteScreen', data => {
+        if(data)
+        {
+            if(p5.screens.length === 1)
+            {
+                events.addNewScreen(p5);
+                p5.selectedScreen = 0;
+                p5.screens.splice(0,1);
+            }
+            else 
+            {
+                p5.screens.splice(data.selectedScreen,1);
+                p5.selectedScreen--;
+            }
+            p5.selected = p5.screens[p5.selectedScreen];
+            for(let i=0;i<p5.partners.length;i++)
+            {
+                p5.partners[i].selected = p5.selected;
+            }
+            events.changeTheSelectedProperty(p5);
+            events.resetScreens(p5);
+            events.addTheScreenElement(p5);
+        }
+    }); 
     p5.socket.on('newItem', data => {
         if(data)
         {

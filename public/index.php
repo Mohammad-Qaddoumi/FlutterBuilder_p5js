@@ -84,11 +84,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link rel="stylesheet" href="./styles/add_image.css">
 
     <script>
+        let APP;
         const EMAIL = <?php echo json_encode($email); ?>;
         const APP_ID = <?php echo json_encode($app_id); ?>;
         const ROOM_ID = <?php echo json_encode($room_id); ?>;
         const USER_NAME = <?php echo json_encode($user_name); ?>;
-        let APP;
         let DESIGN = `<?php echo $design; ?>`;
         try {
             DESIGN = DESIGN.replace(/(\r+|\n+)/g, " ");

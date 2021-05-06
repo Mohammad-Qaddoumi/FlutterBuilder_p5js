@@ -7,6 +7,7 @@ export default class Input extends Widjet
         super({X : point.X , Y : point.Y, W : width, H : height},true,"Input","Enter your text here");
         this.curserDrawer = null;
         this.flip = 0;
+        this.foregroundColor = [125,125,125];
     }
 
     get text_X () 
