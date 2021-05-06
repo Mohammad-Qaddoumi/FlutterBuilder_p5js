@@ -5,6 +5,7 @@ import released from './mouseRelease.js';
 import Partner from '../elements/team/partner.js';
 import buildJSON from './buildJson.js';
 import parseJson from './parseJson.js';
+import {loadSavedImage} from './base64Encode.js';
 
 export default function buildSocketConnection(p5)
 {
@@ -47,12 +48,11 @@ export default function buildSocketConnection(p5)
     p5.socket.on('selectedScreen' , data => {
         if(data){ 
             data = JSON.parse(data);
-            if(p5.screens.children.length <= data.screen_number)
-                return;
             p5.selectedScreen = data.screen_number;
             p5.selected = p5.screens[p5.selectedScreen];
-            for(let p in p5.partners)
-                p.selected = p5.screens[p5.selectedScreen];
+            document.querySelector('.screen-collection').value = p5.selectedScreen;
+            for(let i=0;i<p5.partners.length;i++)
+                p5.partners[i].selected = p5.screens[p5.selectedScreen];
         }
     });
     p5.socket.on('stopped', data => {
@@ -65,8 +65,8 @@ export default function buildSocketConnection(p5)
         if(data)
         {
             events.addNewScreen(p5,data.Id);
-            for(let p in p5.partners)
-                p.selected = p5.screens[p5.selectedScreen];
+            for(let i=0;i<p5.partners.length;i++)
+                p5.partners[i].selected = p5.screens[p5.selectedScreen];
         }
     }); 
     p5.socket.on('addAppBar', data => {
@@ -79,8 +79,9 @@ export default function buildSocketConnection(p5)
                 {
                     p5.partners[index].selected = p5.screens[p5.selectedScreen].appBar;
                 }
-                for(let p in p5.partners)
-                    p.selected = p5.screens[p5.selectedScreen];
+                // for(let p of p5.partners)
+                //     p.selected = p5.screens[p5.selectedScreen];
+
             }
         }
     }); 
@@ -103,14 +104,18 @@ export default function buildSocketConnection(p5)
         {
             if(p5.screens.length === 1)
             {
-                events.addNewScreen(p5);
-                p5.selectedScreen = 0;
-                p5.screens.splice(0,1);
+                let index = p5.screens.findIndex(t => t.Id === data.Id);
+                if(index === -1)
+                {
+                    events.addNewScreen(p5,data.Id);
+                    p5.selectedScreen = 0;
+                    p5.screens.splice(0,1);
+                }
             }
             else 
             {
                 p5.screens.splice(data.selectedScreen,1);
-                p5.selectedScreen--;
+                p5.selectedScreen = 0;
             }
             p5.selected = p5.screens[p5.selectedScreen];
             for(let i=0;i<p5.partners.length;i++)
@@ -120,6 +125,27 @@ export default function buildSocketConnection(p5)
             events.changeTheSelectedProperty(p5);
             events.resetScreens(p5);
             events.addTheScreenElement(p5);
+        }
+    }); 
+    p5.socket.on('addImage', data => {
+        if(data)
+        {
+            let index = p5.screens[p5.selectedScreen].children.findIndex(e => e.Id === data.Id);
+            if(index >= 0)
+            {
+                p5.screens[p5.selectedScreen].children[index].text = data.url;
+                p5.screens[p5.selectedScreen].children[index].img.imageType = data.type;
+                loadSavedImage(p5,{Id:data.Id , type : data.type},p5.screens[p5.selectedScreen].children[index]);
+            }
+            else{
+                index = p5.screens[p5.selectedScreen].unSortedWidjets.findIndex(t => t.Id === data.Id);
+                if(index >= 0)
+                {
+                    p5.screens[p5.selectedScreen].children[index].text = data.url;
+                    p5.screens[p5.selectedScreen].children[index].img.imageType = data.type;
+                    loadSavedImage(p5,{Id:data.Id , type : data.type},p5.screens[p5.selectedScreen].unSortedWidjets[index]);
+                }
+            }
         }
     }); 
     p5.socket.on('newItem', data => {

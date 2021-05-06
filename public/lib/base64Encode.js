@@ -88,6 +88,7 @@ function convertImgToBase64(p5,url,saveToServer){
             const type = (dataURL.split(';')[0]).split('/')[1];
             selected.img.imageType = type;
             selected.text = `https://less-code.000webhostapp.com/appImagesFile/${APP_ID}/${selected.Id}.${type}`;
+            p5.socket.emit('addImage',ROOM_ID,{Id:selected.Id,type:type,url:selected.text});
         }
         const img2  = p5.createImg(dataURL,'error');
         img2.hide();
@@ -118,6 +119,7 @@ function encodeImageFileAsURL(p5,fileToLoad,saveToServer){
             const type = (fileLoadedEvent.target.result.split(';')[0]).split('/')[1];
             selected.img.imageType = type;
             selected.text = `https://less-code.000webhostapp.com/appImagesFile/${APP_ID}/${selected.Id}.${type}`;
+            p5.socket.emit('addImage',ROOM_ID,{Id:selected.Id,type:type,url:selected.text});
         }
         img2.hide();
         selected.img.p5Image = img2;

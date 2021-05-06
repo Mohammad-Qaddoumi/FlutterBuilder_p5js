@@ -40,7 +40,10 @@ io.sockets.on('connection', (socket) => {
       socket.to(roomId).emit('deleteItem', data);
     });
     socket.on('deleteScreen' , (roomId,data) => {
-      socket.to(roomId).emit('deleteItem', data);
+      socket.to(roomId).emit('deleteScreen', data);
+    });
+    socket.on('addImage' , (roomId,data) => {
+      socket.to(roomId).emit('addImage', data);
     });
     socket.on('stopped' , (roomId,data) => {
       socket.to(roomId).emit('stopped', data);

@@ -7,6 +7,7 @@ import config from './config.js';
 import release from './mouseRelease.js';
 import saveAsJson from './ajax.js';
 import binaryToBase64 from './base64Encode.js';
+import UUID from './idgenerator.js';
 
 const dlebtn = document.querySelector('.btnDelete');
 const updbtn = document.querySelector('.btnUpdate');
@@ -283,18 +284,18 @@ function setEvents(p5)
     });
 
     document.querySelector('.btnDeleteScreen').addEventListener('click', e => {
-        p5.socket.emit('deleteScreen',ROOM_ID,{EMAIL,selectedScreen:p5.selectedScreen});
-        console.log('delete screen');
         if(p5.screens.length === 1)
         {
-            addNewScreen(p5);
+            addNewScreen(p5,UUID.generate());
+            p5.socket.emit('deleteScreen',ROOM_ID,{EMAIL,selectedScreen:p5.selectedScreen,Id:p5.screens[0].Id});
             p5.selectedScreen = 0;
             p5.screens.splice(0,1);
         }
         else 
         {
+            p5.socket.emit('deleteScreen',ROOM_ID,{EMAIL,selectedScreen:p5.selectedScreen});
             p5.screens.splice(p5.selectedScreen,1);
-            p5.selectedScreen--;
+            p5.selectedScreen = 0;
         }
         p5.selected = p5.screens[p5.selectedScreen];
         // p5.socket.emit('selected',ROOM_ID,JSON.stringify({EMAIL,Id:p5.selected.Id}));
@@ -332,7 +333,9 @@ function addNewScreen(p5,id)
     if(id) 
         p5.selected.Id = id;
     else
-        p5.socket.emit('newScreen',ROOM_ID,JSON.stringify({EMAIL,Id:p5.selected.Id}));
+    {
+        p5.socket.emit('newScreen',ROOM_ID,{EMAIL,Id:p5.selected.Id});
+    }
     p5.screens[p5.selectedScreen].unSortedWidjets = [];
     p5.screens[p5.selectedScreen].backgroundColor = [0,0,0];
     p5.screens[p5.selectedScreen].canMove = false;
@@ -374,7 +377,7 @@ function resetScreens(p5)
             p5.socket.emit('selectedScreen',ROOM_ID,JSON.stringify({EMAIL,screen_number:p5.selectedScreen}));
             sc.value = p5.selectedScreen;
             addTheScreenElement(p5);
-            changeTheSelectedProperty(p5) ;
+            changeTheSelectedProperty(p5);
         });
         newScreen.setAttribute('href', '#');
         newScreen.dataset.value = i;
