@@ -202,6 +202,8 @@ export default function buildSocketConnection(p5)
             if( index !== -1 )
             {
                 p5.partners[index].selected.name = data.name;
+                document.querySelector('.selectedItem').innerHTML = `SelectedItem: ${data.name}`;
+                document.querySelector('.txtName').value = data.name;
             }
         }
     });
