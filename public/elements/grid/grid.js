@@ -62,10 +62,10 @@ export default class Grid extends Element
 
     isInside(p5) 
     {
-        if(    p5.mouseX < this.X 
-            || p5.mouseY < this.Y 
-            || p5.mouseX > this.X + this.Width
-            || p5.mouseY > this.Y + this.Height
+        if(    p5.mouseX - 5 < this.X 
+            || p5.mouseY - 5 < this.Y 
+            || p5.mouseX + 5 > this.X + this.Width
+            || p5.mouseY + 5 > this.Y + this.Height
         )
             return false;
         return true;

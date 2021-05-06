@@ -33,7 +33,7 @@
     font-size: x-large;
     outline: none;
 }
-.ml06{
+.ml06 , .mr06{
     margin-left: 0.6em;
 }
 /* .form-add-image input[type="radio"]{

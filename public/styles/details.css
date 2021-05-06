@@ -141,15 +141,68 @@ button:active , a:active ,input[type="button"]:active{
     size: 1;
     max-width: 1.6rem;
 }
-
+.m-All{
+    margin:0.5rem;
+}
 .menuTool {
     display: flex;
     flex-direction: row;
     width: 100%;
     align-items: center;
     justify-content: center;
-    padding-left: 0.2rem;
+    padding: 0.2rem;
 }
+
+.screen-collection{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    outline: 0;
+    box-shadow: none;
+    border: 0 !important;
+    background: #2c3e50;
+    background-image: none;
+}
+/* Remove IE arrow */
+.screen-collection::-ms-expand {
+    display: none;
+}
+.select {
+    position: relative;
+    display: flex;
+    width: 20em;
+    height: 3em;
+    line-height: 3;
+    background: #2c3e50;
+    overflow: hidden;
+    border-radius: .25em;
+}
+.screen-collection {
+    flex: 1;
+    padding: 0 .5em;
+    color: #fff;
+    font-size: larger;
+    cursor: pointer;
+}
+/* Arrow */
+.select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 1em;
+    background: #34495e;
+    cursor: pointer;
+    pointer-events: none;
+    -webkit-transition: .25s all ease;
+    -o-transition: .25s all ease;
+    transition: .25s all ease;
+  }
+  /* Transition */
+  .select:hover::after {
+    color: #f39c12;
+  }
 
 .action {
     margin: 0.1rem;

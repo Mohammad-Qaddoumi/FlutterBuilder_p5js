@@ -152,9 +152,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 <div class="container">
                     <div class="menuTool">
-                        <select class="screen-collection transition-animation">
-                            <option selected="selected" value="0">Screen 1</option>
-                        </select>
+                        <div class="select">
+                            <select class="screen-collection transition-animation m-All">
+                                <option selected="selected" value="0">Screen 1</option>
+                            </select>
+                        </div>
                         <!-- <div class="oriantaionDiv">
                             <input type="checkbox" id="oriantaion" class="oriantaion">
                             <label for="oriantaion" class="oriantaionLabel">
