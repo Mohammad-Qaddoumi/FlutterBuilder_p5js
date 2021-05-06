@@ -40,6 +40,13 @@ const fgCV = document.querySelector('.foreColor > input');
 const image_BG = document.querySelector('#image-BG');
 const btnAddImage = document.querySelector('#btnAddImage');
 
+let debounceTimeout_size,
+debounceTimeout_innerText,
+debounceTimeout_name,
+debounceTimeout_width,
+debounceTimeout_height,
+debounceTimeout_bc,
+debounceTimeout_fc;
 
 function setEvents(p5)
 {
@@ -51,8 +58,9 @@ function setEvents(p5)
     watch(() => searchTerm.value, () => {
             clearTimeout(debounceTimeout);
             debounceTimeout = setTimeout(() => {
-            getResults();
-            }, 100);
+            // do somthing ...
+
+            }, 200);
     });
     */
     
@@ -104,12 +112,18 @@ function setEvents(p5)
     });
 
     bgCV.addEventListener('input', e => {
-        p5.selected.backgroundColor = hexToRgb(e.target.value);
-        p5.socket.emit('backgroundColor',ROOM_ID,{EMAIL,bc:p5.selected.backgroundColor});
+        clearTimeout(debounceTimeout_bc);
+        debounceTimeout_bc = setTimeout( ()=>{
+            p5.selected.backgroundColor = hexToRgb(e.target.value);
+            p5.socket.emit('backgroundColor',ROOM_ID,{EMAIL,bc:p5.selected.backgroundColor});
+        },200);
     });
     fgCV.addEventListener('input', e => {
-        p5.selected.foregroundColor = hexToRgb(e.target.value);
-        p5.socket.emit('foregroundColor',ROOM_ID,{EMAIL,bc:p5.selected.foregroundColor});
+        clearTimeout(debounceTimeout_fc);
+        debounceTimeout_fc = setTimeout( ()=>{
+            p5.selected.foregroundColor = hexToRgb(e.target.value);
+            p5.socket.emit('foregroundColor',ROOM_ID,{EMAIL,bc:p5.selected.foregroundColor});
+        },200);
     });
 
     dlebtn.addEventListener('click', e => {
@@ -161,46 +175,53 @@ function setEvents(p5)
     uSize.addEventListener('input', e => {
         if (p5.selected === null) return;
         if(p5.selected.Id === p5.screens[p5.selectedScreen].Id) return;
-        if (uSize.value - 0 < 10)
-        {
-            uSize.value = 10; 
-            // return;
-        }
-        else if (uSize.value - 0 > 99)
-        {
-            uSize.value = 99;
-            // return;
-        }
-        // if(p5.selected instanceof Grid)
-        // {
-        //     p5.selected.size = uSize.value / 100;
-        // }
-        // else if(p5.selected instanceof Text)
-        // {
-               p5.selected.fontSize = uSize.value - 0;
-               p5.socket.emit('fontSize',ROOM_ID,{EMAIL,fontSize:p5.selected.fontSize});
-        // }
-        
-
+        clearTimeout(debounceTimeout_size);
+        debounceTimeout_size = setTimeout(() => {
+            if (uSize.value - 0 < 10)
+            {
+                uSize.value = 10; 
+                // return;
+            }
+            else if (uSize.value - 0 > 99)
+            {
+                uSize.value = 99;
+                // return;
+            }
+            // if(p5.selected instanceof Grid)
+            // {
+            //     p5.selected.size = uSize.value / 100;
+            // }
+            // else if(p5.selected instanceof Text)
+            // {
+                p5.selected.fontSize = uSize.value - 0;
+                p5.socket.emit('fontSize',ROOM_ID,{EMAIL,fontSize:p5.selected.fontSize});
+            // }
+        }, 200);
     });
   
     innerText.addEventListener('input', e => {
         if (p5.selected === null) return;
         if(p5.selected.Id === p5.screens[p5.selectedScreen].Id) return;
-        if(!(p5.selected instanceof Grid))
-        {
-            p5.selected.text = innerText.value;
-            p5.socket.emit('Itemtext',ROOM_ID,{EMAIL,text:p5.selected.text});
-        }
+        clearTimeout(debounceTimeout_innerText);
+        debounceTimeout_innerText = setTimeout(() => {
+            if(!(p5.selected instanceof Grid))
+            {
+                p5.selected.text = innerText.value;
+                p5.socket.emit('Itemtext',ROOM_ID,{EMAIL,text:p5.selected.text});
+            }        
+        }, 200);
     });
   
     txtName.addEventListener('input', e => {
         if (p5.selected === null) return;
         if(p5.selected.Id === p5.screens[p5.selectedScreen].Id) return;
-        p5.selected.name = txtName.value;
-        p5.socket.emit('txtName',ROOM_ID,{EMAIL,name:p5.selected.name});
-        const s = document.querySelector('.selectedItem');
-        s.innerHTML = `SelectedItem: ${p5.selected.name}`;
+        clearTimeout(debounceTimeout_name);
+        debounceTimeout_name = setTimeout(() => {
+            p5.selected.name = txtName.value;
+            p5.socket.emit('txtName',ROOM_ID,{EMAIL,name:p5.selected.name});
+            const s = document.querySelector('.selectedItem');
+            s.innerHTML = `SelectedItem: ${p5.selected.name}`;
+        }, 200);
     });
 
     // showBars.addEventListener('click', e => {
@@ -259,34 +280,28 @@ function setEvents(p5)
     boxWidth.addEventListener('input', e =>{
         if (p5.selected === null) return;
         if (p5.selected.Id === p5.screens[p5.selectedScreen].Id) return;
-        if(boxWidth.value - 0 < 10)
-        {
-            boxWidth.value = 10;
-            // return;
-        }
-        else if( boxWidth.value - 0 > 260)
-        {
-            boxWidth.value = 260;
-            // return;
-        }
-        p5.selected.width = boxWidth.value - 0;
-        p5.socket.emit('boxWidth',ROOM_ID,{EMAIL,width:p5.selected.width});
+        clearTimeout(debounceTimeout_width);
+        debounceTimeout_width = setTimeout(() => {
+            if(boxWidth.value - 0 < 10)
+                boxWidth.value = 10;
+            else if(boxWidth.value - 0 > p5.screens[p5.selectedScreen].width)
+                boxWidth.value = p5.screens[p5.selectedScreen].width;
+            p5.selected.width = boxWidth.value - 0;
+            p5.socket.emit('boxWidth',ROOM_ID,{EMAIL,width:p5.selected.width});
+        }, 200);
     });
-    boxHeight.addEventListener('input', e =>{
+    boxHeight.addEventListener('input', e => {
         if (p5.selected === null) return;
         if (p5.selected.Id === p5.screens[p5.selectedScreen].Id) return;
-        if(boxHeight.value - 0 < 10)
-        {
-            boxHeight.value = 10;
-            // return;
-        }
-        else if( boxHeight.value - 0 > 546)
-        {
-            boxHeight.value = 546;
-            // return;
-        }
-        p5.selected.height = boxHeight.value - 0;
-        p5.socket.emit('boxHeight',ROOM_ID,{EMAIL,height:p5.selected.height});
+        clearTimeout(debounceTimeout_height);
+        debounceTimeout_height = setTimeout(() => {
+            if(boxHeight.value - 0 < 10)
+                boxHeight.value = 10;
+            else if(boxHeight.value - 0 > p5.screens[p5.selectedScreen].height)
+                boxHeight.value = p5.screens[p5.selectedScreen].height;
+            p5.selected.height = boxHeight.value - 0;
+            p5.socket.emit('boxHeight',ROOM_ID,{EMAIL,height:p5.selected.height});
+        }, 200);
     });
 
     document.querySelector('.btnDeleteScreen').addEventListener('click', e => {

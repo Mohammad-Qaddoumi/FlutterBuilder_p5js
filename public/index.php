@@ -220,9 +220,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     </div>
                     <div class="widthAndHeight">
                         <div>Width:</div>
-                        <input class="width transition-animation" type="number" value="20" min="10" max="260" />
+                        <input class="width transition-animation" type="number" />
                         <div>Height:</div>
-                        <input class="height transition-animation" type="number" value="20" min="10" max="546">
+                        <input class="height transition-animation" type="number" />
                     </div>
                     <div class="innerText">
                         <div>Text:&nbsp;</div>

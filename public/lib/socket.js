@@ -39,6 +39,7 @@ export default function buildSocketConnection(p5)
     p5.socket.on('selected' , data => {
         if(data){ 
             data = JSON.parse(data);
+            if(data.EMAIL === EMAIL)return;
             const index = p5.partners.findIndex( i => i.email === data.EMAIL);
             if( index !== -1 )
             {
@@ -49,6 +50,7 @@ export default function buildSocketConnection(p5)
     p5.socket.on('selectedScreen' , data => {
         if(data){ 
             data = JSON.parse(data);
+            if(data.EMAIL === EMAIL)return;
             p5.selectedScreen = data.screen_number;
             p5.selected = p5.screens[p5.selectedScreen];
             document.querySelector('.screen-collection').value = p5.selectedScreen;
@@ -65,6 +67,7 @@ export default function buildSocketConnection(p5)
     p5.socket.on('newScreen', data => {
         if(data)
         {
+            if(data.EMAIL === EMAIL)return;
             events.addNewScreen(p5,data.Id);
             for(let i=0;i<p5.partners.length;i++)
                 p5.partners[i].selected = p5.screens[p5.selectedScreen];
@@ -73,6 +76,7 @@ export default function buildSocketConnection(p5)
     p5.socket.on('addAppBar', data => {
         if(data)
         {
+            if(data.EMAIL === EMAIL)return;
             if( events.addAppBar(p5,data.Id) )
             {
                 for(let i=0;i<p5.partners.length;i++)
@@ -84,6 +88,7 @@ export default function buildSocketConnection(p5)
     p5.socket.on('deleteItem', data => {
         if(data)
         {
+            if(data.EMAIL === EMAIL)return;
             let index = p5.screens[p5.selectedScreen].children.findIndex(e => e.Id === data.Id);
             if(index >= 0)
                 p5.screens[p5.selectedScreen].children.splice(index, 1);
@@ -109,6 +114,7 @@ export default function buildSocketConnection(p5)
     p5.socket.on('deleteScreen', data => {
         if(data)
         {
+            if(data.EMAIL === EMAIL)return;
             if(p5.screens.length === 1)
             {
                 let index = p5.screens.findIndex(t => t.Id === data.Id);
@@ -137,6 +143,7 @@ export default function buildSocketConnection(p5)
     p5.socket.on('addImage', data => {
         if(data)
         {
+            if(data.EMAIL === EMAIL)return;
             let index = p5.screens[p5.selectedScreen].children.findIndex(e => e.Id === data.Id);
             if(index >= 0)
             {
@@ -158,6 +165,7 @@ export default function buildSocketConnection(p5)
     p5.socket.on('backgroundColor', data => {
         if(data)
         {
+            if(data.EMAIL === EMAIL)return;
             const index = p5.partners.findIndex(t=> t.email === data.EMAIL);
             if( index !== -1 )
             {
@@ -168,6 +176,7 @@ export default function buildSocketConnection(p5)
     p5.socket.on('foregroundColor', data => {
         if(data)
         {
+            if(data.EMAIL === EMAIL)return;
             const index = p5.partners.findIndex(t=> t.email === data.EMAIL);
             if( index !== -1 )
             {
@@ -178,6 +187,7 @@ export default function buildSocketConnection(p5)
     p5.socket.on('fontSize', data => {
         if(data)
         {
+            if(data.EMAIL === EMAIL)return;
             const index = p5.partners.findIndex(t=> t.email === data.EMAIL);
             if( index !== -1 )
             {
@@ -188,6 +198,7 @@ export default function buildSocketConnection(p5)
     p5.socket.on('Itemtext', data => {
         if(data)
         {
+            if(data.EMAIL === EMAIL)return;
             const index = p5.partners.findIndex(t=> t.email === data.EMAIL);
             if( index !== -1 )
             {
@@ -198,6 +209,7 @@ export default function buildSocketConnection(p5)
     p5.socket.on('txtName', data => {
         if(data)
         {
+            if(data.EMAIL === EMAIL)return;
             const index = p5.partners.findIndex(t=> t.email === data.EMAIL);
             if( index !== -1 )
             {
@@ -210,6 +222,7 @@ export default function buildSocketConnection(p5)
     p5.socket.on('canMove', data => {
         if(data)
         {
+            if(data.EMAIL === EMAIL)return;
             const index = p5.partners.findIndex(t=> t.email === data.EMAIL);
             if( index !== -1 )
             {
@@ -220,6 +233,7 @@ export default function buildSocketConnection(p5)
     p5.socket.on('boxWidth', data => {
         if(data)
         {
+            if(data.EMAIL === EMAIL)return;
             const index = p5.partners.findIndex(t=> t.email === data.EMAIL);
             if( index !== -1 )
             {
@@ -230,6 +244,7 @@ export default function buildSocketConnection(p5)
     p5.socket.on('boxHeight', data => {
         if(data)
         {
+            if(data.EMAIL === EMAIL)return;
             const index = p5.partners.findIndex(t=> t.email === data.EMAIL);
             if( index !== -1 )
             {

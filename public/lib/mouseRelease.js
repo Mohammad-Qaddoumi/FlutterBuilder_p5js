@@ -39,5 +39,5 @@ export default function released(p5,data)
             p5.screens[p5.selectedScreen].unSortedWidjets.push(selected);
         }
     }
-    events.changeTheSelectedProperty(p5);
+    // events.changeTheSelectedProperty(p5);
 }
