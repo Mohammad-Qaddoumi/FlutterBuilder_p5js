@@ -19,8 +19,6 @@ export default class Text extends Widjet
 
     sketch(p5)
     {       
-        // this.move(p5);
-
         p5.noFill();
         p5.rect(this.X - 1, this.Y ,this.Width,this.Height);
 
@@ -28,8 +26,6 @@ export default class Text extends Widjet
         p5.fill(this.foregroundColor[0], this.foregroundColor[1], this.foregroundColor[2]);
         p5.text(this.text, this.X, this.Y);
 
-        if(!this.canMove)
-            p5.image(p5.lockImg,this.X,this.Y,20,25);
     }
 
     isInside(p5) 

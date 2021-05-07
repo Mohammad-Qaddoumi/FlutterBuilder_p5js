@@ -10,8 +10,6 @@ export default class Circle extends Widjet
     sketch(p5) 
     {
 
-        // this.move(p5);
-
         p5.strokeWeight(2);
         p5.stroke(0);
         p5.ellipseMode(p5.CORNER);
@@ -22,8 +20,6 @@ export default class Circle extends Widjet
         p5.textSize(this.textFontSize);
         p5.text(this.text,this.text_X, this.text_Y);
 
-        if(!this.canMove)
-            p5.image(p5.lockImg,this.X,this.Y,20,25);
     }
     isInside(p5) 
     {

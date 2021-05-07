@@ -1,6 +1,6 @@
 import config from './config.js';
 import WidjetBuilder from '../elements/WidjetBuilder.js';
-import Grid from '../elements/grid/grid.js';
+import Screen from '../elements/screen/screen.js';
 import events from './events.js';
 
 function pressed(p5)
@@ -14,7 +14,7 @@ function pressed(p5)
     let newItem = false;
     for(let i = 0; i < p5.screens[p5.selectedScreen].children.length; i++)
     {
-        if(p5.screens[p5.selectedScreen].children[i] instanceof Grid && p5.screens[p5.selectedScreen].children[i].isInside(p5))
+        if(p5.screens[p5.selectedScreen].children[i] instanceof Screen && p5.screens[p5.selectedScreen].children[i].isInside(p5))
         {
             foundItemFlag = foundPressedElement(p5.screens[p5.selectedScreen].children[i],p5);
             break;
@@ -31,7 +31,7 @@ function pressed(p5)
     {
         for(let i=0; i< p5.screens[p5.selectedScreen].unSortedWidjets.length;i++)
         {
-            if(p5.screens[p5.selectedScreen].unSortedWidjets[i] instanceof Grid)
+            if(p5.screens[p5.selectedScreen].unSortedWidjets[i] instanceof Screen)
             {
                 foundItemFlag = foundPressedElement(p5.screens[p5.selectedScreen].unSortedWidjets[i],p5);
                 if(foundItemFlag) break;
@@ -89,7 +89,7 @@ function foundPressedElement(item , p5)
     let found = false;
     for(let i = 0; i < item.children.length; i++)
     {
-        if( item.children[i] instanceof Grid && item.children[i].isInside(p5) )
+        if( item.children[i] instanceof Screen && item.children[i].isInside(p5) )
         {
             found = foundPressedElement(item.children[i],p5);
             if(found) break;

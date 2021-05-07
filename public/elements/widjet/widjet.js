@@ -37,5 +37,16 @@ export default class Widjet extends Element
         }
         return fontSize;
     }
-    
+    superSketch(p5)
+    {
+        try{
+            if(!this.canMove)
+                p5.image(p5.lockImg,this.X,this.Y,20,25);
+        }
+        catch(e)
+        {
+            console.log(e);
+        }
+    }
+
 }

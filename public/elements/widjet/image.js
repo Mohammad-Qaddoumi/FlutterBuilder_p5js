@@ -35,8 +35,6 @@ export default class ImageWidjet extends Widjet
             p5.rect(this.X,this.Y,this.width,this.height);
             p5.pop();
         }
-        if(!this.canMove)
-            p5.image(p5.lockImg,this.X,this.Y,20,25);
     }
 
     isInside(p5) 

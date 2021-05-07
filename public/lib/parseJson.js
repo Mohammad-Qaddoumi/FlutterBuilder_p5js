@@ -1,4 +1,4 @@
-import Grid from "../elements/grid/grid.js";
+import Screen from "../elements/screen/screen.js";
 import AppBar from "../elements/widjet/appBar.js";
 import FlatButton from "../elements/widjet/flatButton.js";
 import ImageWidjet from "../elements/widjet/image.js";
@@ -15,7 +15,7 @@ export default function parseJson(p5)
     {
         for(let i=0; i < DESIGN.numberOfScreens; i++)
         {
-            let screen = new Grid(config.gridPoints);
+            let screen = new Screen(config.gridPoints);
             screen.unSortedWidjets = [];
             screen.backgroundColor = [0,0,0];
             screen.canMove = false;
@@ -46,7 +46,7 @@ export default function parseJson(p5)
     }
     else 
     {
-        p5.screens.push(new Grid(config.gridPoints));
+        p5.screens.push(new Screen(config.gridPoints));
         p5.screens[0].unSortedWidjets = [];
         p5.screens[0].backgroundColor = [0,0,0];
         p5.screens[p5.selectedScreen].canMove = false;

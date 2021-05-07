@@ -43,8 +43,6 @@ export default class Input extends Widjet
         else 
             this.flip += 1;
 
-        if(!this.canMove)
-            p5.image(p5.lockImg,this.X,this.Y,20,25);
     }
     isInside(p5) 
     {

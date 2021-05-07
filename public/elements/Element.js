@@ -38,7 +38,6 @@ export default class Element
     {
         if(    !this.drag 
             || (p5.pmouseX === p5.mouseX && p5.pmouseY === p5.mouseY) 
-            || !p5.mouseIsPressed
             || !this.canMove
         ) return;
 

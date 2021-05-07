@@ -1,4 +1,4 @@
-import Grid from '../elements/grid/grid.js';
+import Screen from '../elements/screen/screen.js';
 import AppBar from '../elements/widjet/appBar.js';
 import Text from '../elements/widjet/Text.js';
 import Input from '../elements/widjet/input.js';
@@ -204,7 +204,7 @@ function setEvents(p5)
         if(p5.selected.Id === p5.screens[p5.selectedScreen].Id) return;
         clearTimeout(debounceTimeout_innerText);
         debounceTimeout_innerText = setTimeout(() => {
-            if(!(p5.selected instanceof Grid))
+            if(!(p5.selected instanceof Screen))
             {
                 p5.selected.text = innerText.value;
                 p5.socket.emit('Itemtext',ROOM_ID,{EMAIL,text:p5.selected.text});
@@ -348,7 +348,7 @@ function removeAllChildNodes(e)
 
 function addNewScreen(p5,id)
 {
-    p5.screens.push(new Grid(config.gridPoints));
+    p5.screens.push(new Screen(config.gridPoints));
     p5.selectedScreen = p5.screens.length - 1;
     p5.selected = p5.screens[p5.selectedScreen];
     if(id) 

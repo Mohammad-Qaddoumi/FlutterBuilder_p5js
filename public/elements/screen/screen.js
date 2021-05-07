@@ -1,21 +1,18 @@
 import Element from '../Element.js';
 import config from '../../lib/config.js';
-export default class Grid extends Element
+export default class Screen extends Element
 {
-    constructor(point,drag = false,type = "Grid",bgC = [100,100,100]) 
+    constructor(point,drag = false,type = "Screen",bgC = [100,100,100]) 
     {
         super(point ,drag , `${type} ${config.count++}`,type,bgC);
 
         this.children = [];
         this.size = 0.3333333;
         this.noBackground = false;
-        // this.midPoint = point.midPoint;
-        // this.parent = null;
     }
 
     sketch(p5)
     {
-        // this.move(p5);
         let h,y;
         if(this.appBar)
         {
@@ -38,16 +35,12 @@ export default class Grid extends Element
             p5.noStroke();
         if(!this.noBackground)
         {
-            // p5.push();
             p5.fill(this.backgroundColor[0], this.backgroundColor[1], this.backgroundColor[2]);
             p5.rect(this.X,y,this.Width,h,9);
-            // p5.pop();
         }
         else{
-            // p5.push();
             p5.noFill();
             p5.rect(this.X,y,this.Width,h,9);
-            // p5.pop();
         }
         p5.pop();
 
@@ -55,6 +48,7 @@ export default class Grid extends Element
         {
             p5.push();
             this.children[i].sketch(p5);
+            this.children[i].superSketch(p5);
             p5.pop();
         }
         
