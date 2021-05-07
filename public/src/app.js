@@ -30,10 +30,11 @@ function footerPosition()
 }
 window.onresize = footerPosition;
 
-
-// let APP;
-const stopModel = new p5(sketchs.sketch2,'sketch');
-await new Promise(resolve => setTimeout( resolve,1000));
-APP = new p5(sketchs.sketch, 'sketch');
-APP.stopModel = stopModel;
-stopModel.parent = APP;
+(async () => {
+    // let APP;
+    const stopModel = new p5(sketchs.sketch2,'sketch');
+    await new Promise(resolve => setTimeout( resolve,1000));
+    APP = new p5(sketchs.sketch, 'sketch');
+    APP.stopModel = stopModel;
+    stopModel.parent = APP;
+})();
