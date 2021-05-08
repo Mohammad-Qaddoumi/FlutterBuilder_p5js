@@ -1,0 +1,32 @@
+.form-events{
+    display:none;
+    justify-content:center;
+    align-items: center;
+    z-index: 9;
+    position:absolute;
+    top:calc(100vh - 50%);
+    left:calc(100vw - 50%);
+    transform: translate(-50%, -50%);
+    background-color: #f4f4f4;
+    padding: 0.4rem;
+    border-radius: 15px;
+    box-shadow: 4px 4px 5px #aaaaaa,
+    -4px -4px 5px #aaaaaa; 
+    animation: shows 300ms ease-in forwards; 
+}
+.form-events > .events-container{
+    background-color: rgba(225, 225, 225, 0.8);
+    border-radius: 9px;
+    padding:0.35rem;  
+    overflow: hidden;
+}
+.form-events > .events-container > .cancel{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 0.3em;
+}
+.events-container > .form-group{   
+    background-color: rgba(225, 225, 225, 0.6);
+    margin:0.4em;
+}

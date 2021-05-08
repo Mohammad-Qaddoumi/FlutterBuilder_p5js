@@ -82,6 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link rel="stylesheet" href="./styles/canves.css">
     <link rel="stylesheet" href="./styles/details.css">
     <link rel="stylesheet" href="./styles/add_image.css">
+    <link rel="stylesheet" href="./styles/events.css">
 
     <script>
         let APP;
@@ -152,8 +153,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 <div class="container">
                     <div class="menuTool">
-                        <div class="select">
-                            <select class="screen-collection transition-animation m-All">
+                        <div class="select transition-animation">
+                            <select class="screen-collection m-All">
                                 <option selected="selected" value="0">Screen 1</option>
                             </select>
                         </div>
@@ -295,6 +296,31 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <input type="button" class="transition-animation btn-add-image" value="Add">
             </div>
         </form>
+    </div>
+
+    <div class="form-events">
+        <div class="events-container">
+            <div class="form-group cancel">
+                <div class="bigger-font">
+                    Events :&nbsp;&nbsp;
+                </div>
+                <div class="transition-animation btn-cancel-label">
+                    <input type="button" class="btn-cancel" value="X">
+                </div>
+            </div>
+            <hr>
+            <div class="form-group">
+                event 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+            <hr>
+            <div class="form-group">
+                event 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+            <hr>
+            <div class="form-group">
+                Add<br>remove &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
     </div>
 
     <footer id="footer">
