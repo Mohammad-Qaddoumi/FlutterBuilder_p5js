@@ -12,11 +12,6 @@ export default class WidjetBuilder
         {
             switch(element._type)
             {
-                case "Circle":
-                {
-                    widget = new Circle({ X: element.X, Y: element.Y }, element.width-15);
-                    break;
-                }
                 case "FlatButton":
                 {
                     widget = new FlatButton({ X: element.X, Y: element.Y }, 99, 40);

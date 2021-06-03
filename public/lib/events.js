@@ -56,6 +56,19 @@ function setEvents(p5)
         editEvents(p5);
         p5.lockSelected = true;
     });
+    document.querySelector('.screens-list').addEventListener('input',e=>{
+        if(document.querySelector('#pushEvents').checked)
+        {
+            for(let i=0;i<p5.selected.events.length;i++)
+            {
+                if(p5.selected.events[i].startsWith("push"))
+                {
+                    p5.selected.events[i] = `push(${e.target.value})`;
+                    p5.socket.emit('add-push',ROOM_ID,{Id : p5.selected.Id , EMAIL,push:`push(${e.target.value})`} );
+                }
+            }
+        }
+    });
     document.querySelector('#pushEvents').addEventListener('input',e=>{
         if(e.target.checked)
         {
@@ -615,6 +628,7 @@ function changeTheSelectedProperty(p5)
             innerText.value = p5.selected.text;
             document.querySelector('.size').style.display = 'none';
             document.querySelector('.locked').style.display = 'none';
+            document.querySelector('#btnEditEvents').style.display = 'none';
         }
         else if (p5.selected instanceof ImageWidjet)
         {

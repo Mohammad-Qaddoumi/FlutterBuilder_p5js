@@ -277,7 +277,18 @@ export default function buildSocketConnection(p5)
             const index = p5.partners.findIndex( i => i.email === data.EMAIL );
             if( index !== -1  && data.Id === p5.partners[index].selected.Id)
             {
-                p5.partners[index].selected.events.push(data.push);
+                let found = false;
+                for(let i=0;i<p5.partners[index].selected.events.length;i++)
+                {
+                    if(p5.partners[index].selected.events[i].startsWith("push"))
+                    {
+                        p5.partners[index].selected.events[i] = data.push;
+                        found = true;
+                        break;
+                    }
+                }
+                if(!found)
+                    p5.partners[index].selected.events.push(data.push);
             }
         }
     });

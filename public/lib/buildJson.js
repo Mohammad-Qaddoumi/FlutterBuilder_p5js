@@ -11,6 +11,10 @@ export default function buildJSON(p5)
         mJSON[`screen${j}`] = {};
         mJSON[`screen${j}`]["id"] = screens[j].Id;
         mJSON[`screen${j}`]["name"] = screens[j].name;
+        if(screens[j].menu_list)
+            mJSON[`screen${j}`]["menu"] = "on";
+        else
+            mJSON[`screen${j}`]["menu"] = "off";
         if(screens[j].appBar)
         {
             mJSON[`screen${j}`][`appBar`] = screens[j].appBar.text;
@@ -62,7 +66,29 @@ function getChildsAsJson( p5, children , selectedScreen )
             collection[`child${i+1}`].height        = getCalculatedHeight( p5 , children[i] , selectedScreen);
         }
         if(children[i].events)
-            collection[`child${i+1}`]["onPress"]    = children[i].events.join(';');
+        {
+            let event = [];
+            for(let j=0;j<children[i].events.length;j++)
+            {
+                if(children[i].events[j].startsWith("push"))
+                {
+                    const myRe = /^push\((\w|\d|\-)+\)$/g;
+                    const str = myRe.exec(children[i].events[j])[0].substring(5);
+                    const id = str.substring(0,str.length-1);
+                    for(let k=0;k<p5.screens.length;k++)
+                    {
+                        if(p5.screens[k].Id === id)
+                        {
+                            event.push(`push(${p5.screens[k].name})`);
+                            break;
+                        }
+                    }
+                }
+                else
+                    event.push(children[i].events[j]);
+            }
+            collection[`child${i+1}`]["onPress"]    = event.join(';');
+        }
         else
             collection[`child${i+1}`]["onPress"]    = "null()";
         if(children[i].img)
