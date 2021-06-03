@@ -13,7 +13,7 @@ export default class Widjet extends Element
 
         this.fontSize = 23;
 
-        this.events = ["null()"];
+        this.events = [];
         if (this.constructor == Widjet) 
         {
             throw new Error("Abstract classes can't be instantiated.");

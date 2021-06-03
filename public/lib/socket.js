@@ -10,7 +10,6 @@ import {loadSavedImage} from './base64Encode.js';
 
 export default function buildSocketConnection(p5)
 {
-    // TODO: Work on multi user for one project.......
     p5.socket = io.connect('https://flutter-server-with-p5.herokuapp.com/');
     // p5.socket = io.connect('http://localhost:3000');
     p5.partners = [];

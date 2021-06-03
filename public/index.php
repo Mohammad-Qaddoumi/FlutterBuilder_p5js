@@ -197,11 +197,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <div class="selectedItem">SelectedItem:</div>
                     <div class="locked">
                         <input class="transition-animation" type="checkbox" name="lock" id="lock">
-                        <Label for="lock">lock</Label>
+                        <Label for="lock">&nbsp&nbsplock</Label>
                     </div>
                     <div class="itemType">Type :</div>
                     <div>
                         <input id="btnAddImage" type="button" class="button-style transition-animation" value="Add Image">
+                    </div>
+                    <div>
+                        <input id="btnEditEvents" type="button" class="button-style transition-animation" value="Edit Events">
                     </div>
                     <div class="backgroundColor">
                         <span>Background Color</span>
@@ -261,7 +264,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <div class="bigger-font">
                     Pick an image
                 </div>
-                <div class="transition-animation btn-cancel-label">
+                <div class="transition-animation btn-cancel-label cancel-image">
                     <input type="button" class="btn-cancel" value="X">
                 </div>
             </div>
@@ -304,22 +307,61 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <div class="bigger-font">
                     Events :&nbsp;&nbsp;
                 </div>
-                <div class="transition-animation btn-cancel-label">
-                    <input type="button" class="btn-cancel" value="X">
+                <div class="transition-animation btn-cancel-label padding035">
+                    <input type="button" class="btn-cancel scale1 cancel-events" value="X">
                 </div>
             </div>
             <hr>
-            <div class="form-group">
-                event 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="transition-animation form-group">
+                <label class="rocker">
+                    <input type="checkbox">
+                    <span class="switch-left">On</span>
+                    <span class="switch-right">Off</span>
+                </label>
+                <div>Push&nbsp;:&nbsp;</div>
+                <select class="screens-list">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                </select>
             </div>
             <hr>
-            <div class="form-group">
-                event 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="transition-animation form-group">
+                <label class="rocker">
+                    <input type="checkbox">
+                    <span class="switch-left">On</span>
+                    <span class="switch-right">Off</span>
+                </label>
+                <div>Submit&nbsp;:&nbsp;</div>
             </div>
             <hr>
-            <div class="form-group">
-                Add<br>remove &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="transition-animation form-group">
+                <label class="rocker">
+                    <input type="checkbox">
+                    <span class="switch-left">On</span>
+                    <span class="switch-right">Off</span>
+                </label>
+                <div class="toggle-button toggle-button--nummi">
+                    <input id="toggleButton17" name="radio6" type="radio" checked="checked">
+                    <label for="toggleButton17" data-text=" Insertion "></label>
+                    <div class="toggle-button__icon"></div>
+                </div>
+                <div class="toggle-button toggle-button--nummi">
+                    <input id="toggleButton16" name="radio6" type="radio">
+                    <label for="toggleButton16" data-text=" Validation "></label>
+                    <div class="toggle-button__icon"></div>
+                </div>
             </div>
+            <hr>
+            <!-- <div class="transition-animation form-group">
+                <label class="rocker">
+                    <input type="checkbox">
+                    <span class="switch-left">On</span>
+                    <span class="switch-right">Off</span>
+                </label>
+                <div>Insertion&nbsp;:&nbsp;</div>
+            </div> -->
         </div>
     </div>
 

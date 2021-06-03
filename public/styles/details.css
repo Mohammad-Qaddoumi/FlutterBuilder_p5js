@@ -225,6 +225,11 @@ button:active , a:active ,input[type="button"]:active{
     text-decoration: none;
     display: inline-block;
     font-size: 0.6rem;
+    margin: 0.25rem;
+}
+
+#lock{
+    margin-top: 0.2rem;
 }
 
 .treeDiv {

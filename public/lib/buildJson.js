@@ -36,14 +36,14 @@ function getChildsAsJson( p5, children , selectedScreen )
     for(let i = 0; i < children.length; i++)
     {
         collection[`child${i+1}`] = {};
-        if(children[i]._type === "Input")
-        {
-            collection[`child${i+1}`]["type"]     =  children[i]._type;
-            collection[`child${i+1}`]["content"]  =  children[i].text;
-            collection[`child${i+1}`]["position"] =  setElementPosition( p5 , children[i] , selectedScreen);
-            collection[`child${i+1}`]["onPress"]  =  children[i].events.join(';');
-            continue;
-        }
+        // if(children[i]._type === "Input")
+        // {
+        //     collection[`child${i+1}`]["type"]     =  children[i]._type;
+        //     collection[`child${i+1}`]["content"]  =  children[i].text;
+        //     collection[`child${i+1}`]["position"] =  setElementPosition( p5 , children[i] , selectedScreen);
+        //     collection[`child${i+1}`]["onPress"]  =  children[i].events.join(';');
+        //     continue;
+        // }
         collection[`child${i+1}`].X                 = children[i].X;
         collection[`child${i+1}`].Y                 = children[i].Y;
         collection[`child${i+1}`]._width            = children[i].width;

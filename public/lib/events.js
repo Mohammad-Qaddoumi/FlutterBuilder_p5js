@@ -4,7 +4,6 @@ import Text from '../elements/widjet/Text.js';
 import Input from '../elements/widjet/input.js';
 import ImageWidjet from '../elements/widjet/image.js';
 import config from './config.js';
-import release from './mouseRelease.js';
 import saveAsJson from './ajax.js';
 import binaryToBase64 from './base64Encode.js';
 import UUID from './idgenerator.js';
@@ -16,7 +15,6 @@ const sizeName = document.querySelector('.size-name');
 const innerText = document.querySelector('.inner-Text');
 const iText = document.querySelector('.innerText');
 const txtName = document.querySelector('.txtName');
-// const showBars = document.querySelector('#showBars');
 const lock = document.querySelector('#lock');
 const showProperty = document.querySelector('#property');
 const showTree = document.querySelector('#tree');
@@ -35,8 +33,6 @@ const backgroundColor = document.querySelector('.backgroundColor');
 const bgCV = document.querySelector('.backgroundColor > input');
 const foregroundColor = document.querySelector('.foreColor');
 const fgCV = document.querySelector('.foreColor > input');
-// const aligment_H =  document.querySelector('.horizontal');
-// const aligment_V =  document.querySelector('.vertical');
 const image_BG = document.querySelector('#image-BG');
 const btnAddImage = document.querySelector('#btnAddImage');
 
@@ -49,26 +45,22 @@ debounceTimeout_bc,
 debounceTimeout_fc;
 
 function setEvents(p5)
-{
-    // TODO: Add debouncing to typing events...
-    // https://stackoverflow.com/questions/52892333/javascript-generic-async-await-debounce
-    // https://davidwalsh.name/javascript-debounce-function
-    /**
-    let debounceTimeout;
-    watch(() => searchTerm.value, () => {
-            clearTimeout(debounceTimeout);
-            debounceTimeout = setTimeout(() => {
-            // do somthing ...
-
-            }, 200);
+{    
+    document.querySelector('.cancel-events').addEventListener('click', e => {
+        document.querySelector('.form-events').style.display = 'none';
+        p5.lockSelected = false;
     });
-    */
-    
+    document.querySelector('#btnEditEvents').addEventListener('click', e => {
+        document.querySelector('.form-events').style.display = 'flex';
+        editEvents(p5);
+        p5.lockSelected = true;
+    });
+
     btnAddImage.addEventListener('click', e => {
         document.querySelector('.form-add-image').style.display = 'flex';
         p5.lockSelected = true;
     });
-    document.querySelector('.btn-cancel-label').addEventListener('click',e => {
+    document.querySelector('.cancel-image').addEventListener('click',e => {
         document.querySelector('.form-add-image').style.display = 'none';
         document.querySelector('.form-add-image > form').reset();
         image_BG.disabled  = true;
@@ -224,10 +216,6 @@ function setEvents(p5)
         }, 200);
     });
 
-    // showBars.addEventListener('click', e => {
-    //     p5.showBar = showBars.checked;
-    // });
-
     lock.addEventListener('click', e => {
         if (p5.selected === null) return;
         if(p5.selected.Id === p5.screens[p5.selectedScreen].Id) return;
@@ -344,6 +332,39 @@ function removeAllChildNodes(e)
         e.removeChild(child);
         child = e.lastElementChild;
     }
+}
+
+function editEvents(p5)
+{
+    // Push event ....
+    const screens = document.querySelector('.screens-list');
+    removeAllChildNodes(screens);
+    const myRe = /^push\((\w|\d|\-)+\)$/g;
+    let id = null;
+    for(let i=0;i<p5.selected.events.length;i++)
+    {
+        if(p5.selected.events[i].startsWith("push("));
+        {
+            const str = myRe.exec(p5.selected.events[i])[0].substring(5);
+            id = str.substring(0,str.length-1);
+            break;
+        }
+    }
+    for(let i=0;i<p5.screens.length;i++)
+    {
+        let option;
+        if(id && p5.screens[i].Id === id)
+            option = new Option(p5.screens[i].name, p5.screens[i].Id,true);
+        else
+            option = new Option(p5.screens[i].name, p5.screens[i].Id);
+        screens.append(option);
+    }
+
+    // Submit Events ...
+
+    // Validate and Insert Events ...
+
+    
 }
 
 function addNewScreen(p5,id)
