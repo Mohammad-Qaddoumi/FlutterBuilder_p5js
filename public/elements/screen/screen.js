@@ -4,11 +4,12 @@ export default class Screen extends Element
 {
     constructor(point,drag = false,type = "Screen",bgC = [100,100,100]) 
     {
-        super(point ,drag , `${type} ${config.count++}`,type,bgC);
+        super(point ,drag , `${type}${config.count++}`,type,bgC);
 
         this.children = [];
         this.size = 0.3333333;
         this.noBackground = false;
+        this.menu_list = false;
     }
 
     sketch(p5)
@@ -26,13 +27,7 @@ export default class Screen extends Element
         }
         
         p5.push();
-        // if(!p5.showBar)
-        // {
-        //     p5.stroke(0);
-        //     p5.strokeWeight(3);
-        // }
-        // else 
-            p5.noStroke();
+        p5.noStroke();
         if(!this.noBackground)
         {
             p5.fill(this.backgroundColor[0], this.backgroundColor[1], this.backgroundColor[2]);

@@ -1,13 +1,13 @@
 <?php
 
 $status = session_status();
-if($status == PHP_SESSION_NONE){
+if ($status == PHP_SESSION_NONE) {
     //There is no active session
     session_start();
     session_regenerate_id(true);
-// }elseif($status == PHP_SESSION_DISABLED){
+    // }elseif($status == PHP_SESSION_DISABLED){
     //Sessions are not available
-}elseif($status == PHP_SESSION_ACTIVE){
+} elseif ($status == PHP_SESSION_ACTIVE) {
     //Destroy current and start new one
     // session_destroy();
     // session_start();
@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         'header' => 'Content-type:application/json',
         'content' => $json
     ]];
-    
+
     $room_id = 'roomid';
     $url = 'https://less-code.000webhostapp.com/getRoomId.php';
     $context = stream_context_create($options);
@@ -83,6 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link rel="stylesheet" href="./styles/details.css">
     <link rel="stylesheet" href="./styles/add_image.css">
     <link rel="stylesheet" href="./styles/events.css">
+    <link rel="stylesheet" href="./styles/menu_list.css">
 
     <script>
         let APP;
@@ -152,10 +153,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 </div>
 
                 <div class="container">
+                                        
                     <div class="menuTool">
                         <div class="select transition-animation">
                             <select class="screen-collection m-All">
-                                <option selected="selected" value="0">Screen 1</option>
+                                <option selected="selected" value="0">Screen1</option>
                             </select>
                         </div>
                         <!-- <div class="oriantaionDiv">
@@ -181,12 +183,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <div>Add Screen</div>
                         </a>
                     </div>
-                    <!-- <div class="transition-animation">
-                        <input type="checkbox" name="showBars" id="showBars">
-                        <Label for="showBars">Show Bar</Label>
-                    </div> -->
+                    <hr>
+                    <div >
+                        <div>&nbsp;Menu&nbsp;List&nbsp;</div>
+                    </div>
                     <hr>
                     <div class="screenaction">
+                        <div class="menu-list">
+                            <input type="checkbox" id="i">
+                            <label for="i" class="checkbox">
+                                <div class="checkbox__inner">
+                                    <div class="green__ball"></div>
+                                </div>
+                            </label>
+                            <div class="checkbox__text">
+                                <span>turn menu list </span>
+                                <div class="checkbox__text--options">
+                                    <span class="off">off</span>
+                                    <span class="on">on</span>
+                                </div>
+                            </div>
+                        </div>
                         <div class="appBar">
                             <button class="btnAppbar button-style transition-animation"> Add AppBar </button>
                         </div>
@@ -201,7 +218,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     </div>
                     <div class="itemType">Type :</div>
                     <div>
-                        <input id="btnAddImage" type="button" class="button-style transition-animation" value="Add Image">
+                        <input id="btnAddImage" type="button" class="button-style transition-animation" value="Change Image">
                     </div>
                     <div>
                         <input id="btnEditEvents" type="button" class="button-style transition-animation" value="Edit Events">
@@ -218,7 +235,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <div>Name:&nbsp;</div>
                         <input autocomplete="off" placeholder="Enter Widget name here" type="text" class="txtName transition-animation" id="name" />
                     </div>
-                    
+
                     <div class="size">
                         <div class="size-name transition-animation">Size:&nbsp;</div>
                         <input class="userSize transition-animation" type="number" name="userSize" id="userSize" value="40" min="10" max="100">
@@ -246,7 +263,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 <div class="treeDiv">
                     <div class="list screens">
-                        <a class="list-item screen-value" data-value="0" href="#">Screen 1</a>
+                        <a class="list-item screen-value" data-value="0" href="#">Screen1</a>
                     </div>
                     <div class="list">
                         <div class="childs"></div>
@@ -292,7 +309,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     </svg>
                     <span>Choose From A File :</span>
                 </label>
-                <input id="image-BG" class="transition-animation ml06" type="file" disabled="true"/>
+                <input id="image-BG" class="transition-animation ml06" type="file" disabled="true" />
             </div>
             <hr>
             <div class="form-group">
@@ -311,34 +328,33 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <input type="button" class="btn-cancel scale1 cancel-events" value="X">
                 </div>
             </div>
+
             <hr>
-            <div class="transition-animation form-group">
-                <label class="rocker">
-                    <input type="checkbox">
+            <div class="transition-animation form-group push-events">
+                <label for="pushEvents" class="rocker">
+                    <input id="pushEvents" type="checkbox">
                     <span class="switch-left">On</span>
                     <span class="switch-right">Off</span>
                 </label>
-                <div>Push&nbsp;:&nbsp;</div>
+                <div>onPress&nbsp;:&nbsp;</div>
                 <select class="screens-list">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
                 </select>
             </div>
+
             <hr>
-            <div class="transition-animation form-group">
-                <label class="rocker">
-                    <input type="checkbox">
+            <div class="transition-animation form-group submit-events">
+                <label for="submit-events" class="rocker">
+                    <input id="submit-events" type="checkbox">
                     <span class="switch-left">On</span>
                     <span class="switch-right">Off</span>
                 </label>
                 <div>Submit&nbsp;:&nbsp;</div>
             </div>
+
             <hr>
-            <div class="transition-animation form-group">
-                <label class="rocker">
-                    <input type="checkbox">
+            <div class="transition-animation form-group valid-insert-evnets">
+                <label for="valid-insert-evnets" class="rocker">
+                    <input id="valid-insert-evnets" type="checkbox">
                     <span class="switch-left">On</span>
                     <span class="switch-right">Off</span>
                 </label>

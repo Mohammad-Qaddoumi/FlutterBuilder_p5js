@@ -53,10 +53,17 @@ class MainWidjet
 }
 function createMainWidjet(mainWidjets)
 {
-    mainWidjets.push(new MainWidjet({ X: 8, Y: 30  }, "Input"));
-    mainWidjets.push(new MainWidjet({ X: 8, Y: 80  }, "Image"));
-    mainWidjets.push(new MainWidjet({ X: 8, Y: 130 }, "FlatButton"));
-    mainWidjets.push(new MainWidjet({ X: 8, Y: 180 }, "Text"));
+    const widjets = ["Input","Image","FlatButton","Text","CircleAvatar"];
+    let x = 8, y = 30;
+    for(let i=0;i<widjets.length;i++)
+    {
+        mainWidjets.push(new MainWidjet({ X: x, Y: y  }, widjets[i]));
+        y+=50;    
+    }
+    // mainWidjets.push(new MainWidjet({ X: 8, Y: 30  }, "Input"));
+    // mainWidjets.push(new MainWidjet({ X: 8, Y: 80  }, "Image"));
+    // mainWidjets.push(new MainWidjet({ X: 8, Y: 130 }, "FlatButton"));
+    // mainWidjets.push(new MainWidjet({ X: 8, Y: 180 }, "Text"));
     // mainParticleArray.push(new MainWidjet({ X: 11, Y: 230 }, "Circle"));
 
 }

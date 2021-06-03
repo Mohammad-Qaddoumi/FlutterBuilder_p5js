@@ -1,4 +1,4 @@
-import Circle from './widjet/circle.js';
+import CircleAvatar from './widjet/circle.js';
 import FlatButton from './widjet/flatButton.js';
 import Text from './widjet/Text.js';
 import ImageWidjet from './widjet/image.js';
@@ -35,6 +35,11 @@ export default class WidjetBuilder
                 case "Input":
                 {
                     widget = new Input({ X: element.X, Y: element.Y }, 261, 40);
+                    break;
+                }
+                case "CircleAvatar":
+                {
+                    widget = new CircleAvatar({ X: element.X, Y: element.Y }, 40, 40);
                     break;
                 }
             }

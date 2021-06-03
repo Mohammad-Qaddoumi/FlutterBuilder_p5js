@@ -7,6 +7,7 @@ import config from './config.js';
 import saveAsJson from './ajax.js';
 import binaryToBase64 from './base64Encode.js';
 import UUID from './idgenerator.js';
+import CircleAvatar from '../elements/widjet/circle.js';
 
 const dlebtn = document.querySelector('.btnDelete');
 const updbtn = document.querySelector('.btnUpdate');
@@ -54,6 +55,58 @@ function setEvents(p5)
         document.querySelector('.form-events').style.display = 'flex';
         editEvents(p5);
         p5.lockSelected = true;
+    });
+    document.querySelector('#pushEvents').addEventListener('input',e=>{
+        if(e.target.checked)
+        {
+            const scren = document.querySelector('.screens-list');
+            p5.selected.events.push(`push(${scren.value})`);
+            p5.socket.emit('add-push',ROOM_ID,{Id : p5.selected.Id , EMAIL,push:`push(${scren.value})`} );
+        }
+        else
+        {
+            const index = p5.selected.events.findIndex(t => t.startsWith("push"));
+            if(index !== -1)
+            {
+                p5.selected.events.splice(index,1);
+                p5.socket.emit('delete-push',ROOM_ID,{Id : p5.selected.Id , EMAIL} );
+            }
+        }
+    });
+    document.querySelector('#submit-events').addEventListener('input',e=>{
+        if(e.target.checked)
+        {
+
+        }
+        else
+        {
+            const index = p5.selected.events.findIndex(t => t.startsWith("submit"));
+            if(index !== -1)
+            {
+                p5.selected.events.splice(index,1);
+                p5.socket.emit('delete-submit',ROOM_ID,{Id : p5.selected.Id , EMAIL});
+            }
+        }
+    });
+    document.querySelector('#valid-insert-evnets').addEventListener('input',e=>{
+        if(e.target.checked)
+        {
+
+        }
+        else
+        {
+            const index = p5.selected.events.findIndex(t => t.startsWith("validation") || t.startsWith("insertion"));
+            if(index !== -1)
+            {
+                p5.selected.events.splice(index,1);
+                p5.socket.emit('delete-valid-insert',ROOM_ID,{Id : p5.selected.Id , EMAIL});
+            }
+        }
+    });
+
+    document.querySelector('.menu-list input').addEventListener('input', e => {
+        p5.screens[p5.selectedScreen].menu_list = e.target.checked;
+        p5.socket.emit('change-menu-list',ROOM_ID,{index : p5.selectedScreen , EMAIL,value:e.target.checked});
     });
 
     btnAddImage.addEventListener('click', e => {
@@ -206,10 +259,16 @@ function setEvents(p5)
   
     txtName.addEventListener('input', e => {
         if (p5.selected === null) return;
-        if(p5.selected.Id === p5.screens[p5.selectedScreen].Id) return;
+        // if(p5.selected.Id === p5.screens[p5.selectedScreen].Id) return;
         clearTimeout(debounceTimeout_name);
         debounceTimeout_name = setTimeout(() => {
             p5.selected.name = txtName.value;
+            if(p5.selected.Id === p5.screens[p5.selectedScreen].Id)
+            {
+                // document.getElementsByName('stuff')[0].options[0].innerHTML = "Water";
+                document.querySelector('.screen-collection').options[p5.selectedScreen].innerText = txtName.value;
+                document.querySelectorAll('.screens > *')[p5.selectedScreen].innerText = txtName.value;
+            }
             p5.socket.emit('txtName',ROOM_ID,{EMAIL,name:p5.selected.name});
             const s = document.querySelector('.selectedItem');
             s.innerHTML = `SelectedItem: ${p5.selected.name}`;
@@ -354,17 +413,20 @@ function editEvents(p5)
     {
         let option;
         if(id && p5.screens[i].Id === id)
-            option = new Option(p5.screens[i].name, p5.screens[i].Id,true);
+            option = new Option(p5.screens[i].name, p5.screens[i].Id, true, true);
         else
             option = new Option(p5.screens[i].name, p5.screens[i].Id);
         screens.append(option);
     }
+    if(id)
+        document.querySelector('#pushEvents').checked = true;
+    else
+        document.querySelector('#pushEvents').checked = false;
 
     // Submit Events ...
 
     // Validate and Insert Events ...
 
-    
 }
 
 function addNewScreen(p5,id)
@@ -393,12 +455,14 @@ function addNewScreen(p5,id)
     });
     newScreen.setAttribute('href', '#');
     newScreen.dataset.value = p5.screens.length - 1;
-    newScreen.innerText = "Screen " + p5.screens.length;
+    // newScreen.innerText = "Screen " + p5.screens.length;
+    newScreen.innerText = p5.screens[p5.screens.length-1].name;
     screensTag.appendChild(newScreen);
     newScreen.className += "list-item screen-value";
     const option = document.createElement('option');
     option.value = p5.selectedScreen;
-    option.innerText = `Screen ${p5.selectedScreen + 1}`;
+    // option.innerText = `Screen ${p5.selectedScreen + 1}`;
+    option.innerText = p5.screens[p5.screens.length-1].name;
     sc.appendChild(option);
     sc.value = p5.selectedScreen;
     changeTheSelectedProperty(p5);
@@ -423,12 +487,14 @@ function resetScreens(p5)
         });
         newScreen.setAttribute('href', '#');
         newScreen.dataset.value = i;
-        newScreen.innerText = `Screen ${i+1}`;
+        // newScreen.innerText = `Screen ${i+1}`;
+        newScreen.innerText = p5.screens[i].name;
         screensTag.appendChild(newScreen);
         newScreen.className += "list-item screen-value";
         const option = document.createElement('option');
         option.value = i;
-        option.innerText = `Screen ${i + 1}`;
+        // option.innerText = `Screen ${i + 1}`;
+        option.innerText = p5.screens[i].name;
         sc.appendChild(option);
     }
     sc.value = p5.selectedScreen;
@@ -505,7 +571,9 @@ function changeTheSelectedProperty(p5)
     if (p5.selected.Id === p5.screens[p5.selectedScreen].Id)
     {
         document.querySelector('.locked').style.display = 'none';
+        document.querySelector('#btnEditEvents').style.display = 'none';
         document.querySelector('.screenaction').style.display = 'block';
+        document.querySelector('.menu-list input').checked = p5.screens[p5.selectedScreen].menu_list;
         if(p5.screens[p5.selectedScreen].appBar)
             btnAppbar.style.display = 'none';
         else
@@ -513,7 +581,8 @@ function changeTheSelectedProperty(p5)
         document.querySelector('.size').style.display = 'none';
         dlebtn.style.display = 'none';
         foregroundColor.style.display = 'none';
-        slcItem.innerText = `SelectedItem: Screen ${p5.selectedScreen + 1}`;
+        // slcItem.innerText = `SelectedItem: Screen ${p5.selectedScreen + 1}`;
+        slcItem.innerText = `SelectedItem: ${p5.selected.name}`;
         type.innerText = `Type: Screen`;
         iText.style.display = 'none';
     }
@@ -521,6 +590,7 @@ function changeTheSelectedProperty(p5)
     {
         document.querySelector('.screenaction').style.display = 'none';
         document.querySelector('.percentage').style.display = 'flex';
+        document.querySelector('#btnEditEvents').style.display = 'flex';
         iText.style.display = 'none';
         dlebtn.style.display = 'block';
         document.querySelector('.locked').style.display = 'flex';
@@ -564,9 +634,26 @@ function changeTheSelectedProperty(p5)
             document.querySelector('.size').style.display = 'none';
             iText.style.display = 'flex';
             widthAndHeight.style.display = 'flex';
+            
             innerText.value = p5.selected.text;
             boxWidth.value = p5.selected.width;
             boxHeight.value = p5.selected.height;
+        }
+        if(p5.selected instanceof CircleAvatar)
+        {
+            foregroundColor.style.display = 'none';
+            iText.style.display = 'none';
+            let b = widthAndHeight.querySelectorAll('*');
+            b[0].innerText = 'Radius';
+            b[2].style.display = 'none';
+            b[3].style.display = 'none';
+        }
+        else
+        {
+            let b = widthAndHeight.querySelectorAll('*');
+            b[0].innerText = 'Width:';
+            b[2].style.display = 'flex';
+            b[3].style.display = 'flex';
         }
         if(p5.selected instanceof Input)
             widthAndHeight.style.display = 'none';

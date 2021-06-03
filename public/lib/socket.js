@@ -213,6 +213,11 @@ export default function buildSocketConnection(p5)
             if( index !== -1 )
             {
                 p5.partners[index].selected.name = data.name;
+                if(p5.partners[index].selected.Id === p5.screens[p5.selectedScreen].Id)
+                {
+                    document.querySelector('.screen-collection').options[p5.selectedScreen].innerText = data.name;
+                    document.querySelectorAll('.screens > *')[p5.selectedScreen].innerText = data.name;
+                }
                 document.querySelector('.selectedItem').innerHTML = `SelectedItem: ${data.name}`;
                 document.querySelector('.txtName').value = data.name;
             }
@@ -248,6 +253,69 @@ export default function buildSocketConnection(p5)
             if( index !== -1 )
             {
                 p5.partners[index].selected.height = data.height;
+            }
+        }
+    });
+
+    p5.socket.on('delete-push' , data => {
+        if(data)
+        {
+            if(data.EMAIL === EMAIL)return;
+            const index = p5.partners.findIndex( i => i.email === data.EMAIL );
+            if( index !== -1  && data.Id === p5.partners[index].selected.Id)
+            {
+                const index2 = p5.partners[index].selected.events.findIndex(t => t.startsWith("push"));
+                if(index2 !== -1)
+                    p5.partners[index].selected.events.splice(index2,1);
+            }
+        }
+    });
+    p5.socket.on('add-push' , data => {
+        if(data)
+        {
+            if(data.EMAIL === EMAIL)return;
+            const index = p5.partners.findIndex( i => i.email === data.EMAIL );
+            if( index !== -1  && data.Id === p5.partners[index].selected.Id)
+            {
+                p5.partners[index].selected.events.push(data.push);
+            }
+        }
+    });
+    p5.socket.on('change-menu-list' , data => {
+        if(data)
+        {
+            if(data.EMAIL === EMAIL)return;
+            const index = p5.partners.findIndex( i => i.email === data.EMAIL );
+            if( index !== -1  && data.Id === p5.partners[index].selected.Id)
+            {
+                p5.screens[data.index].menu_list = data.value;
+                document.querySelector('.menu-list input').checked = data.value;
+            }
+        }
+    });
+    p5.socket.on('delete-submit' , data => {
+        if(data)
+        {
+            if(data.EMAIL === EMAIL)return;
+            const index = p5.partners.findIndex( i => i.email === data.EMAIL );
+            if( index !== -1  && data.Id === p5.partners[index].selected.Id)
+            {
+                const index2 = p5.partners[index].selected.events.findIndex(t => t.startsWith("submit"));
+                if(index2 !== -1)
+                    p5.partners[index].selected.events.splice(index2,1);
+            }
+        }
+    });
+    p5.socket.on('delete-valid-insert' , data => {
+        if(data)
+        {
+            if(data.EMAIL === EMAIL)return;
+            const index = p5.partners.findIndex( i => i.email === data.EMAIL );
+            if( index !== -1  && data.Id === p5.partners[index].selected.Id)
+            {
+                const index2 = p5.partners[index].selected.events.findIndex(t => t.startsWith("validation") || t.startsWith("insertion"));
+                if(index2 !== -1)
+                    p5.partners[index].selected.events.splice(index2,1);
             }
         }
     });

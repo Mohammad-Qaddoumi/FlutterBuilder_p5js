@@ -62,7 +62,9 @@ function getChildsAsJson( p5, children , selectedScreen )
             collection[`child${i+1}`].height        = getCalculatedHeight( p5 , children[i] , selectedScreen);
         }
         if(children[i].events)
-            collection[`child${i+1}`]["onPress"]    =  children[i].events.join(';');
+            collection[`child${i+1}`]["onPress"]    = children[i].events.join(';');
+        else
+            collection[`child${i+1}`]["onPress"]    = "null()";
         if(children[i].img)
             collection[`child${i+1}`]["imageType"]  = children[i].img.imageType;
     }

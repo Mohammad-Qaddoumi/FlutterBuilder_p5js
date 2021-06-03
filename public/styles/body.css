@@ -1,5 +1,8 @@
 :root{
     scroll-behavior: smooth;
+    --bg: rgb(243, 243, 243);
+    --green: rgb(185, 255, 129);
+    --transition-easing: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 @font-face {
     font-family: Poppins;

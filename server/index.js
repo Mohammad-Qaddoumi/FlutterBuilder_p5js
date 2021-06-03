@@ -69,6 +69,24 @@ io.sockets.on('connection', (socket) => {
     socket.on('boxHeight' , (roomId,data) => {
       socket.to(roomId).emit('boxHeight', data);
     });
+
+    socket.on('delete-push' , (roomId ,data) => {
+      socket.to(roomId).emit('delete-push' ,data);
+    });
+    socket.on('delete-submit' , (roomId ,data) => {
+      socket.to(roomId).emit('delete-submit' ,data);
+    });
+    socket.on('delete-valid-insert' , (roomId ,data) => {
+      socket.to(roomId).emit('delete-valid-insert' ,data);
+    });
+    socket.on('add-push' , (roomId ,data) => {
+      socket.to(roomId).emit('add-push' ,data);
+    });
+
+    socket.on('change-menu-list' , (roomId ,data) => {
+      socket.to(roomId).emit('change-menu-list' ,data);
+    });
+
     socket.on('stopped' , (roomId,data) => {
       socket.to(roomId).emit('stopped', data);
     });
