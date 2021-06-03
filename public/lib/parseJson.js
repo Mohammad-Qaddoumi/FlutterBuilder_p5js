@@ -105,12 +105,13 @@ function getchildren(children, p5) {
                                 const myRe = /^push\((\w|\d|\-)+\)$/g;
                                 const str = myRe.exec(childs[i].events[j])[0].substring(5);
                                 const name = str.substring(0, str.length - 1);
-                                for (let k = 0; k < p5.screens.length; k++) {
-                                    if (p5.screens[k].name === name) {
-                                        childs[i].events[j] = `push(${p5.screens[k].Id})`;
+                                for (let k = 0; k < DESIGN.numberOfScreens; k++) {
+                                    if (DESIGN[`screen${k}`]["name"] === name) {
+                                        childs[i].events[j] = `push(${DESIGN[`screen${k}`]["id"]})`;
                                         break;
                                     }
                                 }
+                                break;
                             }
                         }
                 }

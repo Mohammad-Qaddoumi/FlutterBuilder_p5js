@@ -30,7 +30,6 @@ function sketch(p5)
             Y : 15
         };
     
-        // p5.showBar = true;
         p5.X_D = 0;
         p5.Y_D = 0;
     };
@@ -40,6 +39,7 @@ function sketch(p5)
         p5.frameRate(120);
         p5.cnv.position(0,0,'absolute');
         events.changeTheSelectedProperty(p5);
+        events.resetScreens(p5);
         setTimeout( () => {
             p5.updateison = false;
             document.querySelector('.container').style.display = 'flex';

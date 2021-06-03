@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $context = stream_context_create($options);
     $response = file_get_contents($url, false, $context);
     $design = $response;
-    $design = '{}';
+    // $design = '{}';
 } else {
     header("location: ../connect.php");
     exit;
