@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $context = stream_context_create($options);
     $response = file_get_contents($url, false, $context);
     $design = $response;
-    // $design = '{}';
+    $design = '{}';
 } else {
     header("location: ../connect.php");
     exit;
@@ -234,6 +234,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <div class="divName">
                         <div>Name:&nbsp;</div>
                         <input autocomplete="off" placeholder="Enter Widget name here" type="text" class="txtName transition-animation" id="name" />
+                        <select class="inputs-name"></select>
                     </div>
 
                     <div class="size">

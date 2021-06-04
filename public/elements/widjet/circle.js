@@ -5,6 +5,8 @@ export default class CircleAvatar extends Widjet
     constructor(point, radius) 
     {
         super({X : point.X , Y : point.Y, W : radius, H : radius},true,"CircleAvatar","Click");
+        this.nameIndex = 0;
+        this.nameId = "";
     }
 
     sketch(p5) 

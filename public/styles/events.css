@@ -166,15 +166,17 @@ input:checked:focus+.switch-left+.switch-right {
     color: #333;
 }
 
-.screens-list {
+.screens-list,.inputs-name {
     cursor: pointer;
     box-shadow: 0px 10px 25px grey;
-    font-size: 18px;
     padding: 7px 75px 7px 30px;
     color: white;
     background-color: #173F5F;
     border: solid 2px grey;
     margin-left: 0.75rem;
+}
+.screens-list{
+    font-size: 18px;
 }
 
 .toggle-button {

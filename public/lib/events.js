@@ -122,6 +122,24 @@ function setEvents(p5)
         p5.socket.emit('change-menu-list',ROOM_ID,{index : p5.selectedScreen , EMAIL,value:e.target.checked});
     });
 
+    document.querySelector('.inputs-name').addEventListener('input', e => {
+        let text ;
+        let options = document.querySelector('.inputs-name').options;
+        for(let i=0;i<options.length;i++)
+        {
+            if(options[i].value === e.target.value)
+            {
+                text = options[i].innerText;
+                p5.selected.nameIndex = options[i].dataset.value;
+                p5.selected.nameId = e.target.value;
+                break;
+            }
+        }
+        p5.selected.name = text;
+        p5.socket.emit('txtName',ROOM_ID,{EMAIL,name:p5.selected.name});
+        document.querySelector('.selectedItem').innerHTML = `SelectedItem: ${p5.selected.name}`;
+    });
+
     btnAddImage.addEventListener('click', e => {
         document.querySelector('.form-add-image').style.display = 'flex';
         p5.lockSelected = true;
@@ -573,10 +591,48 @@ function addTheScreenElement(p5,newItem = false) {
     }
 }
 
+function fillWithInputNames(p5)
+{
+    const input = document.querySelector('.inputs-name');
+    removeAllChildNodes(input);
+    const name = p5.selected.name;
+    const names = [];
+    for(let i=0;i<p5.screens.length;i++)
+    {
+        const screen = p5.screens[i];
+        for(let j=0;j<screen.children.length;j++)
+        {
+            if(screen.children[j]._type === "Input")
+                names.push({name : screen.children[j].name , Id : screen.children[j].Id , index : i});
+        }
+        for(let j=0;j<screen.unSortedWidjets.length;j++)
+        {
+            if(screen.unSortedWidjets[j]._type === "Input")
+                names.push({name : screen.unSortedWidjets[j].name , Id : screen.unSortedWidjets[j].Id , index : ""+i});
+        }
+    }
+    for(let i=0;i<names.length;i++)
+    {
+        let option;
+        if(names[i].name === name)
+        {
+            option = new Option(name, names[i].Id, true, true);
+        }
+        else
+        {
+            option = new Option(names[i].name, names[i].Id);
+        }
+        option.dataset.value = names[i].index;
+        input.append(option);
+    }
+}
+
 function changeTheSelectedProperty(p5) 
 {
     if(!p5.selected) return;
     widthAndHeight.style.display = 'none';
+    document.querySelector('.inputs-name').style.display = 'none';
+    txtName.style.display = 'flex';
     bgCV.value = rgbToHex(p5.selected.backgroundColor[0], p5.selected.backgroundColor[1], p5.selected.backgroundColor[2]);
     backgroundColor.style.display = 'flex';
     foregroundColor.style.display = 'flex';
@@ -665,6 +721,9 @@ function changeTheSelectedProperty(p5)
             b[0].innerText = 'Radius';
             b[2].style.display = 'none';
             b[3].style.display = 'none';
+            txtName.style.display = 'none';
+            document.querySelector('.inputs-name').style.display = 'flex';
+            fillWithInputNames(p5);
         }
         else
         {
@@ -672,6 +731,7 @@ function changeTheSelectedProperty(p5)
             b[0].innerText = 'Width:';
             b[2].style.display = 'flex';
             b[3].style.display = 'flex';
+            txtName.style.display = 'flex';
         }
         if(p5.selected instanceof Input)
             widthAndHeight.style.display = 'none';

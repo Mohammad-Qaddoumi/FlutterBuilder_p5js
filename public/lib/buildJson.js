@@ -111,8 +111,8 @@ function setElementPosition(p5,selected,selectedScreen)
     // if(x >= 0 )
         // x = ( selected.X + (selected.width / 2) - X_zero ) / W;
     let y = -( selected.Y - Y_zero ) / H;
-    if(selected._type === "Input")
-        {x = 0.0;y=0.0;}
+    // if(selected._type === "Input")
+    //     {x = 0.0;y=0.0;}
     return [
         // Math.ceil(x * 100) / 100.0 ,
         x,
