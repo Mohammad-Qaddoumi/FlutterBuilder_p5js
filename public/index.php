@@ -189,7 +189,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     </div>
                     <hr>
                     <div class="screenaction">
-                        <div class="menu-list">
+                        <div class="menu-list transition-animation">
                             <input type="checkbox" id="i">
                             <label for="i" class="checkbox">
                                 <div class="checkbox__inner">
@@ -211,6 +211,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <input type="button" class="btnDeleteScreen button-style transition-animation" value="Delete This Screen">
                         </div>
                     </div>
+                    <hr>
+                    <div class="list-widjet-tools transition-animation">
+                        <div>
+                            <div>Elements&nbsp;:&nbsp;</div>
+                            <select class="list-childs-name"></select>
+                        </div>
+                        <div>
+                            <button class="button-style add-element"> Add Element </button>
+                            <select id="add-element">
+                                <option value="0">ListTile</option>
+                                <option value="1">FlatButton</option>
+                                <option value="2">Image</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr>
                     <div class="selectedItem">SelectedItem:</div>
                     <div class="locked">
                         <input class="transition-animation" type="checkbox" name="lock" id="lock">

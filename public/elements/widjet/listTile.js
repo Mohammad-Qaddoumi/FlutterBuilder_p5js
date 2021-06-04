@@ -4,7 +4,7 @@ export default class ListTile extends Widjet
 {
     constructor(point, width, height)
     {
-        super({X : point.X , Y : point.Y, W : width, H : height},true,"ListTile","Enter your text here");
+        super({X : point.X , Y : point.Y, W : width, H : height},true,"ListTile","Enter your text");
         this.foregroundColor = [125,125,125];
         this.subContent = "subContent";
     }

@@ -166,7 +166,7 @@ input:checked:focus+.switch-left+.switch-right {
     color: #333;
 }
 
-.screens-list,.inputs-name {
+.screens-list,.inputs-name,.list-childs-name, #add-element {
     cursor: pointer;
     box-shadow: 0px 10px 25px grey;
     padding: 7px 75px 7px 30px;
@@ -175,10 +175,25 @@ input:checked:focus+.switch-left+.switch-right {
     border: solid 2px grey;
     margin-left: 0.75rem;
 }
+.add-element{
+    padding: 0.5em;
+    font-size: small;
+    background-color: rgba(0,255,0,0.7);
+}
 .screens-list{
     font-size: 18px;
 }
-
+.list-childs-name , #add-element{
+    display: flex;
+    padding: 5px 30px 5px 10px;
+}
+.list-widjet-tools{
+    display: none;
+    flex-direction: column;
+}
+.list-widjet-tools > div{
+    display: flex;
+}
 .toggle-button {
     position: relative;
     display: inline-block;

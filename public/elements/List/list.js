@@ -1,13 +1,22 @@
 import Element from '../Element.js';
 import config from '../../lib/config.js';
+import ListTile from '../widjet/listTile.js';
 export default class List extends Element
 {
     constructor(point, width, height) 
     {
         super({X : point.X , Y : point.Y, W : width, H : height} ,true , `List${config.count++}`,"List",[100,100,100]);
 
-        this.children = [];
+        this.children = [
+            // new FlatButton({ X: 9, Y: 9 }, 99, 40),
+            // new FlatButton({ X: 9, Y: 9 }, 99, 40),
+            // new FlatButton({ X: 9, Y: 9 }, 99, 40),
+            // new FlatButton({ X: 9, Y: 9 }, 99, 40),
+            // new FlatButton({ X: 9, Y: 9 }, 99, 40)
+            new ListTile({ X: 9, Y: 9 }, 99, 40),
+        ];
         this.noBackground = false;
+        this.selectedIndex = 0;
     }
     sketch(p5) 
     {
@@ -17,15 +26,27 @@ export default class List extends Element
         p5.fill(this.backgroundColor[0], this.backgroundColor[1], this.backgroundColor[2]);
         p5.rect(this.X, this.Y, this.width, this.height);
         let x = this.X + 2;
-        let y = this.Y;
+        let y = this.Y + 2;
         let w = this.Width - 4;
         let h = 40;
         for(let i=0;i<this.children.length;i++)
         {
+            p5.push();
             if(y + h > this.Y + this.Height)
+            {
+                y -= 42;
+                p5.stroke(255,0,0);
+                p5.strokeWeight(3);
+                p5.textSize(31);
+                p5.fill(255,0,0);
+                let d = Math.abs(this.Y + this.height - y)/2;
+                p5.text("...",x + w /3,this.Y + this.Height - d);
+                p5.pop();
                 break;
-            y += 42;
+            }
             this.children[i].sketch(p5,{x,y,w,h});
+            p5.pop();
+            y += 42;
         }        
     }
     isInside(p5) 

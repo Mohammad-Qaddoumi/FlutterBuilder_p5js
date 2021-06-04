@@ -85,6 +85,12 @@ io.sockets.on('connection', (socket) => {
     socket.on('add-push' , (roomId ,data) => {
       socket.to(roomId).emit('add-push' ,data);
     });
+    socket.on('add-submit' , (roomId ,data) => {
+      socket.to(roomId).emit('add-submit' ,data);
+    });
+    socket.on('add-insert-validate' , (roomId ,data) => {
+      socket.to(roomId).emit('add-insert-validate' ,data);
+    });
     socket.on('add-calculate' , (roomId ,data) => {
       socket.to(roomId).emit('add-calculate' ,data);
     });

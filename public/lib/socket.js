@@ -332,6 +332,51 @@ export default function buildSocketConnection(p5)
             }
         }
     });
+    p5.socket.on('add-submit' , data => {
+        if(data)
+        {
+            if(data.EMAIL === EMAIL)return;
+            const index = p5.partners.findIndex( i => i.email === data.EMAIL );
+            if( index !== -1  && data.Id === p5.partners[index].selected.Id)
+            {
+                let found = false;
+                for(let i=0;i<p5.partners[index].selected.events.length;i++)
+                {
+                    if(p5.partners[index].selected.events[i].startsWith("submit"))
+                    {
+                        p5.partners[index].selected.events[i] = data.submit;
+                        found = true;
+                        break;
+                    }
+                }
+                if(!found)
+                    p5.partners[index].selected.events.push(data.submit);
+            }
+        }
+    });
+    p5.socket.on('add-insert-validate' , data => {
+        if(data)
+        {
+            if(data.EMAIL === EMAIL)return;
+            const index = p5.partners.findIndex( i => i.email === data.EMAIL );
+            if( index !== -1  && data.Id === p5.partners[index].selected.Id)
+            {
+                let found = false;
+                for(let i=0;i<p5.partners[index].selected.events.length;i++)
+                {
+                    if(p5.partners[index].selected.events[i].startsWith("insertion") 
+                    || p5.partners[index].selected.events[i].startsWith("validation"))
+                    {
+                        p5.partners[index].selected.events[i] = data.add;
+                        found = true;
+                        break;
+                    }
+                }
+                if(!found)
+                    p5.partners[index].selected.events.push(data.add);
+            }
+        }
+    });
     p5.socket.on('change-menu-list' , data => {
         if(data)
         {
@@ -364,7 +409,13 @@ export default function buildSocketConnection(p5)
             const index = p5.partners.findIndex( i => i.email === data.EMAIL );
             if( index !== -1  && data.Id === p5.partners[index].selected.Id)
             {
-                const index2 = p5.partners[index].selected.events.findIndex(t => t.startsWith("validation") || t.startsWith("insertion"));
+                let index2;
+                if(data.insert)
+                    index2 = p5.partners[index].selected.events.findIndex(t => t.startsWith("insertion"));
+                else if(data.valid)
+                    index2 = p5.partners[index].selected.events.findIndex(t => t.startsWith("validation"));
+                else
+                    index2 = p5.partners[index].selected.events.findIndex(t => t.startsWith("validation") || t.startsWith("insertion"));
                 if(index2 !== -1)
                     p5.partners[index].selected.events.splice(index2,1);
             }

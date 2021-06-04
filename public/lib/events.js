@@ -1,21 +1,18 @@
 import Screen from '../elements/screen/screen.js';
 import AppBar from '../elements/widjet/appBar.js';
-import Text from '../elements/widjet/Text.js';
-import Input from '../elements/widjet/input.js';
-import ImageWidjet from '../elements/widjet/image.js';
 import config from './config.js';
 import saveAsJson from './ajax.js';
 import binaryToBase64 from './base64Encode.js';
 import UUID from './idgenerator.js';
-import CircleAvatar from '../elements/widjet/circle.js';
-import List from '../elements/List/list.js';
+import {changeProperty,fillListChilds} from './property.js';
+import ListTile from '../elements/widjet/listTile.js';
+import FlatButton from '../elements/widjet/flatButton.js';
+import ImageWidjet from '../elements/widjet/image.js';
 
 const dlebtn = document.querySelector('.btnDelete');
 const updbtn = document.querySelector('.btnUpdate');
 const uSize = document.querySelector('.userSize');
-const sizeName = document.querySelector('.size-name');
 const innerText = document.querySelector('.inner-Text');
-const iText = document.querySelector('.innerText');
 const txtName = document.querySelector('.txtName');
 const lock = document.querySelector('#lock');
 const showProperty = document.querySelector('#property');
@@ -25,15 +22,10 @@ const treeDiv = document.querySelector('.treeDiv');
 const slcScreen = document.getElementsByClassName('screen-value');
 const btnAddScreen = document.querySelector('.btnAddScreen');
 const sc = document.querySelector('.screen-collection');
-const type = document.querySelector('.itemType');
-const slcItem = document.querySelector('.selectedItem');
-const widthAndHeight = document.querySelector('.widthAndHeight');
 const boxWidth = document.querySelector('.width');
 const boxHeight = document.querySelector('.height');
 const btnAppbar = document.querySelector('.btnAppbar');
-const backgroundColor = document.querySelector('.backgroundColor');
 const bgCV = document.querySelector('.backgroundColor > input');
-const foregroundColor = document.querySelector('.foreColor');
 const fgCV = document.querySelector('.foreColor > input');
 const image_BG = document.querySelector('#image-BG');
 const btnAddImage = document.querySelector('#btnAddImage');
@@ -90,7 +82,12 @@ function setEvents(p5)
     document.querySelector('#submit-events').addEventListener('input',e=>{
         if(e.target.checked)
         {
-
+            let index =p5.selected.events.findIndex(t => t.startsWith("submit"));
+            if(index === -1)
+            {
+                p5.selected.events.push(`submit()`);
+                p5.socket.emit('add-submit',ROOM_ID,{Id : p5.selected.Id , EMAIL,submit:`submit()`} );
+            } 
         }
         else
         {
@@ -105,8 +102,12 @@ function setEvents(p5)
     document.querySelector('#calculate-events').addEventListener('input',e=>{
         if(e.target.checked)
         {
-            p5.selected.events.push(`calculate()`);
-            p5.socket.emit('add-calculate',ROOM_ID,{Id : p5.selected.Id , EMAIL,calculate:`calculate()`} );
+            let index =p5.selected.events.findIndex(t => t.startsWith("calc"));
+            if(index === -1)
+            {
+                p5.selected.events.push(`calculate()`);
+                p5.socket.emit('add-calculate',ROOM_ID,{Id : p5.selected.Id , EMAIL,calculate:`calculate()`} );
+            } 
         }
         else
         {
@@ -121,7 +122,23 @@ function setEvents(p5)
     document.querySelector('#valid-insert-evnets').addEventListener('input',e=>{
         if(e.target.checked)
         {
+            let index = p5.selected.events.findIndex(t => t.startsWith("valid") || t.startsWith("insert"));
+            let event;
+            if(document.querySelector('#toggleButton17').checked)
+            {
+                event = "insertion()";
+            }
+            else
+            {
+                event = "validation()";
+            }
 
+            if(index === -1)
+                p5.selected.events.push(event);
+            else
+                p5.selected.events[index] = event;
+            
+            p5.socket.emit('add-insert-validate',ROOM_ID,{Id : p5.selected.Id , EMAIL,add:event} );
         }
         else
         {
@@ -132,6 +149,92 @@ function setEvents(p5)
                 p5.socket.emit('delete-valid-insert',ROOM_ID,{Id : p5.selected.Id , EMAIL});
             }
         }
+    });
+    document.querySelector('#toggleButton17').addEventListener('input',e=>{
+        if(!document.querySelector('#valid-insert-evnets').checked)
+            return;
+        if(e.target.checked)
+        {
+            let index = p5.selected.events.findIndex(t => t.startsWith("insertion") || t.startsWith("validation"));
+            if(index === -1)
+            {
+                p5.selected.events.push("insertion()");    
+            }
+            else
+            {
+                p5.selected.events[index] = "insertion()";
+            }
+            p5.socket.emit('add-insert-validate',ROOM_ID,{Id : p5.selected.Id , EMAIL,add:`insertion()`});
+        }
+        else
+        {
+            const index = p5.selected.events.findIndex(t => t.startsWith("insertion"));
+            if(index !== -1)
+            {
+                p5.selected.events.splice(index,1);
+                p5.socket.emit('delete-valid-insert',ROOM_ID,{Id : p5.selected.Id , EMAIL,insert:true});
+            }
+        }
+    });
+    document.querySelector('#toggleButton16').addEventListener('input',e=>{
+        if(!document.querySelector('#valid-insert-evnets').checked)
+            return;
+        if(e.target.checked)
+        {
+            let index = p5.selected.events.findIndex(t => t.startsWith("insertion") || t.startsWith("validation"));
+            if(index === -1)
+            {
+                p5.selected.events.push("validation()");    
+            }
+            else
+            {
+                p5.selected.events[index] = "validation()";
+            }
+            p5.socket.emit('add-insert-validate',ROOM_ID,{Id : p5.selected.Id , EMAIL,add:`validation()`});
+        }
+        else
+        {
+            const index = p5.selected.events.findIndex(t => t.startsWith("validation"));
+            if(index !== -1)
+            {
+                p5.selected.events.splice(index,1);
+                p5.socket.emit('delete-valid-insert',ROOM_ID,{Id : p5.selected.Id , EMAIL,valid:true});
+            }
+        }
+    });
+
+    //TODO: change the selected inside the list ... 
+    document.querySelector('.list-childs-name').addEventListener('input', e => {
+        if(e.target.value === "0")
+        {
+
+        }
+        else
+        {
+            for(let i=0;i<p5.selected.children.length;i++)
+            {
+                if(e.target.value === p5.selected.children[i].Id)
+                {
+
+                }
+            }
+        }
+    });
+    document.querySelector('.add-element').addEventListener('click', e => {
+        const value = document.querySelector('#add-element').value;
+        if(value === "0")
+        {
+            p5.selected.children.push(new ListTile({ X: 9, Y: 9 }, 99, 40));
+        }
+        else if(value === "1")
+        {
+            p5.selected.children.push(new FlatButton({ X: 9, Y: 9 }, 99, 40));
+        }
+        else if(value === "2")
+        {
+            p5.selected.children.push(new ImageWidjet({ X: 9, Y: 9 }, 99, 40));
+        }
+        fillListChilds(p5);
     });
 
     document.querySelector('.menu-list input').addEventListener('input', e => {
@@ -424,8 +527,6 @@ function setEvents(p5)
     addTheScreenElement(p5);
 }
 
-const rgbToHex = (r, g, b) => '#' + [r, g, b]
-                .map(x => x.toString(16).padStart(2, '0')).join('');
 const hexToRgb = hex =>
                 hex.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i
                             ,(m, r, g, b) => '#' + r + r + g + g + b + b)
@@ -472,10 +573,32 @@ function editEvents(p5)
     else
         document.querySelector('#pushEvents').checked = false;
 
-    // Submit Events ...
-
+    //Submit and Calculate Events ...
+    document.querySelector('#submit-events').checked = false;
+    document.querySelector('#calculate-events').checked = false;
+    for(let i=0;i<p5.selected.events.length;i++)
+        if(p5.selected.events[i].startsWith("submit"))
+        {
+            document.querySelector('#submit-events').checked = true;
+        }
+        else if(p5.selected.events[i].startsWith("calc"))
+        {
+            document.querySelector('#calculate-events').checked = true;
+        }
     // Validate and Insert Events ...
-
+    let index = p5.selected.events.findIndex(t => t.startsWith("valid") || t.startsWith("insert"));
+    if(index === -1)
+    {
+        document.querySelector('#valid-insert-evnets').checked = false;   
+    }
+    else
+    {
+        document.querySelector('#valid-insert-evnets').checked = true;   
+        if(p5.selected.events[index].startsWith("valid"))
+            document.querySelector('#toggleButton16').checked = true;
+        else
+            document.querySelector('#toggleButton17').checked = true;
+    }
 }
 
 function addNewScreen(p5,id)
@@ -609,160 +732,9 @@ function addTheScreenElement(p5,newItem = false) {
     }
 }
 
-function fillWithInputNames(p5)
+function changeTheSelectedProperty(p5,selected)
 {
-    const input = document.querySelector('.inputs-name');
-    removeAllChildNodes(input);
-    const name = p5.selected.name;
-    const names = [];
-    for(let i=0;i<p5.screens.length;i++)
-    {
-        const screen = p5.screens[i];
-        for(let j=0;j<screen.children.length;j++)
-        {
-            if(screen.children[j]._type === "Input")
-                names.push({name : screen.children[j].name , Id : screen.children[j].Id , index : i});
-        }
-        for(let j=0;j<screen.unSortedWidjets.length;j++)
-        {
-            if(screen.unSortedWidjets[j]._type === "Input")
-                names.push({name : screen.unSortedWidjets[j].name , Id : screen.unSortedWidjets[j].Id , index : ""+i});
-        }
-    }
-    for(let i=0;i<names.length;i++)
-    {
-        let option;
-        if(names[i].name === name)
-        {
-            option = new Option(name, names[i].Id, true, true);
-        }
-        else
-        {
-            option = new Option(names[i].name, names[i].Id);
-        }
-        option.dataset.value = names[i].index;
-        input.append(option);
-    }
-}
-
-function changeTheSelectedProperty(p5) 
-{
-    if(!p5.selected) return;
-    widthAndHeight.style.display = 'none';
-    document.querySelector('.inputs-name').style.display = 'none';
-    txtName.style.display = 'flex';
-    bgCV.value = rgbToHex(p5.selected.backgroundColor[0], p5.selected.backgroundColor[1], p5.selected.backgroundColor[2]);
-    backgroundColor.style.display = 'flex';
-    foregroundColor.style.display = 'flex';
-    btnAddImage.style.display = 'none';
-    if (p5.selected.Id === p5.screens[p5.selectedScreen].Id)
-    {
-        document.querySelector('.locked').style.display = 'none';
-        document.querySelector('#btnEditEvents').style.display = 'none';
-        document.querySelector('.screenaction').style.display = 'block';
-        document.querySelector('.menu-list input').checked = p5.screens[p5.selectedScreen].menu_list;
-        if(p5.screens[p5.selectedScreen].appBar)
-            btnAppbar.style.display = 'none';
-        else
-            btnAppbar.style.display = 'flex';
-        document.querySelector('.size').style.display = 'none';
-        dlebtn.style.display = 'none';
-        foregroundColor.style.display = 'none';
-        // slcItem.innerText = `SelectedItem: Screen ${p5.selectedScreen + 1}`;
-        slcItem.innerText = `SelectedItem: ${p5.selected.name}`;
-        type.innerText = `Type: Screen`;
-        iText.style.display = 'none';
-    }
-    else
-    {
-        document.querySelector('.screenaction').style.display = 'none';
-        document.querySelector('.percentage').style.display = 'flex';
-        document.querySelector('#btnEditEvents').style.display = 'flex';
-        iText.style.display = 'none';
-        dlebtn.style.display = 'block';
-        document.querySelector('.locked').style.display = 'flex';
-        lock.checked= !p5.selected.canMove;
-        document.querySelector('.size').style.display = 'flex';
-        slcItem.innerText = `SelectedItem: ${p5.selected.name}`;
-        type.innerText = `Type: ${p5.selected._type}`;
-        if(p5.selected.foregroundColor)
-            fgCV.value = rgbToHex(p5.selected.foregroundColor[0], p5.selected.foregroundColor[1], p5.selected.foregroundColor[2]);
-    
-        if(p5.selected instanceof Text)
-        {
-            backgroundColor.style.display = 'none';
-            document.querySelector('#btnEditEvents').style.display = 'none';
-            uSize.value = p5.selected.fontSize;
-            sizeName.innerText = "Font Size : ";
-            document.querySelector('.percentage').style.display = "none";
-            iText.style.display = 'flex';
-            innerText.value = p5.selected.text;
-        }
-        else if (p5.selected instanceof AppBar)
-        {
-            iText.style.display = 'flex';
-            document.querySelector('#btnEditEvents').style.display = 'none';
-            innerText.value = p5.selected.text;
-            document.querySelector('.size').style.display = 'none';
-            document.querySelector('.locked').style.display = 'none';
-            document.querySelector('#btnEditEvents').style.display = 'none';
-        }
-        else if (p5.selected instanceof ImageWidjet)
-        {
-            backgroundColor.style.display = 'none';
-            foregroundColor.style.display = 'none';
-            document.querySelector('#btnEditEvents').style.display = 'none';
-            btnAddImage.style.display = 'flex';
-            document.querySelector('.size').style.display = 'none';
-            // iText.style.display = 'flex';
-            widthAndHeight.style.display = 'flex';
-            // innerText.value = p5.selected.text;
-            // iText.style.display = 'none';
-            boxWidth.value = p5.selected.width;
-            boxHeight.value = p5.selected.height;
-        }
-        else
-        {
-            document.querySelector('.size').style.display = 'none';
-            iText.style.display = 'flex';
-            widthAndHeight.style.display = 'flex';
-            
-            innerText.value = p5.selected.text;
-            boxWidth.value = p5.selected.width;
-            boxHeight.value = p5.selected.height;
-        }
-        if(p5.selected instanceof CircleAvatar)
-        {
-            foregroundColor.style.display = 'none';
-            document.querySelector('#btnEditEvents').style.display = 'none';
-            iText.style.display = 'none';
-            let b = widthAndHeight.querySelectorAll('*');
-            b[0].innerText = 'Radius';
-            b[2].style.display = 'none';
-            b[3].style.display = 'none';
-            txtName.style.display = 'none';
-            document.querySelector('.inputs-name').style.display = 'flex';
-            fillWithInputNames(p5);
-        }
-        else
-        {
-            let b = widthAndHeight.querySelectorAll('*');
-            b[0].innerText = 'Width:';
-            b[2].style.display = 'flex';
-            b[3].style.display = 'flex';
-            txtName.style.display = 'flex';
-        }
-        if(p5.selected instanceof List)
-        {
-            iText.style.display = 'none';
-            foregroundColor.style.display = 'none';
-            document.querySelector('#btnEditEvents').style.display = 'none';
-        }
-        if(p5.selected instanceof Input)
-            widthAndHeight.style.display = 'none';
-
-    }
-    txtName.value = p5.selected.name;
+    changeProperty(p5,selected) ;
 }
 
 export default {
