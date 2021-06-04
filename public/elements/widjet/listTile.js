@@ -1,12 +1,13 @@
 import Widjet from './widjet.js';
-export default class FlatButton extends Widjet 
+
+export default class ListTile extends Widjet
 {
-
-    constructor(point, width, height) 
+    constructor(point, width, height)
     {
-        super({X : point.X , Y : point.Y, W : width, H : height},true,"FlatButton","Click");
+        super({X : point.X , Y : point.Y, W : width, H : height},true,"ListTile","Enter your text here");
+        this.foregroundColor = [125,125,125];
+        this.subContent = "subContent";
     }
-
     sketch(p5,fromList) 
     {
         let x,y,h,w;
@@ -33,19 +34,20 @@ export default class FlatButton extends Widjet
             tx = this.text_X;
             ty = this.text_Y;
         }
+
         p5.strokeWeight(2);
         p5.stroke(0);
         p5.rectMode(p5.CORNER);
         p5.fill(this.backgroundColor[0], this.backgroundColor[1], this.backgroundColor[2]);
         p5.rect(x, y, w, h);
-        
+
         p5.fill(this.foregroundColor[0], this.foregroundColor[1], this.foregroundColor[2]);
         p5.textSize(ts);
         p5.text(this.text,tx, ty);
-        
+
+        //TODO : sketch subcontent
+
     }
-
-
     isInside(p5) 
     {
         if(    p5.mouseX < this.X 
@@ -57,4 +59,3 @@ export default class FlatButton extends Widjet
         return true;
     }
 }
-

@@ -1,0 +1,52 @@
+import Element from '../Element.js';
+import config from '../../lib/config.js';
+export default class List extends Element
+{
+    constructor(point, width, height) 
+    {
+        super({X : point.X , Y : point.Y, W : width, H : height} ,true , `List${config.count++}`,"List",[100,100,100]);
+
+        this.children = [];
+        this.noBackground = false;
+    }
+    sketch(p5) 
+    {
+        p5.strokeWeight(3);
+        p5.stroke(0,255,0);
+        p5.rectMode(p5.CORNER);
+        p5.fill(this.backgroundColor[0], this.backgroundColor[1], this.backgroundColor[2]);
+        p5.rect(this.X, this.Y, this.width, this.height);
+        let x = this.X + 2;
+        let y = this.Y;
+        let w = this.Width - 4;
+        let h = 40;
+        for(let i=0;i<this.children.length;i++)
+        {
+            if(y + h > this.Y + this.Height)
+                break;
+            y += 42;
+            this.children[i].sketch(p5,{x,y,w,h});
+        }        
+    }
+    isInside(p5) 
+    {
+        if(    p5.mouseX < this.X 
+            || p5.mouseY < this.Y 
+            || p5.mouseX > this.X + this.width
+            || p5.mouseY > this.Y + this.height
+        )
+            return false;
+        return true;
+    }
+    superSketch(p5)
+    {
+        try{
+            if(!this.canMove)
+                p5.image(p5.lockImg,this.X,this.Y,20,25);
+        }
+        catch(e)
+        {
+            console.log(e);
+        }
+    }
+}

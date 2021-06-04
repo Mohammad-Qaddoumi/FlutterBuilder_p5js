@@ -96,6 +96,13 @@ function getChildsAsJson( p5, children , selectedScreen )
             collection[`child${i+1}`]["onPress"]    = "null();";
         if(children[i].img)
             collection[`child${i+1}`]["imageType"]  = children[i].img.imageType;
+        if(children[i]._type === "CircleAvatar")
+        {
+            collection[`child${i+1}`].nameIndex = children[i].nameIndex;
+            collection[`child${i+1}`].nameId = children[i].nameId;
+        }
+        if(children[i]._type === "ListTile")
+            collection[`child${i+1}`].subContent = children[i].subContent ;
     }
     return collection;
 }

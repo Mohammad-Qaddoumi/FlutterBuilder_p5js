@@ -349,7 +349,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <span class="switch-left">On</span>
                     <span class="switch-right">Off</span>
                 </label>
-                <div>Submit&nbsp;:&nbsp;</div>
+                <div>&nbsp;&nbsp;Submit&nbsp;&nbsp;</div>
+            </div>
+
+            <hr>
+            <div class="transition-animation form-group calculate-events">
+                <label for="calculate-events" class="rocker">
+                    <input id="calculate-events" type="checkbox">
+                    <span class="switch-left">On</span>
+                    <span class="switch-right">Off</span>
+                </label>
+                <div>&nbsp;&nbsp;Calculate&nbsp;&nbsp;</div>
             </div>
 
             <hr>

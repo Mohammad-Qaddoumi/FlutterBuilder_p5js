@@ -73,6 +73,9 @@ io.sockets.on('connection', (socket) => {
     socket.on('delete-push' , (roomId ,data) => {
       socket.to(roomId).emit('delete-push' ,data);
     });
+    socket.on('delete-calculate' , (roomId ,data) => {
+      socket.to(roomId).emit('delete-calculate' ,data);
+    });
     socket.on('delete-submit' , (roomId ,data) => {
       socket.to(roomId).emit('delete-submit' ,data);
     });
@@ -81,6 +84,9 @@ io.sockets.on('connection', (socket) => {
     });
     socket.on('add-push' , (roomId ,data) => {
       socket.to(roomId).emit('add-push' ,data);
+    });
+    socket.on('add-calculate' , (roomId ,data) => {
+      socket.to(roomId).emit('add-calculate' ,data);
     });
 
     socket.on('change-menu-list' , (roomId ,data) => {

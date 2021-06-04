@@ -8,6 +8,7 @@ import saveAsJson from './ajax.js';
 import binaryToBase64 from './base64Encode.js';
 import UUID from './idgenerator.js';
 import CircleAvatar from '../elements/widjet/circle.js';
+import List from '../elements/List/list.js';
 
 const dlebtn = document.querySelector('.btnDelete');
 const updbtn = document.querySelector('.btnUpdate');
@@ -98,6 +99,22 @@ function setEvents(p5)
             {
                 p5.selected.events.splice(index,1);
                 p5.socket.emit('delete-submit',ROOM_ID,{Id : p5.selected.Id , EMAIL});
+            }
+        }
+    });
+    document.querySelector('#calculate-events').addEventListener('input',e=>{
+        if(e.target.checked)
+        {
+            p5.selected.events.push(`calculate()`);
+            p5.socket.emit('add-calculate',ROOM_ID,{Id : p5.selected.Id , EMAIL,calculate:`calculate()`} );
+        }
+        else
+        {
+            const index = p5.selected.events.findIndex(t => t.startsWith("calculate"));
+            if(index !== -1)
+            {
+                p5.selected.events.splice(index,1);
+                p5.socket.emit('delete-calculate',ROOM_ID,{Id : p5.selected.Id , EMAIL});
             }
         }
     });
@@ -668,7 +685,8 @@ function changeTheSelectedProperty(p5)
         document.querySelector('.size').style.display = 'flex';
         slcItem.innerText = `SelectedItem: ${p5.selected.name}`;
         type.innerText = `Type: ${p5.selected._type}`;
-        fgCV.value = rgbToHex(p5.selected.foregroundColor[0], p5.selected.foregroundColor[1], p5.selected.foregroundColor[2]);
+        if(p5.selected.foregroundColor)
+            fgCV.value = rgbToHex(p5.selected.foregroundColor[0], p5.selected.foregroundColor[1], p5.selected.foregroundColor[2]);
     
         if(p5.selected instanceof Text)
         {
@@ -733,6 +751,12 @@ function changeTheSelectedProperty(p5)
             b[2].style.display = 'flex';
             b[3].style.display = 'flex';
             txtName.style.display = 'flex';
+        }
+        if(p5.selected instanceof List)
+        {
+            iText.style.display = 'none';
+            foregroundColor.style.display = 'none';
+            document.querySelector('#btnEditEvents').style.display = 'none';
         }
         if(p5.selected instanceof Input)
             widthAndHeight.style.display = 'none';

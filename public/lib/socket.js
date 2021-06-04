@@ -275,6 +275,19 @@ export default function buildSocketConnection(p5)
             }
         }
     });
+    p5.socket.on('delete-calculate' , data => {
+        if(data)
+        {
+            if(data.EMAIL === EMAIL)return;
+            const index = p5.partners.findIndex( i => i.email === data.EMAIL );
+            if( index !== -1  && data.Id === p5.partners[index].selected.Id)
+            {
+                const index2 = p5.partners[index].selected.events.findIndex(t => t.startsWith("calculate"));
+                if(index2 !== -1)
+                    p5.partners[index].selected.events.splice(index2,1);
+            }
+        }
+    });
     p5.socket.on('add-push' , data => {
         if(data)
         {
@@ -294,6 +307,28 @@ export default function buildSocketConnection(p5)
                 }
                 if(!found)
                     p5.partners[index].selected.events.push(data.push);
+            }
+        }
+    });
+    p5.socket.on('add-calculate' , data => {
+        if(data)
+        {
+            if(data.EMAIL === EMAIL)return;
+            const index = p5.partners.findIndex( i => i.email === data.EMAIL );
+            if( index !== -1  && data.Id === p5.partners[index].selected.Id)
+            {
+                let found = false;
+                for(let i=0;i<p5.partners[index].selected.events.length;i++)
+                {
+                    if(p5.partners[index].selected.events[i].startsWith("calculate"))
+                    {
+                        p5.partners[index].selected.events[i] = data.calculate;
+                        found = true;
+                        break;
+                    }
+                }
+                if(!found)
+                    p5.partners[index].selected.events.push(data.calculate);
             }
         }
     });

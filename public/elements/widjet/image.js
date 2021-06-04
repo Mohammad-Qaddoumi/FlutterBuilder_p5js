@@ -14,7 +14,7 @@ export default class ImageWidjet extends Widjet
             p5Image : null
         };
     }
-    sketch(p5) 
+    sketch(p5,fromList) 
     {
         if(!this.img.loading && ! this.img.error)
         {
@@ -29,10 +29,25 @@ export default class ImageWidjet extends Widjet
         }
         else
         {
+            let x,y,h,w;
+            if(fromList)
+            {
+                x = fromList.x;
+                y = fromList.y;
+                h = fromList.h;
+                w = fromList.w;
+            }
+            else 
+            {
+                x = this.X;
+                y = this.Y;
+                w = this.width;
+                h = this.height;
+            }
             p5.push();
             p5.noFill();
             p5.stroke(255,255,255);
-            p5.rect(this.X,this.Y,this.width,this.height);
+            p5.rect(x,y,w,h);
             p5.pop();
         }
     }

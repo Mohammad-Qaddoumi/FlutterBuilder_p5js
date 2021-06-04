@@ -3,6 +3,8 @@ import FlatButton from './widjet/flatButton.js';
 import Text from './widjet/Text.js';
 import ImageWidjet from './widjet/image.js';
 import Input from './widjet/input.js';
+import List from './List/list.js';
+import ListTile from './widjet/listTile.js';
 export default class WidjetBuilder 
 {
     static Build(element)
@@ -35,6 +37,16 @@ export default class WidjetBuilder
                 case "CircleAvatar":
                 {
                     widget = new CircleAvatar({ X: element.X, Y: element.Y }, 40, 40);
+                    break;
+                }
+                case "List":
+                {
+                    widget = new List({ X: element.X, Y: element.Y }, 157, 205);
+                    break;
+                }
+                case "ListTile":
+                {
+                    widget = new ListTile({ X: element.X, Y: element.Y }, 153, 40);
                     break;
                 }
             }

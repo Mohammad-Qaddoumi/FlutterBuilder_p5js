@@ -8,6 +8,8 @@ import Text from "../elements/widjet/Text.js";
 import config from './config.js';
 import events from '../lib/events.js';
 import { loadSavedImage } from './base64Encode.js';
+import ListTile from "../elements/widjet/listTile.js";
+import List from "../elements/List/list.js";
 
 export default function parseJson(p5) {
     p5.screens = [];
@@ -87,9 +89,21 @@ function getchildren(children, p5) {
                     childs[i] = new Input({ X: children[`child${i + 1}`].X, Y: children[`child${i + 1}`].Y }, children[`child${i + 1}`]._width, children[`child${i + 1}`]._height);
                     childs[i].text = children[`child${i + 1}`]["content"];
                 }
+                else if (children[`child${i + 1}`].type === "ListTile") {
+                    childs[i] = new ListTile({ X: children[`child${i + 1}`].X, Y: children[`child${i + 1}`].Y }, children[`child${i + 1}`]._width, children[`child${i + 1}`]._height);
+                    childs[i].text = children[`child${i + 1}`]["content"];
+                    childs[i].subContent = children[`child${i + 1}`]["subContent"];
+                }
+                else if (children[`child${i + 1}`].type === "List") {
+                    childs[i] = new List({ X: children[`child${i + 1}`].X, Y: children[`child${i + 1}`].Y }, children[`child${i + 1}`]._width, children[`child${i + 1}`]._height);
+                    childs[i].text = children[`child${i + 1}`]["content"];
+                    //TODO: get children data ...
+                }
                 else if (children[`child${i + 1}`].type === "CircleAvatar") {
                     childs[i] = new CircleAvatar({ X: children[`child${i + 1}`].X, Y: children[`child${i + 1}`].Y }, children[`child${i + 1}`]._width, children[`child${i + 1}`]._height);
                     childs[i].text = children[`child${i + 1}`]["content"];
+                    childs[i].nameIndex = children[`child${i + 1}`].nameIndex;
+                    childs[i].nameId = children[`child${i + 1}`].nameId;
                 }
                 childs[i].name = children[`child${i + 1}`]["name"];
                 childs[i].foregroundColor = children[`child${i + 1}`]["colorFromRGB"];
