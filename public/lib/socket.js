@@ -213,6 +213,11 @@ export default function buildSocketConnection(p5)
             if( index !== -1 )
             {
                 p5.partners[index].selected.name = data.name;
+                if(p5.partners[index].selected._type === "CircleAvatar")
+                {
+                    p5.partners[index].selected.nameIndex = data.nameIndex;
+                    p5.partners[index].selected.nameId = data.nameId;
+                }
                 if(p5.partners[index].selected.Id === p5.screens[p5.selectedScreen].Id)
                 {
                     document.querySelector('.screen-collection').options[p5.selectedScreen].innerText = data.name;

@@ -136,7 +136,8 @@ function setEvents(p5)
             }
         }
         p5.selected.name = text;
-        p5.socket.emit('txtName',ROOM_ID,{EMAIL,name:p5.selected.name});
+        p5.socket.emit('txtName',ROOM_ID,{EMAIL, name:p5.selected.name,
+            nameIndex:p5.selected.nameIndex, nameId:p5.selected.nameId });
         document.querySelector('.selectedItem').innerHTML = `SelectedItem: ${p5.selected.name}`;
     });
 
