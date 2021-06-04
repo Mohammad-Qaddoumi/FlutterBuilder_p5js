@@ -6,6 +6,7 @@ import CircleAvatar from "../elements/widjet/circle.js";
 import Input from "../elements/widjet/input.js";
 import Text from "../elements/widjet/Text.js";
 import config from './config.js';
+import events from '../lib/events.js';
 import { loadSavedImage } from './base64Encode.js';
 
 export default function parseJson(p5) {
@@ -51,8 +52,11 @@ export default function parseJson(p5) {
         p5.screens[0].backgroundColor = [0, 0, 0];
         p5.screens[p5.selectedScreen].canMove = false;
     }
+    p5.menu = null;
     p5.selected = p5.screens[p5.selectedScreen];
     p5.lockSelected = false;
+    events.changeTheSelectedProperty(p5);
+    events.resetScreens(p5);
 }
 function getchildren(children, p5) {
     if (children.childrenNumber === 0) return [];
@@ -95,23 +99,25 @@ function getchildren(children, p5) {
                 childs[i].canMove = children[`child${i + 1}`]["canMove"];
                 if (children[`child${i + 1}`]["onPress"]) {
                     childs[i].events = children[`child${i + 1}`]["onPress"].split(';');
-                    if(childs[i].events[0] === "null()")
+                    if(childs[i].events[0] === "null();")
                     {
                         childs[i].events = [];
                     }
                     else
-                        for (let j = 0; j < childs[i].events.length; j++) {
-                            if (childs[i].events[j].startsWith("push")) {
+                        for (let j = 0; j < childs[i].events.length; j++) 
+                        {
+                            if (childs[i].events[j].startsWith("push")) 
+                            {
                                 const myRe = /^push\((\w|\d|\-)+\)$/g;
                                 const str = myRe.exec(childs[i].events[j])[0].substring(5);
                                 const name = str.substring(0, str.length - 1);
-                                for (let k = 0; k < DESIGN.numberOfScreens; k++) {
-                                    if (DESIGN[`screen${k}`]["name"] === name) {
-                                        childs[i].events[j] = `push(${DESIGN[`screen${k}`]["id"]})`;
-                                        break;
-                                    }
-                                }
-                                break;
+                                const num = name.substring(6);
+                                childs[i].events[j] = `push(${DESIGN[`screen${num}`]["id"]})`;
+                            }
+                            else if(childs[i].events[j] < 6)
+                            {
+                                childs[i].events.splice(j,1);
+                                j--;
                             }
                         }
                 }

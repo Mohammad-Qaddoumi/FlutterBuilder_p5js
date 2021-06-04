@@ -616,6 +616,7 @@ function changeTheSelectedProperty(p5)
         if(p5.selected instanceof Text)
         {
             backgroundColor.style.display = 'none';
+            document.querySelector('#btnEditEvents').style.display = 'none';
             uSize.value = p5.selected.fontSize;
             sizeName.innerText = "Font Size : ";
             document.querySelector('.percentage').style.display = "none";
@@ -625,6 +626,7 @@ function changeTheSelectedProperty(p5)
         else if (p5.selected instanceof AppBar)
         {
             iText.style.display = 'flex';
+            document.querySelector('#btnEditEvents').style.display = 'none';
             innerText.value = p5.selected.text;
             document.querySelector('.size').style.display = 'none';
             document.querySelector('.locked').style.display = 'none';
@@ -634,6 +636,7 @@ function changeTheSelectedProperty(p5)
         {
             backgroundColor.style.display = 'none';
             foregroundColor.style.display = 'none';
+            document.querySelector('#btnEditEvents').style.display = 'none';
             btnAddImage.style.display = 'flex';
             document.querySelector('.size').style.display = 'none';
             // iText.style.display = 'flex';
@@ -656,6 +659,7 @@ function changeTheSelectedProperty(p5)
         if(p5.selected instanceof CircleAvatar)
         {
             foregroundColor.style.display = 'none';
+            document.querySelector('#btnEditEvents').style.display = 'none';
             iText.style.display = 'none';
             let b = widthAndHeight.querySelectorAll('*');
             b[0].innerText = 'Radius';

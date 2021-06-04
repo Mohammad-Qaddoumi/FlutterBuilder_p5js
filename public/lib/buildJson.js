@@ -79,18 +79,21 @@ function getChildsAsJson( p5, children , selectedScreen )
                     {
                         if(p5.screens[k].Id === id)
                         {
-                            event.push(`push(${p5.screens[k].name})`);
+                            event.push(`push(screen${k})`);
                             break;
                         }
                     }
                 }
-                else
+                else if(children[i].events[j].length > 6)
                     event.push(children[i].events[j]);
             }
-            collection[`child${i+1}`]["onPress"]    = event.join(';');
+            let eventCollection = event.join(';') + ";";
+            if(eventCollection.startsWith(";"))
+                eventCollection = eventCollection.substring(1);
+            collection[`child${i+1}`]["onPress"]    = eventCollection;
         }
         else
-            collection[`child${i+1}`]["onPress"]    = "null()";
+            collection[`child${i+1}`]["onPress"]    = "null();";
         if(children[i].img)
             collection[`child${i+1}`]["imageType"]  = children[i].img.imageType;
     }

@@ -197,7 +197,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                 </div>
                             </label>
                             <div class="checkbox__text">
-                                <span>turn menu list </span>
+                                <span>Turn menu list </span>
                                 <div class="checkbox__text--options">
                                     <span class="off">off</span>
                                     <span class="on">on</span>
