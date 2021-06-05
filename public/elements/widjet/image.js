@@ -16,10 +16,25 @@ export default class ImageWidjet extends Widjet
     }
     sketch(p5,fromList) 
     {
+        let x,y,h,w;
+        if(fromList)
+        {
+            x = fromList.x;
+            y = fromList.y;
+            h = fromList.h;
+            w = fromList.w;
+        }
+        else 
+        {
+            x = this.X;
+            y = this.Y;
+            w = this.width;
+            h = this.height;
+        }
         if(!this.img.loading && ! this.img.error)
         {
             try{
-                p5.image(this.img.p5Image,this.X,this.Y,this.width,this.height);
+                p5.image(this.img.p5Image,x,y,w,h);
             }
             catch(e)
             {
@@ -29,21 +44,7 @@ export default class ImageWidjet extends Widjet
         }
         else
         {
-            let x,y,h,w;
-            if(fromList)
-            {
-                x = fromList.x;
-                y = fromList.y;
-                h = fromList.h;
-                w = fromList.w;
-            }
-            else 
-            {
-                x = this.X;
-                y = this.Y;
-                w = this.width;
-                h = this.height;
-            }
+
             p5.push();
             p5.noFill();
             p5.stroke(255,255,255);

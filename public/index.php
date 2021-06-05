@@ -211,8 +211,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <input type="button" class="btnDeleteScreen button-style transition-animation" value="Delete This Screen">
                         </div>
                     </div>
-                    <hr>
-                    <div class="list-widjet-tools transition-animation">
+                    <div class="list-widjet-tools">
                         <div>
                             <div>Elements&nbsp;:&nbsp;</div>
                             <select class="list-childs-name"></select>
@@ -225,8 +224,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                 <option value="2">Image</option>
                             </select>
                         </div>
+                        <div class="childs-property">
+                            <span>Property</span>
+                            <div class="flex-row">
+                                <div>Name&nbsp;:&nbsp;</div>
+                                <input autocomplete="off" placeholder="name" type="text" class="transition-animation" id="child-name" />
+                            </div>
+                            <div class="flex-row sub-content">
+                                <div>Subcontent&nbsp;:&nbsp;</div>
+                                <input autocomplete="off" placeholder="subcontent" type="text" class="transition-animation" id="sub-content" />
+                            </div>
+                            <div class="flex-row child-text">
+                                <div>Text&nbsp;:&nbsp;</div>
+                                <textarea class="transition-animation" id="child-text" cols="30" rows="2" placeholder="text"></textarea>
+                            </div>
+                            <input type="button" class="btnAddImage button-style transition-animation" value="Change Image">
+                            <input type="button" class="btnEditEvents button-style transition-animation" value="Edit Events">
+                            <input type="button" class="btnDeleteElement button-style transition-animation" value="Delete">
+                        </div>
                     </div>
                     <hr>
+                    <div class="hide-in-list">
                     <div class="selectedItem">SelectedItem:</div>
                     <div class="locked">
                         <input class="transition-animation" type="checkbox" name="lock" id="lock">
@@ -271,6 +289,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <div class="action">
                         <div class="delete"><input type="button" class="btnDelete button-style  transition-animation" value="Delete"></div>
                     </div>
+
+                    </div> <!--End of hide in list -->
                     <hr>
                     <div class="update">
                         <input type="button" class="btnUpdate button-style  transition-animation" value="Update The App">

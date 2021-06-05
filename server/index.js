@@ -95,6 +95,22 @@ io.sockets.on('connection', (socket) => {
       socket.to(roomId).emit('add-calculate' ,data);
     });
 
+    socket.on('add-elementList' , (roomId ,data) => {
+      socket.to(roomId).emit('add-elementList' ,data);
+    });
+    socket.on('delete-child-Element' , (roomId ,data) => {
+      socket.to(roomId).emit('delete-child-Element' ,data);
+    });
+    socket.on('change-child-text' , (roomId ,data) => {
+      socket.to(roomId).emit('change-child-text' ,data);
+    });
+    socket.on('change-sub-content' , (roomId ,data) => {
+      socket.to(roomId).emit('change-sub-content' ,data);
+    });
+    socket.on('change-child-name' , (roomId ,data) => {
+      socket.to(roomId).emit('change-child-name' ,data);
+    });
+
     socket.on('change-menu-list' , (roomId ,data) => {
       socket.to(roomId).emit('change-menu-list' ,data);
     });

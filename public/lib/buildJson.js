@@ -96,13 +96,20 @@ function getChildsAsJson( p5, children , selectedScreen )
             collection[`child${i+1}`]["onPress"]    = "null();";
         if(children[i].img)
             collection[`child${i+1}`]["imageType"]  = children[i].img.imageType;
-        if(children[i]._type === "CircleAvatar")
+        else if(children[i]._type === "CircleAvatar")
         {
             collection[`child${i+1}`].nameIndex = children[i].nameIndex;
             collection[`child${i+1}`].nameId = children[i].nameId;
         }
-        if(children[i]._type === "ListTile")
+        else if(children[i]._type === "ListTile")
             collection[`child${i+1}`].subContent = children[i].subContent ;
+        else if (children[i]._type === "List")
+        {
+            // collection[`child${i+1}`].numOfChilds = children[i].children.length;
+            collection[`child${i+1}`] = { ...collection[`child${i+1}`], 
+                                          ...getChildsAsJson(p5,children[i].children)};
+        }
+        
     }
     return collection;
 }
@@ -118,8 +125,10 @@ function setElementPosition(p5,selected,selectedScreen)
     // if(x >= 0 )
         // x = ( selected.X + (selected.width / 2) - X_zero ) / W;
     let y = -( selected.Y - Y_zero ) / H;
-    // if(selected._type === "Input")
-    //     {x = 0.0;y=0.0;}
+    if(selected._type === "Input")
+    {
+        x = 0.0;
+    }
     return [
         // Math.ceil(x * 100) / 100.0 ,
         x,

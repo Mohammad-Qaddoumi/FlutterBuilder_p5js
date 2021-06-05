@@ -7,6 +7,9 @@ import buildJSON from './buildJson.js';
 import parseJson from './parseJson.js';
 import config from './config.js';
 import {loadSavedImage} from './base64Encode.js';
+import ListTile from '../elements/widjet/listTile.js';
+import FlatButton from '../elements/widjet/flatButton.js';
+import ImageWidjet from '../elements/widjet/image.js';
 
 export default function buildSocketConnection(p5)
 {
@@ -143,20 +146,41 @@ export default function buildSocketConnection(p5)
         if(data)
         {
             if(data.EMAIL === EMAIL)return;
-            let index = p5.screens[p5.selectedScreen].children.findIndex(e => e.Id === data.Id);
-            if(index >= 0)
+            let index = p5.partners.findIndex(t=> t.email === data.EMAIL);
+            if(index !== -1)
             {
-                p5.screens[p5.selectedScreen].children[index].text = data.url;
-                p5.screens[p5.selectedScreen].children[index].img.imageType = data.type;
-                loadSavedImage(p5,{Id:data.Id , type : data.type},p5.screens[p5.selectedScreen].children[index]);
-            }
-            else{
-                index = p5.screens[p5.selectedScreen].unSortedWidjets.findIndex(t => t.Id === data.Id);
-                if(index >= 0)
+                let selected = p5.partners[index].selected;
+                if(selected._type === "List")
                 {
-                    p5.screens[p5.selectedScreen].children[index].text = data.url;
-                    p5.screens[p5.selectedScreen].children[index].img.imageType = data.type;
-                    loadSavedImage(p5,{Id:data.Id , type : data.type},p5.screens[p5.selectedScreen].unSortedWidjets[index]);
+                    for(let i=0;i<selected.children.length;i++)
+                    {
+                        if(selected.children[i].Id === data.Id)
+                        {
+                            selected.children[i].text = data.url;
+                            selected.children[i].img.imageType = data.type;
+                            loadSavedImage(p5,{Id:data.Id , type : data.type},selected.children[i]);
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    index = p5.screens[p5.selectedScreen].children.findIndex(e => e.Id === data.Id);
+                    if(index >= 0)
+                    {
+                        p5.screens[p5.selectedScreen].children[index].text = data.url;
+                        p5.screens[p5.selectedScreen].children[index].img.imageType = data.type;
+                        loadSavedImage(p5,{Id:data.Id , type : data.type},p5.screens[p5.selectedScreen].children[index]);
+                    }
+                    else{
+                        index = p5.screens[p5.selectedScreen].unSortedWidjets.findIndex(t => t.Id === data.Id);
+                        if(index >= 0)
+                        {
+                            p5.screens[p5.selectedScreen].children[index].text = data.url;
+                            p5.screens[p5.selectedScreen].children[index].img.imageType = data.type;
+                            loadSavedImage(p5,{Id:data.Id , type : data.type},p5.screens[p5.selectedScreen].unSortedWidjets[index]);
+                        }
+                    }
                 }
             }
         }
@@ -202,6 +226,57 @@ export default function buildSocketConnection(p5)
             if( index !== -1 )
             {
                 p5.partners[index].selected.text = data.text;
+            }
+        }
+    });
+    p5.socket.on('delete-child-Element', data => {
+        if(data)
+        {
+            if(data.EMAIL === EMAIL)return;
+            const index = p5.partners.findIndex(t=> t.email === data.EMAIL);
+            if( index !== -1 && p5.partners[index].selected.Id === data.Id)
+            {
+                p5.partners[index].selected.children.splice(p5.selected.selectedIndex,1);
+                p5.partners[index].selected.selectedIndex = 0;
+                if(p5.selected.Id === p5.partners[index].selected.Id)
+                {
+                    document.querySelector('.childs-property').style.display = 'none';
+                    document.querySelector('.hide-in-list').style.display = 'block';
+                }
+            }
+        }
+    });
+    p5.socket.on('change-child-text', data => {
+        if(data)
+        {
+            if(data.EMAIL === EMAIL)return;
+            const index = p5.partners.findIndex(t=> t.email === data.EMAIL);
+            if( index !== -1 )
+            {
+                p5.partners[index].selected.children[data.index].text = data.text;
+            }
+        }
+    });
+    p5.socket.on('change-sub-content', data => {
+        if(data)
+        {
+            if(data.EMAIL === EMAIL)return;
+            const index = p5.partners.findIndex(t=> t.email === data.EMAIL);
+            if( index !== -1 )
+            {
+                p5.partners[index].selected.children[data.index].subcontent = data.text;
+            }
+        }
+    });
+    p5.socket.on('change-child-name', data => {
+        if(data)
+        {
+            if(data.EMAIL === EMAIL)return;
+            const index = p5.partners.findIndex(t=> t.email === data.EMAIL);
+            if( index !== -1 )
+            {
+                p5.partners[index].selected.children[data.index].name = data.name;
+                document.querySelector('.list-childs-name').options[p5.selected.selectedIndex+1].innerText = data.name;
             }
         }
     });
@@ -269,9 +344,14 @@ export default function buildSocketConnection(p5)
             const index = p5.partners.findIndex( i => i.email === data.EMAIL );
             if( index !== -1  && data.Id === p5.partners[index].selected.Id)
             {
-                const index2 = p5.partners[index].selected.events.findIndex(t => t.startsWith("push"));
+                let selected;
+                if(data.fromList)
+                    selected = p5.partners[index].selected.children[data.index];
+                else
+                    selected = p5.partners[index].selected;
+                const index2 = selected.events.findIndex(t => t.startsWith("push"));
                 if(index2 !== -1)
-                    p5.partners[index].selected.events.splice(index2,1);
+                    selected.events.splice(index2,1);
             }
         }
     });
@@ -282,9 +362,14 @@ export default function buildSocketConnection(p5)
             const index = p5.partners.findIndex( i => i.email === data.EMAIL );
             if( index !== -1  && data.Id === p5.partners[index].selected.Id)
             {
-                const index2 = p5.partners[index].selected.events.findIndex(t => t.startsWith("calculate"));
+                let selected;
+                if(data.fromList)
+                    selected = p5.partners[index].selected.children[data.index];
+                else
+                    selected = p5.partners[index].selected;
+                const index2 = selected.events.findIndex(t => t.startsWith("calculate"));
                 if(index2 !== -1)
-                    p5.partners[index].selected.events.splice(index2,1);
+                    selected.events.splice(index2,1);
             }
         }
     });
@@ -295,18 +380,23 @@ export default function buildSocketConnection(p5)
             const index = p5.partners.findIndex( i => i.email === data.EMAIL );
             if( index !== -1  && data.Id === p5.partners[index].selected.Id)
             {
+                let selected;
+                if(data.fromList)
+                    selected = p5.partners[index].selected.children[data.index];
+                else
+                    selected = p5.partners[index].selected;
                 let found = false;
-                for(let i=0;i<p5.partners[index].selected.events.length;i++)
+                for(let i=0;i<selected.events.length;i++)
                 {
-                    if(p5.partners[index].selected.events[i].startsWith("push"))
+                    if(selected.events[i].startsWith("push"))
                     {
-                        p5.partners[index].selected.events[i] = data.push;
+                        selected.events[i] = data.push;
                         found = true;
                         break;
                     }
                 }
                 if(!found)
-                    p5.partners[index].selected.events.push(data.push);
+                    selected.events.push(data.push);
             }
         }
     });
@@ -317,18 +407,23 @@ export default function buildSocketConnection(p5)
             const index = p5.partners.findIndex( i => i.email === data.EMAIL );
             if( index !== -1  && data.Id === p5.partners[index].selected.Id)
             {
+                let selected;
+                if(data.fromList)
+                    selected = p5.partners[index].selected.children[data.index];
+                else
+                    selected = p5.partners[index].selected;
                 let found = false;
-                for(let i=0;i<p5.partners[index].selected.events.length;i++)
+                for(let i=0;i<selected.events.length;i++)
                 {
-                    if(p5.partners[index].selected.events[i].startsWith("calculate"))
+                    if(selected.events[i].startsWith("calculate"))
                     {
-                        p5.partners[index].selected.events[i] = data.calculate;
+                        selected.events[i] = data.calculate;
                         found = true;
                         break;
                     }
                 }
                 if(!found)
-                    p5.partners[index].selected.events.push(data.calculate);
+                    selected.events.push(data.calculate);
             }
         }
     });
@@ -339,18 +434,54 @@ export default function buildSocketConnection(p5)
             const index = p5.partners.findIndex( i => i.email === data.EMAIL );
             if( index !== -1  && data.Id === p5.partners[index].selected.Id)
             {
+                let selected;
+                if(data.fromList)
+                    selected = p5.partners[index].selected.children[data.index];
+                else
+                    selected = p5.partners[index].selected;
                 let found = false;
-                for(let i=0;i<p5.partners[index].selected.events.length;i++)
+                for(let i=0;i<selected.events.length;i++)
                 {
-                    if(p5.partners[index].selected.events[i].startsWith("submit"))
+                    if(selected.events[i].startsWith("submit"))
                     {
-                        p5.partners[index].selected.events[i] = data.submit;
+                        selected.events[i] = data.submit;
                         found = true;
                         break;
                     }
                 }
                 if(!found)
-                    p5.partners[index].selected.events.push(data.submit);
+                    selected.events.push(data.submit);
+            }
+        }
+    });
+    p5.socket.on('add-elementList' , data => {
+        if(data)
+        {
+            if(data.EMAIL === EMAIL)return;
+            const index = p5.partners.findIndex( i => i.email === data.EMAIL );
+            if( index !== -1  && data.Id === p5.partners[index].selected.Id )
+            {
+                let newElement;
+                switch(data.type)
+                {
+                    case "ListTile" : 
+                    {
+                        newElement = new ListTile({ X: 9, Y: 9 }, 99, 40);
+                        break;
+                    }
+                    case "FlatButton" : 
+                    {
+                        newElement = new FlatButton({ X: 9, Y: 9 }, 99, 40);
+                        break;
+                    }
+                    case "Image" : 
+                    {
+                        newElement = new ImageWidjet({ X: 9, Y: 9 }, 99, 40);
+                        break;
+                    }
+                }
+                newElement.Id = data.e_Id;
+                p5.partners[index].selected.children.push(newElement);
             }
         }
     });
@@ -361,19 +492,24 @@ export default function buildSocketConnection(p5)
             const index = p5.partners.findIndex( i => i.email === data.EMAIL );
             if( index !== -1  && data.Id === p5.partners[index].selected.Id)
             {
+                let selected;
+                if(data.fromList)
+                    selected = p5.partners[index].selected.children[data.index];
+                else
+                    selected = p5.partners[index].selected;
                 let found = false;
-                for(let i=0;i<p5.partners[index].selected.events.length;i++)
+                for(let i=0;i<selected.events.length;i++)
                 {
-                    if(p5.partners[index].selected.events[i].startsWith("insertion") 
-                    || p5.partners[index].selected.events[i].startsWith("validation"))
+                    if(selected.events[i].startsWith("insertion") 
+                    || selected.events[i].startsWith("validation"))
                     {
-                        p5.partners[index].selected.events[i] = data.add;
+                        selected.events[i] = data.add;
                         found = true;
                         break;
                     }
                 }
                 if(!found)
-                    p5.partners[index].selected.events.push(data.add);
+                    selected.events.push(data.add);
             }
         }
     });
@@ -396,9 +532,14 @@ export default function buildSocketConnection(p5)
             const index = p5.partners.findIndex( i => i.email === data.EMAIL );
             if( index !== -1  && data.Id === p5.partners[index].selected.Id)
             {
-                const index2 = p5.partners[index].selected.events.findIndex(t => t.startsWith("submit"));
+                let selected;
+                if(data.fromList)
+                    selected = p5.partners[index].selected.children[data.index];
+                else
+                    selected = p5.partners[index].selected;
+                const index2 = selected.events.findIndex(t => t.startsWith("submit"));
                 if(index2 !== -1)
-                    p5.partners[index].selected.events.splice(index2,1);
+                    selected.events.splice(index2,1);
             }
         }
     });
@@ -409,15 +550,20 @@ export default function buildSocketConnection(p5)
             const index = p5.partners.findIndex( i => i.email === data.EMAIL );
             if( index !== -1  && data.Id === p5.partners[index].selected.Id)
             {
+                let selected;
+                if(data.fromList)
+                    selected = p5.partners[index].selected.children[data.index];
+                else
+                    selected = p5.partners[index].selected;
                 let index2;
                 if(data.insert)
-                    index2 = p5.partners[index].selected.events.findIndex(t => t.startsWith("insertion"));
+                    index2 = selected.events.findIndex(t => t.startsWith("insertion"));
                 else if(data.valid)
-                    index2 = p5.partners[index].selected.events.findIndex(t => t.startsWith("validation"));
+                    index2 = selected.events.findIndex(t => t.startsWith("validation"));
                 else
-                    index2 = p5.partners[index].selected.events.findIndex(t => t.startsWith("validation") || t.startsWith("insertion"));
+                    index2 = selected.events.findIndex(t => t.startsWith("validation") || t.startsWith("insertion"));
                 if(index2 !== -1)
-                    p5.partners[index].selected.events.splice(index2,1);
+                    selected.events.splice(index2,1);
             }
         }
     });

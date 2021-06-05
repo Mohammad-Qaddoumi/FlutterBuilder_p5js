@@ -41,6 +41,16 @@
     padding: 0.35rem;
 }
 
+.childs-property{
+    display: none;
+    flex-direction: column;
+}
+
+.flex-row{
+    display: flex;
+    flex-direction: row;
+}
+
 .rocker {
     display: inline-block;
     position: relative;
@@ -175,7 +185,7 @@ input:checked:focus+.switch-left+.switch-right {
     border: solid 2px grey;
     margin-left: 0.75rem;
 }
-.add-element{
+.add-element, .btnEditEvents,.btnAddImage,.btnDeleteElement{
     padding: 0.5em;
     font-size: small;
     background-color: rgba(0,255,0,0.7);

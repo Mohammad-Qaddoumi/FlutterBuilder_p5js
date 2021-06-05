@@ -27,7 +27,7 @@ const btnAddImage = document.querySelector('#btnAddImage');
 const rgbToHex = (r, g, b) => '#' + [r, g, b]
                 .map(x => x.toString(16).padStart(2, '0')).join('');
 
-export function changeProperty(p5,selected) 
+export function changeProperty(p5) 
 {
     if(!p5.selected) return;
     widthAndHeight.style.display = 'none';
@@ -147,6 +147,7 @@ export function changeProperty(p5,selected)
 
 export function fillListChilds(p5)
 {
+    document.querySelector('.childs-property').style.display = 'none';
     const input = document.querySelector('.list-childs-name');
     removeAllChildNodes(input);
     input.append(new Option("Select Element", "0",true,true));
@@ -169,6 +170,10 @@ function fillWithInputNames(p5)
         {
             if(screen.children[j]._type === "Input")
                 names.push({name : screen.children[j].name , Id : screen.children[j].Id , index : i});
+            else if(screen.children[j]._type === "List")
+            {
+                //TODO: 
+            }
         }
         for(let j=0;j<screen.unSortedWidjets.length;j++)
         {

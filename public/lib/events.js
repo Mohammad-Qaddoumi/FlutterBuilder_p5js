@@ -36,7 +36,10 @@ debounceTimeout_name,
 debounceTimeout_width,
 debounceTimeout_height,
 debounceTimeout_bc,
-debounceTimeout_fc;
+debounceTimeout_fc,
+debounceTimeout_childText,
+debounceTimeout_childName,
+debounceTimeout_subcontent;
 
 function setEvents(p5)
 {    
@@ -63,66 +66,126 @@ function setEvents(p5)
         }
     });
     document.querySelector('#pushEvents').addEventListener('input',e=>{
+        let selected,fromList;
+        if(p5.selected._type === "List")
+        {    
+            fromList = true;
+            selected = p5.selected.children[p5.selected.selectedIndex];
+        }
+        else
+            selected = p5.selected;
         if(e.target.checked)
         {
             const scren = document.querySelector('.screens-list');
-            p5.selected.events.push(`push(${scren.value})`);
-            p5.socket.emit('add-push',ROOM_ID,{Id : p5.selected.Id , EMAIL,push:`push(${scren.value})`} );
+
+            selected.events.push(`push(${scren.value})`);
+            if(fromList)
+                p5.socket.emit('add-push',ROOM_ID,{Id : p5.selected.Id , EMAIL,
+                    push:`push(${scren.value})`,fromList:true,index:selected.selectedIndex} );
+            else
+                p5.socket.emit('add-push',ROOM_ID,{Id : p5.selected.Id , EMAIL,
+                    push:`push(${scren.value})`} );
+
         }
         else
         {
-            const index = p5.selected.events.findIndex(t => t.startsWith("push"));
+            const index = selected.events.findIndex(t => t.startsWith("push"));
             if(index !== -1)
             {
-                p5.selected.events.splice(index,1);
-                p5.socket.emit('delete-push',ROOM_ID,{Id : p5.selected.Id , EMAIL} );
+                selected.events.splice(index,1);
+                if(fromList)
+                    p5.socket.emit('delete-push',ROOM_ID,{Id : p5.selected.Id , EMAIL,
+                        fromList:true,index:selected.selectedIndex} );
+                else
+                    p5.socket.emit('delete-push',ROOM_ID,{Id : p5.selected.Id , EMAIL} );
             }
         }
     });
     document.querySelector('#submit-events').addEventListener('input',e=>{
+        let selected,fromList;
+        if(p5.selected._type === "List")
+        {    
+            fromList = true;
+            selected = p5.selected.children[p5.selected.selectedIndex];
+        }
+        else
+            selected = p5.selected;
         if(e.target.checked)
         {
-            let index =p5.selected.events.findIndex(t => t.startsWith("submit"));
+            let index = selected.events.findIndex(t => t.startsWith("submit"));
             if(index === -1)
             {
-                p5.selected.events.push(`submit()`);
-                p5.socket.emit('add-submit',ROOM_ID,{Id : p5.selected.Id , EMAIL,submit:`submit()`} );
+                selected.events.push('submit()');
+                if(!fromList)
+                    p5.socket.emit('add-submit',ROOM_ID,{Id : p5.selected.Id , EMAIL,submit:'submit()'} );
+                else
+                    p5.socket.emit('add-submit',ROOM_ID,{Id : p5.selected.Id , EMAIL,
+                        submit:'submit()',fromList:true,index:selected.selectedIndex} );
             } 
         }
         else
         {
-            const index = p5.selected.events.findIndex(t => t.startsWith("submit"));
+            const index = selected.events.findIndex(t => t.startsWith("submit"));
             if(index !== -1)
             {
-                p5.selected.events.splice(index,1);
-                p5.socket.emit('delete-submit',ROOM_ID,{Id : p5.selected.Id , EMAIL});
+                selected.events.splice(index,1);
+                if(!fromList)
+                    p5.socket.emit('delete-submit',ROOM_ID,{Id : p5.selected.Id , EMAIL});
+                else
+                    p5.socket.emit('delete-submit',ROOM_ID,{Id : p5.selected.Id , EMAIL,
+                        fromList:true,index:selected.selectedIndex});
             }
         }
     });
     document.querySelector('#calculate-events').addEventListener('input',e=>{
+        let selected,fromList;
+        if(p5.selected._type === "List")
+        {    
+            fromList = true;
+            selected = p5.selected.children[p5.selected.selectedIndex];
+        }
+        else
+            selected = p5.selected;
         if(e.target.checked)
         {
-            let index =p5.selected.events.findIndex(t => t.startsWith("calc"));
+            let index = selected.events.findIndex(t => t.startsWith("calc"));
             if(index === -1)
             {
-                p5.selected.events.push(`calculate()`);
-                p5.socket.emit('add-calculate',ROOM_ID,{Id : p5.selected.Id , EMAIL,calculate:`calculate()`} );
+                selected.events.push(`calculate()`);
+                if(!fromList)
+                    p5.socket.emit('add-calculate',ROOM_ID,{Id : p5.selected.Id , EMAIL,
+                        calculate:`calculate()`} );
+                else
+                    p5.socket.emit('add-calculate',ROOM_ID,{Id : p5.selected.Id , EMAIL,
+                        calculate:`calculate()`,fromList:true,index:selected.selectedIndex} );
             } 
         }
         else
         {
-            const index = p5.selected.events.findIndex(t => t.startsWith("calculate"));
+            const index = selected.events.findIndex(t => t.startsWith("calculate"));
             if(index !== -1)
             {
-                p5.selected.events.splice(index,1);
-                p5.socket.emit('delete-calculate',ROOM_ID,{Id : p5.selected.Id , EMAIL});
+                selected.events.splice(index,1);
+                if(fromList)
+                p5.socket.emit('delete-calculate',ROOM_ID,{Id : p5.selected.Id , EMAIL,
+                    fromList:true,index:selected.selectedIndex});
+                else
+                    p5.socket.emit('delete-calculate',ROOM_ID,{Id : p5.selected.Id , EMAIL});
             }
         }
     });
     document.querySelector('#valid-insert-evnets').addEventListener('input',e=>{
+        let selected,fromList;
+        if(p5.selected._type === "List")
+        {    
+            fromList = true;
+            selected = p5.selected.children[p5.selected.selectedIndex];
+        }
+        else
+            selected = p5.selected;
         if(e.target.checked)
         {
-            let index = p5.selected.events.findIndex(t => t.startsWith("valid") || t.startsWith("insert"));
+            let index = selected.events.findIndex(t => t.startsWith("valid") || t.startsWith("insert"));
             let event;
             if(document.querySelector('#toggleButton17').checked)
             {
@@ -134,108 +197,229 @@ function setEvents(p5)
             }
 
             if(index === -1)
-                p5.selected.events.push(event);
+                selected.events.push(event);
             else
-                p5.selected.events[index] = event;
-            
-            p5.socket.emit('add-insert-validate',ROOM_ID,{Id : p5.selected.Id , EMAIL,add:event} );
+                selected.events[index] = event;
+            if(!fromList)
+                p5.socket.emit('add-insert-validate',ROOM_ID,{Id : p5.selected.Id , EMAIL,add:event} );
+            else
+                p5.socket.emit('add-insert-validate',ROOM_ID,{Id : p5.selected.Id , EMAIL,add:event,
+                    fromList:true,index:selected.selectedIndex} );
         }
         else
         {
             const index = p5.selected.events.findIndex(t => t.startsWith("validation") || t.startsWith("insertion"));
             if(index !== -1)
             {
-                p5.selected.events.splice(index,1);
-                p5.socket.emit('delete-valid-insert',ROOM_ID,{Id : p5.selected.Id , EMAIL});
+                selected.events.splice(index,1);
+                if(fromList)
+                    p5.socket.emit('delete-valid-insert',ROOM_ID,{Id : p5.selected.Id , EMAIL,
+                        fromList:true,index:selected.selectedIndex});
+                else
+                    p5.socket.emit('delete-valid-insert',ROOM_ID,{Id : p5.selected.Id , EMAIL});
             }
         }
     });
     document.querySelector('#toggleButton17').addEventListener('input',e=>{
         if(!document.querySelector('#valid-insert-evnets').checked)
             return;
+        let selected,fromList;
+        if(p5.selected._type === "List")
+        {    
+            fromList = true;
+            selected = p5.selected.children[p5.selected.selectedIndex];
+        }
+        else
+            selected = p5.selected;
         if(e.target.checked)
         {
-            let index = p5.selected.events.findIndex(t => t.startsWith("insertion") || t.startsWith("validation"));
+            let index = selected.events.findIndex(t => t.startsWith("insertion") || t.startsWith("validation"));
             if(index === -1)
             {
-                p5.selected.events.push("insertion()");    
+                selected.events.push("insertion()");    
             }
             else
             {
-                p5.selected.events[index] = "insertion()";
+                selected.events[index] = "insertion()";
             }
-            p5.socket.emit('add-insert-validate',ROOM_ID,{Id : p5.selected.Id , EMAIL,add:`insertion()`});
+            if(!fromList)
+                p5.socket.emit('add-insert-validate',ROOM_ID,{Id : p5.selected.Id , EMAIL,add:`insertion()`});
+            else
+                p5.socket.emit('add-insert-validate',ROOM_ID,{Id : p5.selected.Id , EMAIL,add:`insertion()`,
+                    fromList:true,index:selected.selectedIndex});
         }
         else
         {
-            const index = p5.selected.events.findIndex(t => t.startsWith("insertion"));
+            const index = selected.events.findIndex(t => t.startsWith("insertion"));
             if(index !== -1)
             {
-                p5.selected.events.splice(index,1);
-                p5.socket.emit('delete-valid-insert',ROOM_ID,{Id : p5.selected.Id , EMAIL,insert:true});
+                selected.events.splice(index,1);
+                if(!fromList)
+                    p5.socket.emit('delete-valid-insert',ROOM_ID,{Id : p5.selected.Id , EMAIL,insert:true});
+                else
+                    p5.socket.emit('delete-valid-insert',ROOM_ID,{Id : p5.selected.Id , EMAIL,insert:true,
+                        fromList:true,index:selected.selectedIndex});
             }
         }
     });
     document.querySelector('#toggleButton16').addEventListener('input',e=>{
         if(!document.querySelector('#valid-insert-evnets').checked)
             return;
+        let selected,fromList;
+        if(p5.selected._type === "List")
+        {    
+            fromList = true;
+            selected = p5.selected.children[p5.selected.selectedIndex];
+        }
+        else
+            selected = p5.selected;
         if(e.target.checked)
         {
-            let index = p5.selected.events.findIndex(t => t.startsWith("insertion") || t.startsWith("validation"));
+            let index = selected.events.findIndex(t => t.startsWith("insertion") || t.startsWith("validation"));
             if(index === -1)
             {
-                p5.selected.events.push("validation()");    
+                selected.events.push("validation()");    
             }
             else
             {
-                p5.selected.events[index] = "validation()";
+                selected.events[index] = "validation()";
             }
-            p5.socket.emit('add-insert-validate',ROOM_ID,{Id : p5.selected.Id , EMAIL,add:`validation()`});
+            if(!fromList)
+                p5.socket.emit('add-insert-validate',ROOM_ID,{Id : p5.selected.Id , EMAIL,add:`validation()`});
+            else
+                p5.socket.emit('add-insert-validate',ROOM_ID,{Id : p5.selected.Id , EMAIL,add:`validation()`,
+                    fromList:true,index:selected.selectedIndex});
         }
         else
         {
-            const index = p5.selected.events.findIndex(t => t.startsWith("validation"));
+            const index = selected.events.findIndex(t => t.startsWith("validation"));
             if(index !== -1)
             {
-                p5.selected.events.splice(index,1);
-                p5.socket.emit('delete-valid-insert',ROOM_ID,{Id : p5.selected.Id , EMAIL,valid:true});
+                selected.events.splice(index,1);
+                if(!fromList)
+                    p5.socket.emit('delete-valid-insert',ROOM_ID,{Id : p5.selected.Id , EMAIL,valid:true});
+                else
+                    p5.socket.emit('delete-valid-insert',ROOM_ID,{Id : p5.selected.Id , EMAIL,valid:true,
+                        fromList:true,index:selected.selectedIndex});
             }
         }
     });
 
-    //TODO: change the selected inside the list ... 
     document.querySelector('.list-childs-name').addEventListener('input', e => {
         if(e.target.value === "0")
         {
-
+            document.querySelector('.childs-property').style.display = 'none';
+            document.querySelector('.hide-in-list').style.display = 'block';
         }
         else
         {
+            document.querySelector('.childs-property').style.display = 'flex';
+            document.querySelector('.hide-in-list').style.display = 'none';
             for(let i=0;i<p5.selected.children.length;i++)
             {
                 if(e.target.value === p5.selected.children[i].Id)
                 {
-
+                    p5.selected.selectedIndex = i;
+                    let type = p5.selected.children[i]._type;
+                    document.querySelector('#child-name').value = p5.selected.children[i].name;
+                    document.querySelector('.child-text').style.display = 'flex';
+                    document.querySelector('.btnEditEvents').style.display = 'flex';
+                    document.querySelector('.btnAddImage').style.display = 'none';
+                    document.querySelector('.sub-content').style.display = 'none';
+                    if(type === "ListTile")
+                    {
+                        document.querySelector('#child-text').value = p5.selected.children[i].text;
+                        document.querySelector('.sub-content').style.display = 'flex';
+                        document.querySelector('#sub-content').value = p5.selected.children[i].subContent;
+                    }
+                    else if(type === "FlatButton")
+                    {
+                        document.querySelector('#child-text').value = p5.selected.children[i].text;
+                    }
+                    else if(type === "Image")
+                    {
+                        document.querySelector('.child-text').style.display = 'none';
+                        document.querySelector('.btnEditEvents').style.display = 'none';
+                        document.querySelector('.btnAddImage').style.display = 'flex';
+                    }
+                    break;
                 }
             }
         }
     });
+    document.querySelector('#child-text').addEventListener('input', e => {
+        if (p5.selected === null) return;
+        if(p5.selected.Id === p5.screens[p5.selectedScreen].Id) return;
+        clearTimeout(debounceTimeout_childText);
+        debounceTimeout_childText = setTimeout(() => {
+            p5.selected.children[p5.selected.selectedIndex].text = e.target.value;
+            p5.socket.emit('change-child-text',ROOM_ID,{EMAIL,
+                text:e.target.value,index:p5.selected.selectedIndex});
+        }, 200);
+    }); 
+    document.querySelector('#sub-content').addEventListener('input', e => {
+        if (p5.selected === null) return;
+        if(p5.selected.Id === p5.screens[p5.selectedScreen].Id) return;
+        clearTimeout(debounceTimeout_subcontent);
+        debounceTimeout_subcontent = setTimeout(() => {
+            p5.selected.children[p5.selected.selectedIndex].subcontent = e.target.value;
+            p5.socket.emit('change-sub-content',ROOM_ID,{EMAIL,
+                text:e.target.value,index:p5.selected.selectedIndex});
+        }, 200);
+    }); 
+    document.querySelector('#child-name').addEventListener('input', e => {
+        if (p5.selected === null) return;
+        if(p5.selected.Id === p5.screens[p5.selectedScreen].Id) return;
+        clearTimeout(debounceTimeout_childName);
+        debounceTimeout_childName = setTimeout(() => {
+            p5.selected.children[p5.selected.selectedIndex].name = e.target.value;
+            document.querySelector('.list-childs-name').options[p5.selected.selectedIndex+1].innerText = e.target.value;
+            p5.socket.emit('change-child-name',ROOM_ID,{EMAIL,
+                name:e.target.value,index:p5.selected.selectedIndex});
+        }, 200);
+    }); 
+    document.querySelector('.btnEditEvents').addEventListener('click', e => {
+        document.querySelector('.form-events').style.display = 'flex';
+        editEvents(p5);
+        p5.lockSelected = true;
+    });
     document.querySelector('.add-element').addEventListener('click', e => {
         const value = document.querySelector('#add-element').value;
+        let newElement;
         if(value === "0")
         {
-            p5.selected.children.push(new ListTile({ X: 9, Y: 9 }, 99, 40));
+            newElement = new ListTile({ X: 9, Y: 9 }, 99, 40);
         }
         else if(value === "1")
         {
-            p5.selected.children.push(new FlatButton({ X: 9, Y: 9 }, 99, 40));
+            newElement = new FlatButton({ X: 9, Y: 9 }, 99, 40);
         }
         else if(value === "2")
         {
-            p5.selected.children.push(new ImageWidjet({ X: 9, Y: 9 }, 99, 40));
+            newElement = new ImageWidjet({ X: 9, Y: 9 }, 99, 40);
         }
+        p5.selected.children.push(newElement);
+        p5.socket.emit('add-elementList',ROOM_ID,{EMAIL, type:newElement._type,
+            e_Id:newElement.Id,Id : p5.selected.Id});
         fillListChilds(p5);
     });
+    document.querySelector('.btnAddImage').addEventListener('click', e => {
+        document.querySelector('.form-add-image').style.display = 'flex';
+        p5.lockSelected = true;
+    });
+    document.querySelector('.btnDeleteElement').addEventListener('click', e => {
+        if(p5.selected.children.length > 0)
+        {
+            if (!confirm(`Do you want to delete ${p5.selected.children[p5.selected.selectedIndex]}?`)) return;
+            p5.selected.children.splice(p5.selected.selectedIndex,1);
+            p5.selected.selectedIndex = 0;
+            document.querySelector('.childs-property').style.display = 'none';
+            document.querySelector('.hide-in-list').style.display = 'block';
+            p5.socket.emit('delete-child-Element',ROOM_ID,{EMAIL,
+                Id:p5.selected.Id,index:p5.selected.selectedIndex});
+        }
+    });
+
 
     document.querySelector('.menu-list input').addEventListener('input', e => {
         p5.screens[p5.selectedScreen].menu_list = e.target.checked;
@@ -281,31 +465,7 @@ function setEvents(p5)
         image_BG.disabled  = false;
     });
     document.querySelector('.btn-add-image').addEventListener('click',async e => {
-        p5.updateison = true;
-        p5.stopModel.loop();
-        p5.lockSelected = true;
-        p5.txtUpdating.text = "Loading img ...✨";
-        document.querySelector('.form-add-image').style.display = 'none';
-        const radios = document.getElementsByName('choice');
-        let result ;
-        if (radios[0].checked && radios[0].value == "1") 
-        {
-            const url = document.querySelector('.image-url-box').value;
-            result = await binaryToBase64(p5,null,url);
-        }
-        else{
-            result = await binaryToBase64(p5,image_BG.files);
-        }
-        document.querySelector('.form-add-image > form').reset();
-        image_BG.disabled  = true;
-        if(result)
-        {   
-            alert("Can't load the image ...");
-        }
-        p5.updateison = false;
-        p5.lockSelected = false;
-        p5.txtUpdating.text = "Updating...🛺";
-        p5.stopModel.noLoop();
+        await change_image(p5);
     });
 
     bgCV.addEventListener('input', e => {
@@ -543,6 +703,41 @@ function removeAllChildNodes(e)
     }
 }
 
+async function change_image(p5)
+{
+    p5.updateison = true;
+    p5.stopModel.loop();
+    p5.lockSelected = true;
+    p5.txtUpdating.text = "Loading img ...✨";
+    document.querySelector('.form-add-image').style.display = 'none';
+    const radios = document.getElementsByName('choice');
+    let result ;
+    if (radios[0].checked && radios[0].value == "1") 
+    {
+        const url = document.querySelector('.image-url-box').value;
+        if(p5.selected._type === "List")
+            result = await binaryToBase64(p5,null,url,p5.selected.children[p5.selected.selectedIndex]);
+        else
+            result = await binaryToBase64(p5,null,url);
+    }
+    else{
+        if(p5.selected._type === "List")
+            result = await binaryToBase64(p5,image_BG.files,null,p5.selected.children[p5.selected.selectedIndex]);
+        else
+            result = await binaryToBase64(p5,image_BG.files);
+    }
+    document.querySelector('.form-add-image > form').reset();
+    image_BG.disabled  = true;
+    if(result)
+    {   
+        alert("Can't load the image ...");
+    }
+    p5.updateison = false;
+    p5.lockSelected = false;
+    p5.txtUpdating.text = "Updating...🛺";
+    p5.stopModel.noLoop();
+}
+
 function editEvents(p5)
 {
     // Push event ....
@@ -550,11 +745,14 @@ function editEvents(p5)
     removeAllChildNodes(screens);
     const myRe = /^push\((\w|\d|\-)+\)$/g;
     let id = null;
-    for(let i=0;i<p5.selected.events.length;i++)
+    let events = p5.selected.events;
+    if(p5.selected._type === "List")
+        events = p5.selected.children[p5.selected.selectedIndex].events;
+    for(let i=0;i<events.length;i++)
     {
-        if(p5.selected.events[i].startsWith("push("));
+        if(events[i].startsWith("push("));
         {
-            const str = myRe.exec(p5.selected.events[i])[0].substring(5);
+            const str = myRe.exec(events[i])[0].substring(5);
             id = str.substring(0,str.length-1);
             break;
         }
@@ -576,17 +774,17 @@ function editEvents(p5)
     //Submit and Calculate Events ...
     document.querySelector('#submit-events').checked = false;
     document.querySelector('#calculate-events').checked = false;
-    for(let i=0;i<p5.selected.events.length;i++)
-        if(p5.selected.events[i].startsWith("submit"))
+    for(let i=0;i<events.length;i++)
+        if(events[i].startsWith("submit"))
         {
             document.querySelector('#submit-events').checked = true;
         }
-        else if(p5.selected.events[i].startsWith("calc"))
+        else if(events[i].startsWith("calc"))
         {
             document.querySelector('#calculate-events').checked = true;
         }
     // Validate and Insert Events ...
-    let index = p5.selected.events.findIndex(t => t.startsWith("valid") || t.startsWith("insert"));
+    let index = events.findIndex(t => t.startsWith("valid") || t.startsWith("insert"));
     if(index === -1)
     {
         document.querySelector('#valid-insert-evnets').checked = false;   
@@ -594,7 +792,7 @@ function editEvents(p5)
     else
     {
         document.querySelector('#valid-insert-evnets').checked = true;   
-        if(p5.selected.events[index].startsWith("valid"))
+        if(events[index].startsWith("valid"))
             document.querySelector('#toggleButton16').checked = true;
         else
             document.querySelector('#toggleButton17').checked = true;
@@ -732,9 +930,9 @@ function addTheScreenElement(p5,newItem = false) {
     }
 }
 
-function changeTheSelectedProperty(p5,selected)
+function changeTheSelectedProperty(p5)
 {
-    changeProperty(p5,selected) ;
+    changeProperty(p5);
 }
 
 export default {

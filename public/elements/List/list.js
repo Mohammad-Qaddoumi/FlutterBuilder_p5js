@@ -12,8 +12,8 @@ export default class List extends Element
             // new FlatButton({ X: 9, Y: 9 }, 99, 40),
             // new FlatButton({ X: 9, Y: 9 }, 99, 40),
             // new FlatButton({ X: 9, Y: 9 }, 99, 40),
-            // new FlatButton({ X: 9, Y: 9 }, 99, 40)
-            new ListTile({ X: 9, Y: 9 }, 99, 40),
+            // new FlatButton({ X: 9, Y: 9 }, 99, 40),
+            new ListTile({ X: 9, Y: 9 }, 99, 40)
         ];
         this.noBackground = false;
         this.selectedIndex = 0;
