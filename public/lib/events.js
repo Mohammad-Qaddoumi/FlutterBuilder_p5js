@@ -410,11 +410,12 @@ function setEvents(p5)
     document.querySelector('.btnDeleteElement').addEventListener('click', e => {
         if(p5.selected.children.length > 0)
         {
-            if (!confirm(`Do you want to delete ${p5.selected.children[p5.selected.selectedIndex]}?`)) return;
+            if (!confirm(`Do you want to delete ${p5.selected.children[p5.selected.selectedIndex].name}?`)) return;
             p5.selected.children.splice(p5.selected.selectedIndex,1);
             p5.selected.selectedIndex = 0;
             document.querySelector('.childs-property').style.display = 'none';
             document.querySelector('.hide-in-list').style.display = 'block';
+            fillListChilds(p5);
             p5.socket.emit('delete-child-Element',ROOM_ID,{EMAIL,
                 Id:p5.selected.Id,index:p5.selected.selectedIndex});
         }
@@ -573,8 +574,21 @@ function setEvents(p5)
         if (p5.selected === null) return;
         // if(p5.selected.Id === p5.screens[p5.selectedScreen].Id) return;
         clearTimeout(debounceTimeout_name);
-        debounceTimeout_name = setTimeout(() => {
-            p5.selected.name = txtName.value;
+        debounceTimeout_name = setTimeout(async () => {
+            let oldName = p5.selected.name;
+            let newName = txtName.value.replaceAll(" ","");
+            p5.selected.name = newName;
+            txtName.value = newName;
+            if(p5.selected._type === "Input")
+            {
+                let url = "https://less-code.000webhostapp.com/add_inputsNames.php";
+                let response = await fetch(url,{
+                    method : 'POST',
+                    body : JSON.stringify( {app_id : "a"+APP_ID,old_columnName:oldName,new_columnName:newName}, null, 0)
+                });
+                let result = await response.text();
+                console.log(result);
+            }
             if(p5.selected.Id === p5.screens[p5.selectedScreen].Id)
             {
                 // document.getElementsByName('stuff')[0].options[0].innerHTML = "Water";

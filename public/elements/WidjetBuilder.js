@@ -32,6 +32,18 @@ export default class WidjetBuilder
                 case "Input":
                 {
                     widget = new Input({ X: element.X, Y: element.Y }, 261, 40);
+                    let newName = widget.name.replaceAll(" ","");
+                    widget.name = newName;
+                    let oldName = "someName";
+                    setTimeout(async ()=>{
+                        let url = "https://less-code.000webhostapp.com/add_inputsNames.php";
+                        let response = await fetch(url,{
+                            method : 'POST',
+                            body : JSON.stringify( {app_id : "a"+APP_ID,old_columnName:oldName,new_columnName:newName}, null, 0)
+                        });
+                        let result = await response.text();
+                        console.log(result);
+                    },0);
                     break;
                 }
                 case "CircleAvatar":

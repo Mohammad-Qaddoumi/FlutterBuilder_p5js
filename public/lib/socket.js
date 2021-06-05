@@ -7,6 +7,7 @@ import buildJSON from './buildJson.js';
 import parseJson from './parseJson.js';
 import config from './config.js';
 import {loadSavedImage} from './base64Encode.js';
+import {fillListChilds} from './property.js';
 import ListTile from '../elements/widjet/listTile.js';
 import FlatButton from '../elements/widjet/flatButton.js';
 import ImageWidjet from '../elements/widjet/image.js';
@@ -242,6 +243,7 @@ export default function buildSocketConnection(p5)
                 {
                     document.querySelector('.childs-property').style.display = 'none';
                     document.querySelector('.hide-in-list').style.display = 'block';
+                    fillListChilds(p5);
                 }
             }
         }
@@ -280,6 +282,7 @@ export default function buildSocketConnection(p5)
             }
         }
     });
+
     p5.socket.on('txtName', data => {
         if(data)
         {
