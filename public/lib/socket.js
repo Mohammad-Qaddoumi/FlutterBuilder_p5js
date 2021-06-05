@@ -358,6 +358,24 @@ export default function buildSocketConnection(p5)
             }
         }
     });
+    p5.socket.on('delete-concatenation' , data => {
+        if(data)
+        {
+            if(data.EMAIL === EMAIL)return;
+            const index = p5.partners.findIndex( i => i.email === data.EMAIL );
+            if( index !== -1  && data.Id === p5.partners[index].selected.Id)
+            {
+                let selected;
+                if(data.fromList)
+                    selected = p5.partners[index].selected.children[data.index];
+                else
+                    selected = p5.partners[index].selected;
+                const index2 = selected.events.findIndex(t => t.startsWith("concatenation"));
+                if(index2 !== -1)
+                    selected.events.splice(index2,1);
+            }
+        }
+    });
     p5.socket.on('delete-calculate' , data => {
         if(data)
         {
@@ -400,6 +418,33 @@ export default function buildSocketConnection(p5)
                 }
                 if(!found)
                     selected.events.push(data.push);
+            }
+        }
+    });
+    p5.socket.on('add-concatenation' , data => {
+        if(data)
+        {
+            if(data.EMAIL === EMAIL)return;
+            const index = p5.partners.findIndex( i => i.email === data.EMAIL );
+            if( index !== -1  && data.Id === p5.partners[index].selected.Id)
+            {
+                let selected;
+                if(data.fromList)
+                    selected = p5.partners[index].selected.children[data.index];
+                else
+                    selected = p5.partners[index].selected;
+                let found = false;
+                for(let i=0;i<selected.events.length;i++)
+                {
+                    if(selected.events[i].startsWith("concatenation"))
+                    {
+                        selected.events[i] = data.concatenation;
+                        found = true;
+                        break;
+                    }
+                }
+                if(!found)
+                    selected.events.push(data.concatenation);
             }
         }
     });

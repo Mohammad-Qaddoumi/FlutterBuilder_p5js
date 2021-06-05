@@ -174,6 +174,43 @@ function setEvents(p5)
             }
         }
     });
+    document.querySelector('#concatenation-events').addEventListener('input',e=>{
+        let selected,fromList;
+        if(p5.selected._type === "List")
+        {    
+            fromList = true;
+            selected = p5.selected.children[p5.selected.selectedIndex];
+        }
+        else
+            selected = p5.selected;
+        if(e.target.checked)
+        {
+            let index = selected.events.findIndex(t => t.startsWith("concatenation"));
+            if(index === -1)
+            {
+                selected.events.push(`concatenation()`);
+                if(!fromList)
+                    p5.socket.emit('add-concatenation',ROOM_ID,{Id : p5.selected.Id , EMAIL,
+                        concatenation:`concatenation()`} );
+                else
+                    p5.socket.emit('add-concatenation',ROOM_ID,{Id : p5.selected.Id , EMAIL,
+                        concatenation:`concatenation()`,fromList:true,index:selected.selectedIndex} );
+            } 
+        }
+        else
+        {
+            const index = selected.events.findIndex(t => t.startsWith("concatenation"));
+            if(index !== -1)
+            {
+                selected.events.splice(index,1);
+                if(fromList)
+                p5.socket.emit('delete-concatenation',ROOM_ID,{Id : p5.selected.Id , EMAIL,
+                    fromList:true,index:selected.selectedIndex});
+                else
+                    p5.socket.emit('delete-concatenation',ROOM_ID,{Id : p5.selected.Id , EMAIL});
+            }
+        }
+    });
     document.querySelector('#valid-insert-evnets').addEventListener('input',e=>{
         let selected,fromList;
         if(p5.selected._type === "List")
@@ -788,6 +825,7 @@ function editEvents(p5)
     //Submit and Calculate Events ...
     document.querySelector('#submit-events').checked = false;
     document.querySelector('#calculate-events').checked = false;
+    document.querySelector('#concatenation-events').checked = false;
     for(let i=0;i<events.length;i++)
         if(events[i].startsWith("submit"))
         {
@@ -796,6 +834,10 @@ function editEvents(p5)
         else if(events[i].startsWith("calc"))
         {
             document.querySelector('#calculate-events').checked = true;
+        }
+        else if(events[i].startsWith("concatenation"))
+        {
+            document.querySelector('#concatenation-events').checked = true;
         }
     // Validate and Insert Events ...
     let index = events.findIndex(t => t.startsWith("valid") || t.startsWith("insert"));

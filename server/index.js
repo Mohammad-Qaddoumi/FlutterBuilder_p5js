@@ -76,6 +76,9 @@ io.sockets.on('connection', (socket) => {
     socket.on('delete-calculate' , (roomId ,data) => {
       socket.to(roomId).emit('delete-calculate' ,data);
     });
+    socket.on('delete-concatenation' , (roomId ,data) => {
+      socket.to(roomId).emit('delete-concatenation' ,data);
+    });
     socket.on('delete-submit' , (roomId ,data) => {
       socket.to(roomId).emit('delete-submit' ,data);
     });
@@ -93,6 +96,9 @@ io.sockets.on('connection', (socket) => {
     });
     socket.on('add-calculate' , (roomId ,data) => {
       socket.to(roomId).emit('add-calculate' ,data);
+    });
+    socket.on('add-concatenation' , (roomId ,data) => {
+      socket.to(roomId).emit('add-concatenation' ,data);
     });
 
     socket.on('add-elementList' , (roomId ,data) => {

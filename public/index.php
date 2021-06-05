@@ -399,6 +399,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </div>
 
             <hr>
+            <div class="transition-animation form-group concatenation-events">
+                <label for="concatenation-events" class="rocker">
+                    <input id="concatenation-events" type="checkbox">
+                    <span class="switch-left">On</span>
+                    <span class="switch-right">Off</span>
+                </label>
+                <div>&nbsp;&nbsp;Concatenation&nbsp;&nbsp;</div>
+            </div>
+
+            <hr>
             <div class="transition-animation form-group valid-insert-evnets">
                 <label for="valid-insert-evnets" class="rocker">
                     <input id="valid-insert-evnets" type="checkbox">
