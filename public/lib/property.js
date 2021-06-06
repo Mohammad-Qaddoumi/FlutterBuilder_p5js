@@ -4,6 +4,7 @@ import ImageWidjet from '../elements/widjet/image.js';
 import CircleAvatar from '../elements/widjet/circle.js';
 import List from '../elements/List/list.js';
 import AppBar from '../elements/widjet/appBar.js';
+import ListTile from '../elements/widjet/listTile.js';
 
 const dlebtn = document.querySelector('.btnDelete');
 const uSize = document.querySelector('.userSize');
@@ -32,8 +33,10 @@ export function changeProperty(p5)
     if(!p5.selected) return;
     widthAndHeight.style.display = 'none';
     document.querySelector('.inputs-name').style.display = 'none';
+    document.querySelector('.divSubcontent').style.display = 'none';
     document.querySelector('.list-widjet-tools').style.display = 'none';
     txtName.style.display = 'flex';
+    document.querySelector('.hide-in-list').style.display = 'block';
     bgCV.value = rgbToHex(p5.selected.backgroundColor[0], p5.selected.backgroundColor[1], p5.selected.backgroundColor[2]);
     backgroundColor.style.display = 'flex';
     foregroundColor.style.display = 'flex';
@@ -144,7 +147,11 @@ export function changeProperty(p5)
             backgroundColor.style.display = 'none';
             foregroundColor.style.display = 'none';   
         }
-
+        else if(p5.selected instanceof ListTile)
+        {
+            document.querySelector('.divSubcontent').style.display = 'flex';
+            document.querySelector('#subcontent').value = p5.selected.subContent;
+        }
     }
     txtName.value = p5.selected.name;
 }

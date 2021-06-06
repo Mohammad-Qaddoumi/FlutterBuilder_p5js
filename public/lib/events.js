@@ -39,6 +39,7 @@ debounceTimeout_bc,
 debounceTimeout_fc,
 debounceTimeout_childText,
 debounceTimeout_childName,
+debounceTimeoutsubcontent,
 debounceTimeout_subcontent;
 
 function setEvents(p5)
@@ -342,6 +343,16 @@ function setEvents(p5)
         }
     });
 
+    document.querySelector('#subcontent').addEventListener('input', e => {
+        if (p5.selected === null) return;
+        if(p5.selected.Id === p5.screens[p5.selectedScreen].Id) return;
+        clearTimeout(debounceTimeoutsubcontent);
+        debounceTimeoutsubcontent = setTimeout(() => {
+            p5.selected.subContent = e.target.value;
+            p5.socket.emit('subContent',ROOM_ID,{EMAIL,subContent:p5.selected.subContent});
+        }, 200);
+    });
+    
     document.querySelector('.list-childs-name').addEventListener('input', e => {
         if(e.target.value === "0")
         {

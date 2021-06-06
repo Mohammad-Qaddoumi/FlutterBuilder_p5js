@@ -270,6 +270,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <input autocomplete="off" placeholder="Enter Widget name here" type="text" class="txtName transition-animation" id="name" />
                         <select class="inputs-name"></select>
                     </div>
+                    <div class="divSubcontent">
+                        <div>Subcontent:&nbsp;</div>
+                        <input autocomplete="off" placeholder="Subcontent" type="text" class="transition-animation" id="subcontent" />
+                    </div>
 
                     <div class="size">
                         <div class="size-name transition-animation">Size:&nbsp;</div>

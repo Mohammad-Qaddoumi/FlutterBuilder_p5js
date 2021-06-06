@@ -219,6 +219,17 @@ export default function buildSocketConnection(p5)
             }
         }
     });
+    p5.socket.on('subContent', data => {
+        if(data)
+        {
+            if(data.EMAIL === EMAIL)return;
+            const index = p5.partners.findIndex(t=> t.email === data.EMAIL);
+            if( index !== -1 )
+            {
+                p5.partners[index].selected.subContent = data.subContent;
+            }
+        }
+    });
     p5.socket.on('Itemtext', data => {
         if(data)
         {
@@ -643,6 +654,8 @@ export default function buildSocketConnection(p5)
             {
                 p5.partners[index].selected.X = data.X;
                 p5.partners[index].selected.Y = data.Y;
+                if(p5.partners[index].selected._type === "Input")
+                    p5.partners[index].selected.fix_X_position(p5);
                 p5.partners[index].selected.moved = true;
             }
         }

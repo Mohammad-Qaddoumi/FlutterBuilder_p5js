@@ -103,7 +103,7 @@ function getchildren(children, p5) {
                     //     childJson = { ...childJson ,...children[`child${i + 1}`][`child${k + 1}`] };
                     // childJson = { ...childJson ,childrenNumber : len };
                     // childs[i].children = getchildren(childJson,p5);
-                    childs[i].children = getchildren(childs[i],p5);
+                    childs[i].children = getchildren(children[`child${i + 1}`], p5);
                 }
                 else if (children[`child${i + 1}`].type === "CircleAvatar") {
                     childs[i] = new CircleAvatar({ X: children[`child${i + 1}`].X, Y: children[`child${i + 1}`].Y }, children[`child${i + 1}`]._width, children[`child${i + 1}`]._height);

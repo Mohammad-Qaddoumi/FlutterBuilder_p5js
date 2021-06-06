@@ -69,6 +69,9 @@ io.sockets.on('connection', (socket) => {
     socket.on('boxHeight' , (roomId,data) => {
       socket.to(roomId).emit('boxHeight', data);
     });
+    socket.on('subContent' , (roomId,data) => {
+      socket.to(roomId).emit('subContent', data);
+    });
 
     socket.on('delete-push' , (roomId ,data) => {
       socket.to(roomId).emit('delete-push' ,data);
