@@ -54,14 +54,27 @@ function setEvents(p5)
         p5.lockSelected = true;
     });
     document.querySelector('.screens-list').addEventListener('input',e=>{
+        let selected,fromList;
+        if(p5.selected._type === "List")
+        {    
+            fromList = true;
+            selected = p5.selected.children[p5.selected.selectedIndex];
+        }
+        else
+            selected = p5.selected;
         if(document.querySelector('#pushEvents').checked)
         {
-            for(let i=0;i<p5.selected.events.length;i++)
+            for(let i=0;i<selected.events.length;i++)
             {
-                if(p5.selected.events[i].startsWith("push"))
+                if(selected.events[i].startsWith("push"))
                 {
-                    p5.selected.events[i] = `push(${e.target.value})`;
-                    p5.socket.emit('add-push',ROOM_ID,{Id : p5.selected.Id , EMAIL,push:`push(${e.target.value})`} );
+                    selected.events[i] = `push(${e.target.value})`;
+                    if(fromList)
+                        p5.socket.emit('add-push',ROOM_ID,{Id : p5.selected.Id , EMAIL,
+                            push:`push(${e.target.value})`,fromList:true,index:selected.selectedIndex} );
+                    else
+                        p5.socket.emit('add-push',ROOM_ID,{Id : p5.selected.Id , EMAIL,
+                            push:`push(${e.target.value})`} );
                 }
             }
         }
