@@ -121,13 +121,13 @@ function setElementPosition(p5,selected,selectedScreen)
     const X_zero = W + p5.screens[selectedScreen].X;
     const Y_zero = H + p5.screens[selectedScreen].Y;
 
-    let x = ( selected.X - X_zero ) / W;
+    let x = ( selected.X - X_zero ) / W - 0.00000000001;
     // if(x >= 0 )
         // x = ( selected.X + (selected.width / 2) - X_zero ) / W;
-    let y = -( selected.Y - Y_zero ) / H;
+    let y = -( selected.Y - Y_zero ) / H - 0.00000000001;
     if(selected._type === "Input")
     {
-        x = 0.0;
+        x = 0.000001;
     }
     return [
         // Math.ceil(x * 100) / 100.0 ,
@@ -139,11 +139,11 @@ function setElementPosition(p5,selected,selectedScreen)
 function getCalculatedWidth(p5,selected,selectedScreen)
 {
     let w = selected.width / p5.screens[selectedScreen].width;
-    return Math.ceil(w * 100) / 100;
+    return Math.ceil(w * 100) / 100 - 0.00000000001;
 }
 function getCalculatedHeight(p5,selected,selectedScreen)
 {
     let h = selected.height / p5.screens[selectedScreen].height;
-    return Math.ceil(h * 100) / 100;
+    return Math.ceil(h * 100) / 100 - 0.00000000001;
 }
 

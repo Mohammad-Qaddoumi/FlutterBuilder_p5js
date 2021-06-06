@@ -62,7 +62,7 @@ export default function parseJson(p5) {
 }
 function getchildren(children, p5) {
     if (children.childrenNumber === 0) return [];
-    let childs = Array(children.childrenNumber).fill(t => undefined);
+    let childs = Array(children.childrenNumber).fill(t => {});
     for (let i = 0; i < children.childrenNumber; i++) {
         if (children[`child${i + 1}`]) {
             try {
@@ -110,6 +110,10 @@ function getchildren(children, p5) {
                     childs[i].text = children[`child${i + 1}`]["content"];
                     childs[i].nameIndex = children[`child${i + 1}`].nameIndex;
                     childs[i].nameId = children[`child${i + 1}`].nameId;
+                }
+                else{
+                    console.log("error in childs " + i);
+                    continue;
                 }
                 childs[i].name = children[`child${i + 1}`]["name"];
                 childs[i].foregroundColor = children[`child${i + 1}`]["colorFromRGB"];

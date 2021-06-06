@@ -139,7 +139,11 @@ export function changeProperty(p5)
             fillListChilds(p5);
         }
         if(p5.selected instanceof Input)
+        {    
             widthAndHeight.style.display = 'none';
+            backgroundColor.style.display = 'none';
+            foregroundColor.style.display = 'none';   
+        }
 
     }
     txtName.value = p5.selected.name;
