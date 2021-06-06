@@ -867,7 +867,7 @@ function addNewScreen(p5,id)
         p5.socket.emit('newScreen',ROOM_ID,{EMAIL,Id:p5.selected.Id});
     }
     p5.screens[p5.selectedScreen].unSortedWidjets = [];
-    p5.screens[p5.selectedScreen].backgroundColor = [0,0,0];
+    // p5.screens[p5.selectedScreen].backgroundColor = [0,0,0];
     p5.screens[p5.selectedScreen].canMove = false;
     const screensTag = document.querySelector('.screens');
     const newScreen = document.createElement('a');

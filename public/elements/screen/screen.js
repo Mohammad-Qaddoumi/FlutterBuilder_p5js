@@ -2,12 +2,11 @@ import Element from '../Element.js';
 import config from '../../lib/config.js';
 export default class Screen extends Element
 {
-    constructor(point,drag = false,type = "Screen",bgC = [100,100,100]) 
+    constructor(point,drag = false,type = "Screen",bgC = [255,255,255]) 
     {
         super(point ,drag , `${type}${config.count++}`,type,bgC);
 
         this.children = [];
-        this.size = 0.3333333;
         this.noBackground = false;
         this.menu_list = false;
     }

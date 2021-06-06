@@ -44,10 +44,9 @@ export default class ImageWidjet extends Widjet
         }
         else
         {
-
             p5.push();
             p5.noFill();
-            p5.stroke(255,255,255);
+            p5.stroke(125,125,125);
             p5.rect(x,y,w,h);
             p5.pop();
         }

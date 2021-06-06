@@ -28,7 +28,7 @@ export default class Partner
         p5.push();
         p5.image(p5.cursorImg,this.X,this.Y,this.width,this.height);
         p5.stroke(0);
-        p5.fill(255);
+        p5.fill(125,125,125);
         p5.textSize(this.textFontSize);
         p5.text(this.name, this.text_X, this.text_Y);
         p5.pop();

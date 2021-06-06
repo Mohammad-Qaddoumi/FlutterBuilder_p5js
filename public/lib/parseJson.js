@@ -19,7 +19,7 @@ export default function parseJson(p5) {
         for (let i = 0; i < DESIGN.numberOfScreens; i++) {
             let screen = new Screen(config.gridPoints);
             screen.unSortedWidjets = [];
-            screen.backgroundColor = [0, 0, 0];
+            // screen.backgroundColor = [0, 0, 0];
             screen.canMove = false;
             screen.name = DESIGN[`screen${i}`]["name"];
             if (DESIGN[`screen${i}`]) {
@@ -51,7 +51,7 @@ export default function parseJson(p5) {
     else {
         p5.screens.push(new Screen(config.gridPoints));
         p5.screens[0].unSortedWidjets = [];
-        p5.screens[0].backgroundColor = [0, 0, 0];
+        // p5.screens[0].backgroundColor = [0, 0, 0];
         p5.screens[p5.selectedScreen].canMove = false;
     }
     p5.menu = null;

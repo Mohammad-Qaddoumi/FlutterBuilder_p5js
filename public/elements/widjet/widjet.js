@@ -9,7 +9,7 @@ export default class Widjet extends Element
 
         this.text = text;
 
-        this.foregroundColor = [255, 255, 255];
+        this.foregroundColor = [0, 0, 0];
 
         this.fontSize = 23;
 
