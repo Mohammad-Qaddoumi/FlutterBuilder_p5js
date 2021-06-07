@@ -82,18 +82,18 @@ io.sockets.on('connection', (socket) => {
     socket.on('delete-concatenation' , (roomId ,data) => {
       socket.to(roomId).emit('delete-concatenation' ,data);
     });
-    socket.on('delete-submit' , (roomId ,data) => {
-      socket.to(roomId).emit('delete-submit' ,data);
-    });
+    // socket.on('delete-submit' , (roomId ,data) => {
+    //   socket.to(roomId).emit('delete-submit' ,data);
+    // });
     socket.on('delete-valid-insert' , (roomId ,data) => {
       socket.to(roomId).emit('delete-valid-insert' ,data);
     });
     socket.on('add-push' , (roomId ,data) => {
       socket.to(roomId).emit('add-push' ,data);
     });
-    socket.on('add-submit' , (roomId ,data) => {
-      socket.to(roomId).emit('add-submit' ,data);
-    });
+    // socket.on('add-submit' , (roomId ,data) => {
+    //   socket.to(roomId).emit('add-submit' ,data);
+    // });
     socket.on('add-insert-validate' , (roomId ,data) => {
       socket.to(roomId).emit('add-insert-validate' ,data);
     });

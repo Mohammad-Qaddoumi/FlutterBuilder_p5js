@@ -26,7 +26,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = 'email@computer.com';
     $user_name = 'user_name';
-    $app_id  = '25';
+    $app_id  = 'qwer';
 
     // if(isset($_SESSION['email']))
     if (isset($_POST['email'])) {
@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $context = stream_context_create($options);
     $response = file_get_contents($url, false, $context);
     $design = $response;
-    $design = '{}';
+    // $design = '{}';
 } else {
     header("location: ../connect.php");
     exit;
@@ -378,11 +378,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <span class="switch-right">Off</span>
                 </label>
                 <div>onPress&nbsp;:&nbsp;</div>
+                <div class="toggle-button toggle-button--nummi">
+                    <input id="toggleButton10" name="radio10" type="radio" checked="checked">
+                    <label for="toggleButton10" data-text=" Push "></label>
+                    <div class="toggle-button__icon"></div>
+                </div>
+                <div class="toggle-button toggle-button--nummi">
+                    <input id="toggleButton11" name="radio10" type="radio">
+                    <label for="toggleButton11" data-text=" PushAndReplace "></label>
+                    <div class="toggle-button__icon"></div>
+                </div>
                 <select class="screens-list">
                 </select>
             </div>
 
-            <hr>
+            <!-- <hr>
             <div class="transition-animation form-group submit-events">
                 <label for="submit-events" class="rocker">
                     <input id="submit-events" type="checkbox">
@@ -390,7 +400,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <span class="switch-right">Off</span>
                 </label>
                 <div>&nbsp;&nbsp;Submit&nbsp;&nbsp;</div>
-            </div>
+            </div> -->
 
             <hr>
             <div class="transition-animation form-group calculate-events">

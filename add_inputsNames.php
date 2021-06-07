@@ -96,7 +96,7 @@ function change_column_name($old,$table_name,$new)
     }
 
     // $sql = "ALTER TABLE $table_name RENAME COLUMN $old TO $new";
-    $sql = "ALTER TABLE $table_name CHANGE COLUMN $old $new VARCHAR(255) NOT NULL";
+    $sql = "ALTER TABLE $table_name CHANGE COLUMN $old $new VARCHAR(255) NULL";
 
     if ($conn->query($sql) === TRUE) {
         echo "<br>" . "name changed";
@@ -120,7 +120,7 @@ function add_new_column($table_name,$new)
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "ALTER TABLE $table_name ADD $new VARCHAR(255) NOT NULL";
+    $sql = "ALTER TABLE $table_name ADD $new VARCHAR(255) NULL";
 
     if ($conn->query($sql) === TRUE) {
         echo "<br>" . "column added";
@@ -146,7 +146,7 @@ function create_new_table($table_name,$new)
 
     $sql = "CREATE TABLE $table_name (
                 id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                $new VARCHAR(255) NOT NULL
+                $new VARCHAR(255) NULL
     )";
 
     if ($conn->query($sql) === TRUE) {

@@ -90,7 +90,10 @@ function getChildsAsJson( p5, children , selectedScreen )
             let eventCollection = event.join(';') + ";";
             if(eventCollection.startsWith(";"))
                 eventCollection = eventCollection.substring(1);
-            collection[`child${i+1}`]["onPress"]    = eventCollection;
+            if(eventCollection.length === 0)
+                collection[`child${i+1}`]["onPress"]    = "null();";
+            else
+                collection[`child${i+1}`]["onPress"]    = eventCollection;
         }
         else
             collection[`child${i+1}`]["onPress"]    = "null();";
@@ -116,26 +119,28 @@ function getChildsAsJson( p5, children , selectedScreen )
 
 function setElementPosition(p5,selected,selectedScreen)
 {
-    const W = p5.screens[selectedScreen].width /3;
+    const W = p5.screens[selectedScreen].width / 2;
     const H = p5.screens[selectedScreen].height / 2;
     const X_zero = W + p5.screens[selectedScreen].X;
     const Y_zero = H + p5.screens[selectedScreen].Y;
 
-    let x = ( selected.X - X_zero ) / W - 0.00000000001;
-    // if(x >= 0 )
-        // x = ( selected.X + (selected.width / 2) - X_zero ) / W;
-    let y = -( selected.Y - Y_zero ) / H - 0.00000000001;
-    if(selected._type === "Input")
+    let x =  ( selected.X /*+ (selected.width / 2)*/ - X_zero ) / W - 0.00000000001;
+    let y = -( selected.Y /*+ (selected.height/ 2)*/ - Y_zero ) / H + 0.00000000001;
+
+    if(y < 0)
     {
-        x = 0.000001;
+        y = -( selected.Y + (selected.height) - Y_zero ) / H + 0.00000000001;
     }
-    return [
-        // Math.ceil(x * 100) / 100.0 ,
-        x,
-        y
-        // Math.ceil(y * 100) / 100.0
-    ];
+    if(x > 0)
+    {
+        x =  ( selected.X + (selected.width)  - X_zero ) / W - 0.00000000001;
+    }
+
+    if(selected._type === "Input")
+        x = 0.000001;
+    return [x, y];
 }
+
 function getCalculatedWidth(p5,selected,selectedScreen)
 {
     let w = selected.width / p5.screens[selectedScreen].width;

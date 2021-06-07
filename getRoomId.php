@@ -3,9 +3,9 @@
 $data = file_get_contents('php://input',true);
 $json = json_decode($data,true);
 $sql = "";
-// $sql = "SELECT room_id FROM `apps` WHERE app_id=\"25\"";
+// $sql = "SELECT room_id FROM `apps` WHERE app_id=\"qwer\"";
 if (count((array)$json) === 0){
-    $sql = "SELECT room_id FROM `apps` WHERE app_id=25";
+    $sql = "SELECT room_id FROM `apps` WHERE app_id='qwer'";
 }
 elseif(isset($_POST['app_id']))
 {

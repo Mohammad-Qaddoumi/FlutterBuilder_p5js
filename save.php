@@ -12,7 +12,7 @@ $server_name = "localhost";
 $table = "apps";
 
 $date = date('Y-m-d H:i:s');
-$sql = "UPDATE `$table` SET `design_json` = '$data', `created_at` = '$date' WHERE `$table`.`app_id` = '25'";
+$sql = "UPDATE `$table` SET `design_json` = '$data', `created_at` = '$date' WHERE `$table`.`app_id` = 'qwer'";
 
 $con = mysqli_connect($server_name, $sql_name, $sql_pass, $db_name);
 

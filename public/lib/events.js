@@ -115,42 +115,42 @@ function setEvents(p5)
             }
         }
     });
-    document.querySelector('#submit-events').addEventListener('input',e=>{
-        let selected,fromList;
-        if(p5.selected._type === "List")
-        {    
-            fromList = true;
-            selected = p5.selected.children[p5.selected.selectedIndex];
-        }
-        else
-            selected = p5.selected;
-        if(e.target.checked)
-        {
-            let index = selected.events.findIndex(t => t.startsWith("submit"));
-            if(index === -1)
-            {
-                selected.events.push('submit()');
-                if(!fromList)
-                    p5.socket.emit('add-submit',ROOM_ID,{Id : p5.selected.Id , EMAIL,submit:'submit()'} );
-                else
-                    p5.socket.emit('add-submit',ROOM_ID,{Id : p5.selected.Id , EMAIL,
-                        submit:'submit()',fromList:true,index:selected.selectedIndex} );
-            } 
-        }
-        else
-        {
-            const index = selected.events.findIndex(t => t.startsWith("submit"));
-            if(index !== -1)
-            {
-                selected.events.splice(index,1);
-                if(!fromList)
-                    p5.socket.emit('delete-submit',ROOM_ID,{Id : p5.selected.Id , EMAIL});
-                else
-                    p5.socket.emit('delete-submit',ROOM_ID,{Id : p5.selected.Id , EMAIL,
-                        fromList:true,index:selected.selectedIndex});
-            }
-        }
-    });
+    // document.querySelector('#submit-events').addEventListener('input',e=>{
+    //     let selected,fromList;
+    //     if(p5.selected._type === "List")
+    //     {    
+    //         fromList = true;
+    //         selected = p5.selected.children[p5.selected.selectedIndex];
+    //     }
+    //     else
+    //         selected = p5.selected;
+    //     if(e.target.checked)
+    //     {
+    //         let index = selected.events.findIndex(t => t.startsWith("submit"));
+    //         if(index === -1)
+    //         {
+    //             selected.events.push('submit()');
+    //             if(!fromList)
+    //                 p5.socket.emit('add-submit',ROOM_ID,{Id : p5.selected.Id , EMAIL,submit:'submit()'} );
+    //             else
+    //                 p5.socket.emit('add-submit',ROOM_ID,{Id : p5.selected.Id , EMAIL,
+    //                     submit:'submit()',fromList:true,index:selected.selectedIndex} );
+    //         } 
+    //     }
+    //     else
+    //     {
+    //         const index = selected.events.findIndex(t => t.startsWith("submit"));
+    //         if(index !== -1)
+    //         {
+    //             selected.events.splice(index,1);
+    //             if(!fromList)
+    //                 p5.socket.emit('delete-submit',ROOM_ID,{Id : p5.selected.Id , EMAIL});
+    //             else
+    //                 p5.socket.emit('delete-submit',ROOM_ID,{Id : p5.selected.Id , EMAIL,
+    //                     fromList:true,index:selected.selectedIndex});
+    //         }
+    //     }
+    // });
     document.querySelector('#calculate-events').addEventListener('input',e=>{
         let selected,fromList;
         if(p5.selected._type === "List")
@@ -645,7 +645,7 @@ function setEvents(p5)
                 let url = "https://less-code.000webhostapp.com/add_inputsNames.php";
                 let response = await fetch(url,{
                     method : 'POST',
-                    body : JSON.stringify( {app_id : "a"+APP_ID,old_columnName:oldName,new_columnName:newName}, null, 0)
+                    body : JSON.stringify( {app_id : APP_ID,old_columnName:oldName,new_columnName:newName}, null, 0)
                 });
                 let result = await response.text();
                 console.log(result);
@@ -847,15 +847,16 @@ function editEvents(p5)
         document.querySelector('#pushEvents').checked = false;
 
     //Submit and Calculate Events ...
-    document.querySelector('#submit-events').checked = false;
+    // document.querySelector('#submit-events').checked = false;
     document.querySelector('#calculate-events').checked = false;
     document.querySelector('#concatenation-events').checked = false;
     for(let i=0;i<events.length;i++)
-        if(events[i].startsWith("submit"))
-        {
-            document.querySelector('#submit-events').checked = true;
-        }
-        else if(events[i].startsWith("calc"))
+        // if(events[i].startsWith("submit"))
+        // {
+        //     document.querySelector('#submit-events').checked = true;
+        // }
+        // else 
+        if(events[i].startsWith("calc"))
         {
             document.querySelector('#calculate-events').checked = true;
         }

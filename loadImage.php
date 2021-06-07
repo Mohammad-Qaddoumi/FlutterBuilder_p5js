@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     echo $dataBase64;
 }
 // else{
-//     $app_id = "25";
+//     $app_id = "qwer";
 //     $img_id = "93801d1f-d18a-4778-8937-2d99b9f8c03b";
 //     $type = "png";
 //     $url = "https://less-code.000webhostapp.com/appImagesFile/$app_id/$img_id.$type";

@@ -486,33 +486,33 @@ export default function buildSocketConnection(p5)
             }
         }
     });
-    p5.socket.on('add-submit' , data => {
-        if(data)
-        {
-            if(data.EMAIL === EMAIL)return;
-            const index = p5.partners.findIndex( i => i.email === data.EMAIL );
-            if( index !== -1  && data.Id === p5.partners[index].selected.Id)
-            {
-                let selected;
-                if(data.fromList)
-                    selected = p5.partners[index].selected.children[data.index];
-                else
-                    selected = p5.partners[index].selected;
-                let found = false;
-                for(let i=0;i<selected.events.length;i++)
-                {
-                    if(selected.events[i].startsWith("submit"))
-                    {
-                        selected.events[i] = data.submit;
-                        found = true;
-                        break;
-                    }
-                }
-                if(!found)
-                    selected.events.push(data.submit);
-            }
-        }
-    });
+    // p5.socket.on('add-submit' , data => {
+    //     if(data)
+    //     {
+    //         if(data.EMAIL === EMAIL)return;
+    //         const index = p5.partners.findIndex( i => i.email === data.EMAIL );
+    //         if( index !== -1  && data.Id === p5.partners[index].selected.Id)
+    //         {
+    //             let selected;
+    //             if(data.fromList)
+    //                 selected = p5.partners[index].selected.children[data.index];
+    //             else
+    //                 selected = p5.partners[index].selected;
+    //             let found = false;
+    //             for(let i=0;i<selected.events.length;i++)
+    //             {
+    //                 if(selected.events[i].startsWith("submit"))
+    //                 {
+    //                     selected.events[i] = data.submit;
+    //                     found = true;
+    //                     break;
+    //                 }
+    //             }
+    //             if(!found)
+    //                 selected.events.push(data.submit);
+    //         }
+    //     }
+    // });
     p5.socket.on('add-elementList' , data => {
         if(data)
         {
@@ -584,24 +584,24 @@ export default function buildSocketConnection(p5)
             }
         }
     });
-    p5.socket.on('delete-submit' , data => {
-        if(data)
-        {
-            if(data.EMAIL === EMAIL)return;
-            const index = p5.partners.findIndex( i => i.email === data.EMAIL );
-            if( index !== -1  && data.Id === p5.partners[index].selected.Id)
-            {
-                let selected;
-                if(data.fromList)
-                    selected = p5.partners[index].selected.children[data.index];
-                else
-                    selected = p5.partners[index].selected;
-                const index2 = selected.events.findIndex(t => t.startsWith("submit"));
-                if(index2 !== -1)
-                    selected.events.splice(index2,1);
-            }
-        }
-    });
+    // p5.socket.on('delete-submit' , data => {
+    //     if(data)
+    //     {
+    //         if(data.EMAIL === EMAIL)return;
+    //         const index = p5.partners.findIndex( i => i.email === data.EMAIL );
+    //         if( index !== -1  && data.Id === p5.partners[index].selected.Id)
+    //         {
+    //             let selected;
+    //             if(data.fromList)
+    //                 selected = p5.partners[index].selected.children[data.index];
+    //             else
+    //                 selected = p5.partners[index].selected;
+    //             const index2 = selected.events.findIndex(t => t.startsWith("submit"));
+    //             if(index2 !== -1)
+    //                 selected.events.splice(index2,1);
+    //         }
+    //     }
+    // });
     p5.socket.on('delete-valid-insert' , data => {
         if(data)
         {

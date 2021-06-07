@@ -39,7 +39,7 @@ export default class WidjetBuilder
                         let url = "https://less-code.000webhostapp.com/add_inputsNames.php";
                         let response = await fetch(url,{
                             method : 'POST',
-                            body : JSON.stringify( {app_id : "a"+APP_ID,old_columnName:oldName,new_columnName:newName}, null, 0)
+                            body : JSON.stringify( {app_id : APP_ID,old_columnName:oldName,new_columnName:newName}, null, 0)
                         });
                         let result = await response.text();
                         console.log(result);
