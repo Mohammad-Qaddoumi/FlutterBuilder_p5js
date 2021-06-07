@@ -213,7 +213,7 @@ input:checked:focus+.switch-left+.switch-right {
 
 .toggle-button label {
     display: inline-block;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     cursor: pointer;
     text-align: left;
 }
@@ -234,7 +234,7 @@ input:checked:focus+.switch-left+.switch-right {
 }
 
 .toggle-button--nummi label {
-    width: 110px;
+    width: 130px;
     height: 20px;
     line-height: 20px;
     transition: all 0.2s;
@@ -353,4 +353,8 @@ input:checked:focus+.switch-left+.switch-right {
 
 .toggle-button--nummi:hover input:not(:checked)~label:before {
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.width51px{
+    width:51px;
 }

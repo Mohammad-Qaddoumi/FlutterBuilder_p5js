@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         let APP;
         const EMAIL = <?php echo json_encode($email); ?>;
         const APP_ID = <?php echo json_encode($app_id); ?>;
-        const ROOM_ID = <?php echo json_encode($room_id); ?>;
+        let ROOM_ID = <?php echo json_encode($room_id); ?>;
         const USER_NAME = <?php echo json_encode($user_name); ?>;
         let DESIGN = `<?php echo $design; ?>`;
         try {
@@ -363,7 +363,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <div class="events-container">
             <div class="form-group cancel">
                 <div class="bigger-font">
-                    Events :&nbsp;&nbsp;
+                    Events&nbsp;&nbsp;(onPress)&nbsp;:&nbsp;
                 </div>
                 <div class="transition-animation btn-cancel-label padding035">
                     <input type="button" class="btn-cancel scale1 cancel-events" value="X">
@@ -377,30 +377,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <span class="switch-left">On</span>
                     <span class="switch-right">Off</span>
                 </label>
-                <div>onPress&nbsp;:&nbsp;</div>
-                <div class="toggle-button toggle-button--nummi">
-                    <input id="toggleButton10" name="radio10" type="radio" checked="checked">
-                    <label for="toggleButton10" data-text=" Push "></label>
-                    <div class="toggle-button__icon"></div>
-                </div>
+                <!-- <div>onPress&nbsp;:&nbsp;</div> -->
                 <div class="toggle-button toggle-button--nummi">
                     <input id="toggleButton11" name="radio10" type="radio">
                     <label for="toggleButton11" data-text=" PushAndReplace "></label>
                     <div class="toggle-button__icon"></div>
                 </div>
+                <div class="toggle-button toggle-button--nummi">
+                    <input id="toggleButton10" name="radio10" type="radio" checked="checked">
+                    <label for="toggleButton10" data-text=" Push " class="width51px" style="width:51px;"></label>
+                    <div class="toggle-button__icon"></div>
+                </div>
                 <select class="screens-list">
                 </select>
             </div>
-
-            <!-- <hr>
-            <div class="transition-animation form-group submit-events">
-                <label for="submit-events" class="rocker">
-                    <input id="submit-events" type="checkbox">
-                    <span class="switch-left">On</span>
-                    <span class="switch-right">Off</span>
-                </label>
-                <div>&nbsp;&nbsp;Submit&nbsp;&nbsp;</div>
-            </div> -->
 
             <hr>
             <div class="transition-animation form-group calculate-events">

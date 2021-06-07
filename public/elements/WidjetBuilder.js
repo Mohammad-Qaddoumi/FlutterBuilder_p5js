@@ -42,7 +42,7 @@ export default class WidjetBuilder
                             body : JSON.stringify( {app_id : APP_ID,old_columnName:oldName,new_columnName:newName}, null, 0)
                         });
                         let result = await response.text();
-                        console.log(result);
+                        // console.log(result);
                     },0);
                     break;
                 }

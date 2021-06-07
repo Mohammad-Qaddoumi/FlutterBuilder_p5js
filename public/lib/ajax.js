@@ -29,7 +29,7 @@ export async function saveImage(base64,img_id)
         app_id : APP_ID,
         img_id : img_id
     }
-    console.log(json);
+    // console.log(json);
     try
     {
         const url = "https://less-code.000webhostapp.com/saveImages.php";

@@ -72,14 +72,12 @@ function encodeImageFileAsURL(p5,fileToLoad,saveToServer){
     else
         selected = p5.selected;
     const fileReader = new FileReader();
-    console.log(selected);
     fileReader.onload = async fileLoadedEvent => {
         const img2  = p5.createImg(fileLoadedEvent.target.result,'error');
         if(!saveToServer)
         {        
             await save(fileLoadedEvent.target.result,selected.Id,selected);
             const type = (fileLoadedEvent.target.result.split(';')[0]).split('/')[1];
-            console.log(selected);
             selected.img.imageType = type;
             selected.text = `https://less-code.000webhostapp.com/appImagesFile/${APP_ID}/${selected.Id}.${type}`;
             p5.socket.emit('addImage',ROOM_ID,{EMAIL,Id:selected.Id,type:type,

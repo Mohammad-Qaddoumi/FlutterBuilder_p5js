@@ -1,3 +1,4 @@
+import getRoomIdAndDesign from '../lib/getRoomIDAndDesign.js';
 import sketchs from './sketch.js';
 
 window.onload = async () => {
@@ -10,6 +11,9 @@ window.onload = async () => {
     }
     footerPosition();
 }
+
+// getRoomIdAndDesign(APP_ID);
+
 function footerPosition()
 {
     const sketch = document.querySelector("#sketch");

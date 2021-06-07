@@ -132,11 +132,17 @@ function getchildren(children, p5) {
                         {
                             if (childs[i].events[j].startsWith("push")) 
                             {
-                                const myRe = /^push\((\w|\d|\-)+\)$/g;
-                                const str = myRe.exec(childs[i].events[j])[0].substring(5);
-                                const name = str.substring(0, str.length - 1);
+                                let replace = false;
+                                if(childs[i].events[j].startsWith("pushAndReplacement"))
+                                    replace = true;
+                                const myRe = /^push(AndReplacement)?\((?<id>(\w|\d|\-)+)\)$/g;
+                                const str = myRe.exec(childs[i].events[j]);
+                                const name = str.groups.id;
                                 const num = name.substring(6);
-                                childs[i].events[j] = `push(${DESIGN[`screen${num}`]["id"]})`;
+                                if(!replace)
+                                    childs[i].events[j] = `push(${DESIGN[`screen${num}`]["id"]})`;
+                                else
+                                    childs[i].events[j] = `pushAndReplacement(${DESIGN[`screen${num}`]["id"]})`;
                             }
                             else if(childs[i].events[j] < 6)
                             {

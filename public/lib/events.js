@@ -79,7 +79,7 @@ function setEvents(p5)
             }
         }
     });
-    document.querySelector('#pushEvents').addEventListener('input',e=>{
+    document.querySelector('#pushEvents').addEventListener('input', e => {
         let selected,fromList;
         if(p5.selected._type === "List")
         {    
@@ -90,67 +90,43 @@ function setEvents(p5)
             selected = p5.selected;
         if(e.target.checked)
         {
+            let index = selected.events.findIndex(t => t.startsWith("push"));
+            let event;
+            if(document.querySelector('#toggleButton11').checked)
+            {
+                event = "pushAndReplacement(";
+            }
+            else
+            {
+                event = "push(";
+            }
             const scren = document.querySelector('.screens-list');
-
-            selected.events.push(`push(${scren.value})`);
+            event += `${scren.value})`;
+            if(index === -1)
+                selected.events.push(event);
+            else
+                selected.events[index] = event;
             if(fromList)
                 p5.socket.emit('add-push',ROOM_ID,{Id : p5.selected.Id , EMAIL,
-                    push:`push(${scren.value})`,fromList:true,index:selected.selectedIndex} );
+                    push:event,fromList:true,index:selected.selectedIndex} );
             else
                 p5.socket.emit('add-push',ROOM_ID,{Id : p5.selected.Id , EMAIL,
-                    push:`push(${scren.value})`} );
-
+                    push:event} );
         }
         else
         {
-            const index = selected.events.findIndex(t => t.startsWith("push"));
+            const index = p5.selected.events.findIndex(t => t.startsWith("push"));
             if(index !== -1)
             {
                 selected.events.splice(index,1);
                 if(fromList)
                     p5.socket.emit('delete-push',ROOM_ID,{Id : p5.selected.Id , EMAIL,
-                        fromList:true,index:selected.selectedIndex} );
+                        fromList:true,index:selected.selectedIndex});
                 else
-                    p5.socket.emit('delete-push',ROOM_ID,{Id : p5.selected.Id , EMAIL} );
+                    p5.socket.emit('delete-push',ROOM_ID,{Id : p5.selected.Id , EMAIL});
             }
         }
     });
-    // document.querySelector('#submit-events').addEventListener('input',e=>{
-    //     let selected,fromList;
-    //     if(p5.selected._type === "List")
-    //     {    
-    //         fromList = true;
-    //         selected = p5.selected.children[p5.selected.selectedIndex];
-    //     }
-    //     else
-    //         selected = p5.selected;
-    //     if(e.target.checked)
-    //     {
-    //         let index = selected.events.findIndex(t => t.startsWith("submit"));
-    //         if(index === -1)
-    //         {
-    //             selected.events.push('submit()');
-    //             if(!fromList)
-    //                 p5.socket.emit('add-submit',ROOM_ID,{Id : p5.selected.Id , EMAIL,submit:'submit()'} );
-    //             else
-    //                 p5.socket.emit('add-submit',ROOM_ID,{Id : p5.selected.Id , EMAIL,
-    //                     submit:'submit()',fromList:true,index:selected.selectedIndex} );
-    //         } 
-    //     }
-    //     else
-    //     {
-    //         const index = selected.events.findIndex(t => t.startsWith("submit"));
-    //         if(index !== -1)
-    //         {
-    //             selected.events.splice(index,1);
-    //             if(!fromList)
-    //                 p5.socket.emit('delete-submit',ROOM_ID,{Id : p5.selected.Id , EMAIL});
-    //             else
-    //                 p5.socket.emit('delete-submit',ROOM_ID,{Id : p5.selected.Id , EMAIL,
-    //                     fromList:true,index:selected.selectedIndex});
-    //         }
-    //     }
-    // });
     document.querySelector('#calculate-events').addEventListener('input',e=>{
         let selected,fromList;
         if(p5.selected._type === "List")
@@ -354,6 +330,78 @@ function setEvents(p5)
                         fromList:true,index:selected.selectedIndex});
             }
         }
+    });
+    document.querySelector('#toggleButton11').addEventListener('input',e=>{
+        if(!document.querySelector('#pushEvents').checked)
+            return;
+        let selected,fromList;
+        if(p5.selected._type === "List")
+        {    
+            fromList = true;
+            selected = p5.selected.children[p5.selected.selectedIndex];
+        }
+        else
+            selected = p5.selected;
+        let event;
+        if(document.querySelector('#toggleButton11').checked)
+        {
+            event = "pushAndReplacement(";
+        }
+        else
+        {
+            event = "push(";
+        }
+        const scren = document.querySelector('.screens-list');
+        event += `${scren.value})`;
+        
+        let index = selected.events.findIndex(t => t.startsWith("push"));
+        if(index === -1)
+            selected.events.push(event);
+        else
+            selected.events[index] = event;
+        if(fromList)
+            p5.socket.emit('add-push',ROOM_ID,{Id : p5.selected.Id , EMAIL,
+                push:event,fromList:true,index:selected.selectedIndex} );
+        else
+            p5.socket.emit('add-push',ROOM_ID,{Id : p5.selected.Id , EMAIL,
+                push:event} );
+
+    });
+    document.querySelector('#toggleButton10').addEventListener('input',e=>{
+        if(!document.querySelector('#pushEvents').checked)
+            return;
+        let selected,fromList;
+        if(p5.selected._type === "List")
+        {    
+            fromList = true;
+            selected = p5.selected.children[p5.selected.selectedIndex];
+        }
+        else
+            selected = p5.selected;
+        let event;
+        if(document.querySelector('#toggleButton11').checked)
+        {
+            event = "pushAndReplacement(";
+        }
+        else
+        {
+            event = "push(";
+        }
+        const scren = document.querySelector('.screens-list');
+        event += `${scren.value})`;
+        
+        let index = selected.events.findIndex(t => t.startsWith("push"));
+        if(index === -1)
+            selected.events.push(event);
+        else
+            selected.events[index] = event;
+        if(fromList)
+            p5.socket.emit('add-push',ROOM_ID,{Id : p5.selected.Id , EMAIL,
+                push:event,fromList:true,index:selected.selectedIndex} );
+        else
+            p5.socket.emit('add-push',ROOM_ID,{Id : p5.selected.Id , EMAIL,
+                push:event} );
+
     });
 
     document.querySelector('#subcontent').addEventListener('input', e => {
@@ -574,6 +622,8 @@ function setEvents(p5)
         p5.socket.emit('selected',ROOM_ID,JSON.stringify({EMAIL,Id:p5.selected.Id}));
         changeTheSelectedProperty(p5);
         addTheScreenElement(p5);
+        //TODO: remove the image from the server ...
+
     });
     
     updbtn.addEventListener('click', async e => {
@@ -648,7 +698,7 @@ function setEvents(p5)
                     body : JSON.stringify( {app_id : APP_ID,old_columnName:oldName,new_columnName:newName}, null, 0)
                 });
                 let result = await response.text();
-                console.log(result);
+                // console.log(result);
             }
             if(p5.selected.Id === p5.screens[p5.selectedScreen].Id)
             {
@@ -818,16 +868,20 @@ function editEvents(p5)
     // Push event ....
     const screens = document.querySelector('.screens-list');
     removeAllChildNodes(screens);
-    const myRe = /^push\((\w|\d|\-)+\)$/g;
+    const myRe = /^push(AndReplacement)?\((\w|\d|\-)+\)$/g;
     let id = null;
     let events = p5.selected.events;
     if(p5.selected._type === "List")
         events = p5.selected.children[p5.selected.selectedIndex].events;
     for(let i=0;i<events.length;i++)
     {
-        if(events[i].startsWith("push("));
+        if(events[i].startsWith("push"));
         {
-            const str = myRe.exec(events[i])[0].substring(5);
+            let str;
+            if(events[i].startsWith("pushAndReplacement"))
+                str = myRe.exec(events[i])[0].substring(19);
+            else
+                str = myRe.exec(events[i])[0].substring(5);
             id = str.substring(0,str.length-1);
             break;
         }

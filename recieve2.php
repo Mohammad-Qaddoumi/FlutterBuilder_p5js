@@ -9,12 +9,12 @@ if (count((array)$json) === 0){
 elseif(isset($_POST['app_id']))
 {
     $app_id = $_POST['app_id'];
-    $sql = "SELECT design_json FROM `apps` WHERE app_id=$app_id";
+    $sql = "SELECT design_json FROM `apps` WHERE app_id='$app_id'";
 }
 else  
 {
     $app_id = $json["app_id"];
-    $sql = "SELECT design_json FROM `apps` WHERE app_id=$app_id";
+    $sql = "SELECT design_json FROM `apps` WHERE app_id='$app_id'";
 }
 $db_name     = "id16371250_maindata";
 $sql_name    = "id16371250_qualityfirst";
@@ -23,6 +23,13 @@ $server_name = "localhost";
 
 $con = mysqli_connect($server_name, $sql_name, $sql_pass, $db_name);
 $result = $con->query($sql);
+if(!$result)
+{
+    echo "<pre>";
+    print_r($json);
+    echo "</pre>";
+    echo $con->error;
+}
 $row = $result->fetch_assoc();
 echo $row["design_json"];
 

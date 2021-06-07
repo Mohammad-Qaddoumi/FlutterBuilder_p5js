@@ -72,14 +72,20 @@ function getChildsAsJson( p5, children , selectedScreen )
             {
                 if(children[i].events[j].startsWith("push"))
                 {
-                    const myRe = /^push\((\w|\d|\-)+\)$/g;
-                    const str = myRe.exec(children[i].events[j])[0].substring(5);
-                    const id = str.substring(0,str.length-1);
+                    let replace = false;
+                    if(children[i].events[j].startsWith("pushAndReplacement"))
+                        replace = true;
+                    const myRe = /^push(AndReplacement)?\((?<id>(\w|\d|\-)+)\)$/g;
+                    const str = myRe.exec(children[i].events[j]);
+                    const id = str.groups.id;
                     for(let k=0;k<p5.screens.length;k++)
                     {
                         if(p5.screens[k].Id === id)
                         {
-                            event.push(`push(screen${k})`);
+                            if(!replace)
+                                event.push(`push(screen${k})`);
+                            else
+                                event.push(`pushAndReplacement(screen${k})`);
                             break;
                         }
                     }
