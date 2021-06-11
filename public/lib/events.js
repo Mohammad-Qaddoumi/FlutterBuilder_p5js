@@ -474,7 +474,7 @@ function setEvents(p5)
         debounceTimeout_childHeight = setTimeout(() => {
             if(e.target.value - 0 < 40)
                 e.target.value = 40;
-            else if(e.target.value - 0 > p5.screens[p5.selectedScreen].height)
+            else if(e.target.value - 0 > p5.screens[p5.selectedScreen].width)
                 e.target.value = p5.screens[p5.selectedScreen].height;
             p5.selected.children[p5.selected.selectedIndex].height = e.target.value - 0;
             p5.socket.emit('change-child-height',ROOM_ID,{EMAIL,
