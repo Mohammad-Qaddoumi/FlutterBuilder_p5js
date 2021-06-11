@@ -1,7 +1,7 @@
 .menu-list {
     /*TODO: display menu list*/
     display: flex;
-    display: none;
+    /* display: none; */
     width: 100%;
     height: 100%;
     margin-top: 0.3rem;

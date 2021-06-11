@@ -19,10 +19,11 @@ export default class ImageWidjet extends Widjet
         let x,y,h,w;
         if(fromList)
         {
-            x = fromList.x;
-            y = fromList.y;
-            h = fromList.h;
-            w = fromList.w;
+            x = this.X = fromList.x;
+            y = this.Y = fromList.y;
+            // h = fromList.h;
+            h = this.height;
+            w = this.width = fromList.w;
         }
         else 
         {

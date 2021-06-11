@@ -1,6 +1,7 @@
 import Element from '../Element.js';
 import config from '../../lib/config.js';
 import ListTile from '../widjet/listTile.js';
+import CircleAvatar from '../widjet/circle.js';
 export default class List extends Element
 {
     constructor(point, width, height) 
@@ -13,7 +14,7 @@ export default class List extends Element
             // new FlatButton({ X: 9, Y: 9 }, 99, 40),
             // new FlatButton({ X: 9, Y: 9 }, 99, 40),
             // new FlatButton({ X: 9, Y: 9 }, 99, 40),
-            new ListTile({ X: 9, Y: 9 }, 99, 40)
+            new CircleAvatar({ X: 9, Y: 9 }, 40, 40)
         ];
         this.noBackground = false;
         this.selectedIndex = 0;
@@ -28,11 +29,11 @@ export default class List extends Element
         let x = this.X + 2;
         let y = this.Y + 2;
         let w = this.Width - 4;
-        let h = 40;
+        // let h = 40;
         for(let i=0;i<this.children.length;i++)
         {
             p5.push();
-            if(y + h > this.Y + this.Height)
+            if(y + this.children[i].height > this.Y + this.Height)
             {
                 y -= 42;
                 p5.stroke(255,0,0);
@@ -44,9 +45,10 @@ export default class List extends Element
                 p5.pop();
                 break;
             }
-            this.children[i].sketch(p5,{x,y,w,h});
+            this.children[i].sketch(p5,{x,y,w, h : this.children[i].height});
             p5.pop();
-            y += 42;
+            y += this.children[i].height + 2;
+            // y += 42;
         }        
     }
     isInside(p5) 

@@ -11,6 +11,8 @@ import {fillListChilds} from './property.js';
 import ListTile from '../elements/widjet/listTile.js';
 import FlatButton from '../elements/widjet/flatButton.js';
 import ImageWidjet from '../elements/widjet/image.js';
+import Input from '../elements/widjet/input.js';
+import CircleAvatar from '../elements/widjet/circle.js';
 
 export default function buildSocketConnection(p5)
 {
@@ -270,6 +272,17 @@ export default function buildSocketConnection(p5)
             }
         }
     });
+    p5.socket.on('change-child-height', data => {
+        if(data)
+        {
+            if(data.EMAIL === EMAIL)return;
+            const index = p5.partners.findIndex(t=> t.email === data.EMAIL);
+            if( index !== -1 )
+            {
+                p5.partners[index].selected.children[data.index].height = data.height;
+            }
+        }
+    });
     p5.socket.on('change-sub-content', data => {
         if(data)
         {
@@ -498,21 +511,32 @@ export default function buildSocketConnection(p5)
                 {
                     case "ListTile" : 
                     {
-                        newElement = new ListTile({ X: 9, Y: 9 }, 99, 40);
+                        newElement = new ListTile({ X: 9, Y: 9 }, 40, 40);
                         break;
                     }
                     case "FlatButton" : 
                     {
-                        newElement = new FlatButton({ X: 9, Y: 9 }, 99, 40);
+                        newElement = new FlatButton({ X: 9, Y: 9 }, 40, 40);
                         break;
                     }
                     case "Image" : 
                     {
-                        newElement = new ImageWidjet({ X: 9, Y: 9 }, 99, 40);
+                        newElement = new ImageWidjet({ X: 9, Y: 9 }, 40, 40);
+                        break;
+                    }
+                    case "Input" :
+                    {
+                        newElement = new Input({ X: 9, Y: 9 }, 40, 40);
+                        break;
+                    }
+                    case "CircleAvatar" :
+                    {
+                        newElement = new CircleAvatar({ X: 9, Y: 9 }, 40, 40);
                         break;
                     }
                 }
                 newElement.Id = data.e_Id;
+                newElement.name = data.e_name;
                 p5.partners[index].selected.children.push(newElement);
             }
         }

@@ -110,6 +110,9 @@ io.sockets.on('connection', (socket) => {
     socket.on('delete-child-Element' , (roomId ,data) => {
       socket.to(roomId).emit('delete-child-Element' ,data);
     });
+    socket.on('change-child-height' , (roomId ,data) => {
+      socket.to(roomId).emit('change-child-height' ,data);
+    });
     socket.on('change-child-text' , (roomId ,data) => {
       socket.to(roomId).emit('change-child-text' ,data);
     });

@@ -2,7 +2,7 @@ import Element from '../Element.js';
 import config from '../../lib/config.js';
 export default class Screen extends Element
 {
-    constructor(point,drag = false,type = "Screen",bgC = [255,255,255]) 
+    constructor(point,drag = false,type = "Screen",bgC = [210,208,221]) 
     {
         super(point ,drag , `${type}${config.count++}`,type,bgC);
 

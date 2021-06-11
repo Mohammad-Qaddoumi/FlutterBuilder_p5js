@@ -21,23 +21,49 @@ export default class Input extends Widjet
         this.X = p5.screens[p5.selectedScreen].X;
     }
 
-    sketch(p5) 
+    sketch(p5,fromList) 
     {
+        let x,y,h,w;
+        let tx,ty,ts;
+        if(fromList)
+        {
+            x = this.X = fromList.x;
+            y = this.Y = fromList.y;
+            // h = fromList.h;
+            h = this.height;
+            w = this.width = fromList.w;
+            ts = h * 0.4 ;
+            while(this.text.length * ts  / 1.85 > w)
+                ts -= 1;
+            // tx = x + ((w - (this.text.length * ts / 1.85)) / 2);
+            tx = x + (w * 0.03);
+            ty = y + (h * 0.28);
+        }
+        else 
+        {
+            x = this.X;
+            y = this.Y;
+            w = this.width;
+            h = this.height;
+            ts = this.textFontSize;
+            tx = this.text_X;
+            ty = this.text_Y;
+        }
         p5.strokeWeight(1);
         p5.stroke(0);
         p5.rectMode(p5.CORNER);
         p5.fill(this.backgroundColor[0], this.backgroundColor[1], this.backgroundColor[2]);
-        p5.rect(this.X, this.Y, this.width, this.height, 15);
+        p5.rect(x, y, w, h, 15);
         
         p5.fill(this.foregroundColor[0], this.foregroundColor[1], this.foregroundColor[2]);
-        p5.textSize(this.textFontSize);
-        p5.text(this.text,this.text_X, this.text_Y);
+        p5.textSize(ts);
+        p5.text(this.text,tx, ty);
 
         if(this.flip % 23 === 0)
         {   
             p5.stroke(255,255,255);
             p5.strokeWeight(3);
-            p5.line(this.text_X - 1 , this.Y + 11 , this.text_X - 1 , this.Y + this.height - 11);
+            p5.line(tx - 1 , y + 11 , tx - 1 , y + h - 11);
             this.flip += 1;
         }
         else 

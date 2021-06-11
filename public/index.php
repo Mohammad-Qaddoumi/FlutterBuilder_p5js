@@ -2,38 +2,41 @@
 
 $status = session_status();
 if ($status == PHP_SESSION_NONE) {
-    //There is no active session
     session_start();
     session_regenerate_id(true);
-    // }elseif($status == PHP_SESSION_DISABLED){
-    //Sessions are not available
 } elseif ($status == PHP_SESSION_ACTIVE) {
-    //Destroy current and start new one
-    // session_destroy();
-    // session_start();
     session_regenerate_id(true);
+} else {
+    //TODO: Change the redirect ...
+    header("location: ../connect.php");
+    exit;
 }
 
 
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    //TODO: Change the redirect ...
     header("location: ../connect.php");
     exit;
 }
-// echo '<pre>';
-// print_r ($_POST);
-// echo '</pre>';
+$email = $user_name = $app_id = $room_id = $design = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $email = 'email@computer.com';
-    $user_name = 'user_name';
-    $app_id  = 'qwer';
-
+    
     // if(isset($_SESSION['email']))
     if (isset($_POST['email'])) {
+        // $email = $_SESSION['email'];
         $email = $_POST['email'];
     }
+    // if(isset($_SESSION['name']))
     if (isset($_POST['name'])) {
+        // $user_name = $_SESSION['name'];
         $user_name = $_POST['name'];
+    }
+    if( empty($user_name) || empty($email) )
+    {
+        //TODO: Change the redirect ...
+        header("location: ../connect.php");
+        exit;        
     }
     if (isset($_POST['appid'])) {
         $app_id = $_POST['appid'];
@@ -43,21 +46,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $options = ['http' => [
         'method' => 'POST',
         'header' => 'Content-type:application/json',
-        'content' => $json
+        'content' => $json,
+        "ssl"=>array(
+            "verify_peer"=>false,
+            "verify_peer_name"=>false,
+        )
     ]];
-
-    $room_id = 'roomid';
-    $url = 'https://less-code.000webhostapp.com/getRoomId.php';
     $context = stream_context_create($options);
+
+    $url = 'https://less-code.000webhostapp.com/getRoomId.php';
     $response = file_get_contents($url, false, $context);
     $room_id = $response;
 
     $url = 'https://less-code.000webhostapp.com/recieve2.php';
-    $context = stream_context_create($options);
     $response = file_get_contents($url, false, $context);
     $design = $response;
     // $design = '{}';
+
 } else {
+    //TODO: Change the redirect ...
     header("location: ../connect.php");
     exit;
 }
@@ -107,6 +114,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <header class="mainheader">
         <div class="header logo">
             <h3>Codeless</h3>
+        </div>
+        <div>
+        <?php echo $user_name; ?>
         </div>
     </header>
 
@@ -222,6 +232,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                 <option value="0">ListTile</option>
                                 <option value="1">FlatButton</option>
                                 <option value="2">Image</option>
+                                <option value="3">Input</option>
+                                <option value="4">Circle</option>
+                                
                             </select>
                         </div>
                         <div class="childs-property">
@@ -238,10 +251,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                 <div>Text&nbsp;:&nbsp;</div>
                                 <textarea class="transition-animation" id="child-text" cols="30" rows="2" placeholder="text"></textarea>
                             </div>
+                            <div class="flex-row">
+                                <div class="heightOrRadius">Height:</div>
+                                <input class="child-height transition-animation" type="number" />
+                            </div>
                             <input type="button" class="btnAddImage button-style transition-animation" value="Change Image">
                             <input type="button" class="btnEditEvents button-style transition-animation" value="Edit Events">
                             <input type="button" class="btnDeleteElement button-style transition-animation" value="Delete">
                         </div>
+                    </div>
+                    <div class="menu-list-tools" >
+
                     </div>
                     <hr>
                     <div class="hide-in-list">

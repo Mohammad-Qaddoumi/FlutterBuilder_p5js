@@ -8,6 +8,8 @@ import {changeProperty,fillListChilds} from './property.js';
 import ListTile from '../elements/widjet/listTile.js';
 import FlatButton from '../elements/widjet/flatButton.js';
 import ImageWidjet from '../elements/widjet/image.js';
+import Input from '../elements/widjet/input.js';
+import CircleAvatar from '../elements/widjet/circle.js';
 
 const dlebtn = document.querySelector('.btnDelete');
 const updbtn = document.querySelector('.btnUpdate');
@@ -40,7 +42,8 @@ debounceTimeout_fc,
 debounceTimeout_childText,
 debounceTimeout_childName,
 debounceTimeoutsubcontent,
-debounceTimeout_subcontent;
+debounceTimeout_subcontent,
+debounceTimeout_childHeight;
 
 function setEvents(p5)
 {    
@@ -431,6 +434,8 @@ function setEvents(p5)
                     p5.selected.selectedIndex = i;
                     let type = p5.selected.children[i]._type;
                     document.querySelector('#child-name').value = p5.selected.children[i].name;
+                    document.querySelector('.child-height').value = p5.selected.children[i].height;
+                    document.querySelector('.heightOrRadius').innerText = 'Height:';
                     document.querySelector('.child-text').style.display = 'flex';
                     document.querySelector('.btnEditEvents').style.display = 'flex';
                     document.querySelector('.btnAddImage').style.display = 'none';
@@ -441,7 +446,7 @@ function setEvents(p5)
                         document.querySelector('.sub-content').style.display = 'flex';
                         document.querySelector('#sub-content').value = p5.selected.children[i].subContent;
                     }
-                    else if(type === "FlatButton")
+                    else if(type === "FlatButton" || type === "Input")
                     {
                         document.querySelector('#child-text').value = p5.selected.children[i].text;
                     }
@@ -451,10 +456,30 @@ function setEvents(p5)
                         document.querySelector('.btnEditEvents').style.display = 'none';
                         document.querySelector('.btnAddImage').style.display = 'flex';
                     }
+                    else if(type === "CircleAvatar")
+                    {
+                        document.querySelector('.btnEditEvents').style.display = 'none';
+                        document.querySelector('.child-text').style.display = 'none';
+                        document.querySelector('.heightOrRadius').innerText = 'Radius : ';
+                    }
                     break;
                 }
             }
         }
+    });
+    document.querySelector('.child-height').addEventListener('input', e => {
+        if (p5.selected === null) return;
+        if(p5.selected.Id === p5.screens[p5.selectedScreen].Id) return;
+        clearTimeout(debounceTimeout_childHeight);
+        debounceTimeout_childHeight = setTimeout(() => {
+            if(e.target.value - 0 < 40)
+                e.target.value = 40;
+            else if(e.target.value - 0 > p5.screens[p5.selectedScreen].height)
+                e.target.value = p5.screens[p5.selectedScreen].height;
+            p5.selected.children[p5.selected.selectedIndex].height = e.target.value - 0;
+            p5.socket.emit('change-child-height',ROOM_ID,{EMAIL,
+                height:e.target.value - 0,index:p5.selected.selectedIndex});
+        }, 200);
     });
     document.querySelector('#child-text').addEventListener('input', e => {
         if (p5.selected === null) return;
@@ -497,19 +522,27 @@ function setEvents(p5)
         let newElement;
         if(value === "0")
         {
-            newElement = new ListTile({ X: 9, Y: 9 }, 99, 40);
+            newElement = new ListTile({ X: 9, Y: 9 }, 40, 40);
         }
         else if(value === "1")
         {
-            newElement = new FlatButton({ X: 9, Y: 9 }, 99, 40);
+            newElement = new FlatButton({ X: 9, Y: 9 }, 40, 40);
         }
         else if(value === "2")
         {
-            newElement = new ImageWidjet({ X: 9, Y: 9 }, 99, 40);
+            newElement = new ImageWidjet({ X: 9, Y: 9 }, 40, 40);
+        }
+        else if(value === "3")
+        {
+            newElement = new Input({ X: 9, Y: 9 }, 40, 40);
+        }
+        else if(value === "4")
+        {
+            newElement = new CircleAvatar({ X: 9, Y: 9 }, 40, 40);
         }
         p5.selected.children.push(newElement);
         p5.socket.emit('add-elementList',ROOM_ID,{EMAIL, type:newElement._type,
-            e_Id:newElement.Id,Id : p5.selected.Id});
+            e_Id:newElement.Id,Id : p5.selected.Id,e_name : newElement.name});
         fillListChilds(p5);
     });
     document.querySelector('.btnAddImage').addEventListener('click', e => {
@@ -638,7 +671,10 @@ function setEvents(p5)
             p5.lockSelected = false;
         }, 2000);
         let result = await saveAsJson(p5);
-        !result ? alert('Error😢 while trying to update💔!!!') : console.log(`${result}`);
+        if(!result)
+            alert('Error😢 while trying to update💔!!!') ;
+        // else
+        //   console.log(`${result}`);
     });
 
     uSize.addEventListener('input', e => {

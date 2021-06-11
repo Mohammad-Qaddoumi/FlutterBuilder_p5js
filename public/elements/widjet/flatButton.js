@@ -13,10 +13,11 @@ export default class FlatButton extends Widjet
         let tx,ty,ts;
         if(fromList)
         {
-            x = fromList.x;
-            y = fromList.y;
-            h = fromList.h;
-            w = fromList.w;
+            x = this.X = fromList.x;
+            y = this.Y = fromList.y;
+            // h = fromList.h;
+            h = this.height;
+            w = this.width = fromList.w;
             ts = h * 0.4 ;
             while(this.text.length * ts  / 1.85 > w)
                 ts -= 1;
