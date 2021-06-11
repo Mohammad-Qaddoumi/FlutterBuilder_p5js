@@ -35,6 +35,21 @@ function file_force_contents($dir, $file, $contents)
 }
 
 try{
+    $json = json_encode(['app_id' => "$app_id",'image_id' => "$img_id"]);
+    $options = ['http' => [
+        'method' => 'POST',
+        'header' => 'Content-type:application/json',
+        'content' => $json,
+        "ssl"=>array(
+            "verify_peer"=>false,
+            "verify_peer_name"=>false,
+        )
+    ]];
+    $context = stream_context_create($options);
+    $url = 'https://less-code.000webhostapp.com/delete.php';
+    file_get_contents($url, false, $context);
+
+
     // file_force_contents('C:/php_project/graduationProject/Design/cool/image.png', $data);
     file_force_contents("appImagesFile/$app_id", $img_id . '.' . $type, $dataBase64);
 }

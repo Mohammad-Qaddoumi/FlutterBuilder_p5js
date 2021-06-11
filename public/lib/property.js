@@ -183,7 +183,11 @@ function fillWithInputNames(p5)
                 names.push({name : screen.children[j].name , Id : screen.children[j].Id , index : i});
             else if(screen.children[j]._type === "List")
             {
-                //TODO: 
+                for(let k=0;k<screen.children[j].children.length;k++)
+                {
+                    if(screen.children[j].children[k]._type === "Input")
+                        names.push({name : screen.children[j].children[k] , Id : screen.children[j].children[k] , index : k});
+                }
             }
         }
         for(let j=0;j<screen.unSortedWidjets.length;j++)

@@ -630,6 +630,15 @@ function setEvents(p5)
         if(p5.selected.Id === p5.screens[p5.selectedScreen].Id) return;
         // if(p5.selected.Id === p5.screens[p5.selectedScreen].appBar.Id)return;
         if (!confirm(`Do you want to delete ${p5.selected.name}?`)) return;
+        if(p5.selected._type === "Image")
+        {
+            const url = "https://less-code.000webhostapp.com/delete.php";
+            let response = await fetch(url,{
+                method : 'POST',
+                body : JSON.stringify( {app_id : APP_ID,image_id: p5.selected.Id}, null, 0)
+            });
+            // let text = await response.text();
+        }
         let index = p5.screens[p5.selectedScreen].children.findIndex(e => e.Id === p5.selected.Id);
         if(index >= 0)
         {
@@ -655,8 +664,6 @@ function setEvents(p5)
         p5.socket.emit('selected',ROOM_ID,JSON.stringify({EMAIL,Id:p5.selected.Id}));
         changeTheSelectedProperty(p5);
         addTheScreenElement(p5);
-        //TODO: remove the image from the server ...
-
     });
     
     updbtn.addEventListener('click', async e => {
