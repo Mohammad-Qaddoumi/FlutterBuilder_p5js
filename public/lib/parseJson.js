@@ -14,8 +14,6 @@ import Menu from "../elements/collection/menu.js";
 
 export default function parseJson(p5) {
     p5.screens = [];
-    // p5.menu = null;
-    p5.menu = new Menu({X:0,Y:0},0,0);
     p5.selectedScreen = 0;
     if (Object.keys(DESIGN).length !== 0) 
     {
@@ -23,7 +21,6 @@ export default function parseJson(p5) {
         {
             let screen = new Screen(config.gridPoints);
             screen.unSortedWidjets = [];
-            // screen.backgroundColor = [0, 0, 0];
             screen.canMove = false;
             screen.name = DESIGN[`screen${i}`]["name"];
             if (DESIGN[`screen${i}`]) {
@@ -56,12 +53,14 @@ export default function parseJson(p5) {
             p5.menu = new Menu({X:0,Y:0},0,0);
             p5.menu.children = getchildren( DESIGN["menu"] , p5 );
         }
+        else
+            p5.menu = new Menu({X:0,Y:0},0,0);
     }
     else {
         p5.screens.push(new Screen(config.gridPoints));
         p5.screens[0].unSortedWidjets = [];
-        // p5.screens[0].backgroundColor = [0, 0, 0];
         p5.screens[p5.selectedScreen].canMove = false;
+        p5.menu = new Menu({X:0,Y:0},0,0);
     }
 
     p5.selected = p5.screens[p5.selectedScreen];
