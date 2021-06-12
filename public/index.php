@@ -196,26 +196,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     </div>
                     <hr>
                     <div class="screenaction">
-                        <div class="menu-list transition-animation">
-                            <input type="checkbox" id="i">
-                            <label for="i" class="checkbox">
-                                <div class="checkbox__inner">
-                                    <div class="green__ball"></div>
-                                </div>
-                            </label>
-                            <div class="checkbox__text">
-                                <span>Turn menu list </span>
-                                <div class="checkbox__text--options">
-                                    <span class="off">off</span>
-                                    <span class="on">on</span>
-                                </div>
-                            </div>
-                        </div>
                         <div class="appBar">
                             <button class="btnAppbar button-style transition-animation"> Add AppBar </button>
                         </div>
                         <div class="deleteScreen">
                             <input type="button" class="btnDeleteScreen button-style transition-animation" value="Delete This Screen">
+                        </div>
+                    </div>
+                    <div class="menu-list transition-animation">
+                        <input type="checkbox" id="i">
+                        <label for="i" class="checkbox">
+                            <div class="checkbox__inner">
+                                <div class="green__ball"></div>
+                            </div>
+                        </label>
+                        <div class="checkbox__text">
+                            <span>Turn menu list </span>
+                            <div class="checkbox__text--options">
+                                <span class="off">off</span>
+                                <span class="on">on</span>
+                            </div>
                         </div>
                     </div>
                     <div class="list-widjet-tools">

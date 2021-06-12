@@ -36,6 +36,7 @@ export function changeProperty(p5)
     document.querySelector('.inputs-name').style.display = 'none';
     document.querySelector('.divSubcontent').style.display = 'none';
     document.querySelector('.list-widjet-tools').style.display = 'none';
+    document.querySelector('.menu-list').style.display = 'none';
     txtName.style.display = 'flex';
     document.querySelector('.hide-in-list').style.display = 'block';
     bgCV.value = rgbToHex(p5.selected.backgroundColor[0], p5.selected.backgroundColor[1], p5.selected.backgroundColor[2]);
@@ -49,9 +50,15 @@ export function changeProperty(p5)
         document.querySelector('.screenaction').style.display = 'block';
         document.querySelector('.menu-list input').checked = p5.screens[p5.selectedScreen].menu_list;
         if(p5.screens[p5.selectedScreen].appBar)
+        {    
             btnAppbar.style.display = 'none';
+            document.querySelector('.menu-list').style.display = 'flex';
+        }
         else
+        {    
             btnAppbar.style.display = 'flex';
+            document.querySelector('.menu-list').style.display = 'none';
+        }
         document.querySelector('.size').style.display = 'none';
         dlebtn.style.display = 'none';
         foregroundColor.style.display = 'none';
@@ -92,6 +99,7 @@ export function changeProperty(p5)
             document.querySelector('.size').style.display = 'none';
             document.querySelector('.locked').style.display = 'none';
             document.querySelector('#btnEditEvents').style.display = 'none';
+            document.querySelector('.menu-list').style.display = 'flex';
         }
         else if (p5.selected instanceof ImageWidjet)
         {

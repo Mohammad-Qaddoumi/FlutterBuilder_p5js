@@ -22,6 +22,10 @@ export default class AppBar extends Widjet
         p5.text(this.text, this.text_X, this.text_Y);
 
         p5.pop();
+
+        p5.push();
+        p5.screens[p5.selectedScreen].sketch_menu(p5);
+        p5.pop();
     }
     get text_X () 
     {

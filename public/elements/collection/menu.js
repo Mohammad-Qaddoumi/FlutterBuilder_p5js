@@ -71,7 +71,7 @@ export default class Menu extends List
         if(p5.selected.Id === this.Id)
         {
             W = p5.screens[p5.selectedScreen].width * 0.85;
-            H = p5.screens[p5.selectedScreen].height;
+            H = p5.screens[p5.selectedScreen].height + p5.screens[p5.selectedScreen].appBar.height;
         }
         else 
         {

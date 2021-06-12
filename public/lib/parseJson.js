@@ -25,10 +25,8 @@ export default function parseJson(p5) {
             screen.name = DESIGN[`screen${i}`]["name"];
             if (DESIGN[`screen${i}`]) {
                 screen.Id = DESIGN[`screen${i}`]["id"];
-                if (screen.menu === "on")
+                if (DESIGN[`screen${i}`].menu === "on")
                     screen.menu_list = true;
-                else
-                    screen.menu_list = false;
                 if (DESIGN[`screen${i}`][`appBar`]) {
                     screen.appBar = new AppBar({ X: config.gridPoints.X, Y: config.gridPoints.Y }, config.gridPoints.W, config.gridPoints.H * 0.09);
                     screen.size = (config.gridPoints.H - (config.gridPoints.H * 0.09)) / config.gridPoints.H;

@@ -82,9 +82,7 @@ function sketch(p5)
             if(p5.screens[p5.selectedScreen].appBar)
                 p5.screens[p5.selectedScreen].appBar.sketch(p5);
             
-            p5.push();
-            p5.screens[p5.selectedScreen].sketch_menu(p5);
-            p5.pop();
+            
             
             for(let item of p5.screens[p5.selectedScreen].unSortedWidjets){
                 p5.push();

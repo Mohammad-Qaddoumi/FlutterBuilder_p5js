@@ -12,23 +12,35 @@ function pressed(p5)
         return;
     let foundItemFlag = false;
     let newItem = false;
-    // for(let i = 0; i < p5.screens[p5.selectedScreen].children.length; i++)
-    for(let i = p5.screens[p5.selectedScreen].children.length - 1; i >= 0; i--)
+    if(p5.screens[p5.selectedScreen].appBar)
     {
-        // if(p5.screens[p5.selectedScreen].children[i] instanceof Screen && p5.screens[p5.selectedScreen].children[i].isInside(p5))
-        // {
-        //     foundItemFlag = foundPressedElement(p5.screens[p5.selectedScreen].children[i],p5);
-        //     break;
-        // }
-        // else 
-        if(p5.screens[p5.selectedScreen].children[i].isInside(p5))
+        if(p5.screens[p5.selectedScreen].menu_list && p5.menu.isInside(p5))
         {
             foundItemFlag = true;
-            p5.screens[p5.selectedScreen].children[i].drag = true;
-            p5.selected = p5.screens[p5.selectedScreen].children[i];
-            break;
+            p5.selected = p5.menu;
+        }else if (p5.screens[p5.selectedScreen].appBar.isInside(p5)){
+            foundItemFlag = true;
+            p5.selected = p5.screens[p5.selectedScreen].appBar;
         }
     }
+    // for(let i = 0; i < p5.screens[p5.selectedScreen].children.length; i++)
+    if(!foundItemFlag)
+        for(let i = p5.screens[p5.selectedScreen].children.length - 1; i >= 0; i--)
+        {
+            // if(p5.screens[p5.selectedScreen].children[i] instanceof Screen && p5.screens[p5.selectedScreen].children[i].isInside(p5))
+            // {
+            //     foundItemFlag = foundPressedElement(p5.screens[p5.selectedScreen].children[i],p5);
+            //     break;
+            // }
+            // else 
+            if(p5.screens[p5.selectedScreen].children[i].isInside(p5))
+            {
+                foundItemFlag = true;
+                p5.screens[p5.selectedScreen].children[i].drag = true;
+                p5.selected = p5.screens[p5.selectedScreen].children[i];
+                break;
+            }
+        }
     if(!foundItemFlag)
     {
         // for(let i=0; i< p5.screens[p5.selectedScreen].unSortedWidjets.length;i++)
@@ -69,16 +81,6 @@ function pressed(p5)
                 break;
             }
         }
-    }
-    if(!foundItemFlag && p5.menu && p5.screens[p5.selectedScreen].menu_list && p5.menu.isInside(p5))
-    {
-        foundItemFlag = true;
-        p5.selected = p5.menu;
-    }
-    if(!foundItemFlag && p5.screens[p5.selectedScreen].appBar && p5.screens[p5.selectedScreen].appBar.isInside(p5))
-    {
-        foundItemFlag = true;
-        p5.selected = p5.screens[p5.selectedScreen].appBar;
     }
     if (!foundItemFlag) 
     {
