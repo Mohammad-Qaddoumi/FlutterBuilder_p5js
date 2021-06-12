@@ -2,7 +2,7 @@ import Text from '../elements/widjet/Text.js';
 import Input from '../elements/widjet/input.js';
 import ImageWidjet from '../elements/widjet/image.js';
 import CircleAvatar from '../elements/widjet/circle.js';
-import List from '../elements/List/list.js';
+import List from '../elements/collection/list.js';
 import AppBar from '../elements/widjet/appBar.js';
 import ListTile from '../elements/widjet/listTile.js';
 
@@ -32,6 +32,7 @@ export function changeProperty(p5)
 {
     if(!p5.selected) return;
     widthAndHeight.style.display = 'none';
+    document.querySelector('.divName').style.display = 'flex';
     document.querySelector('.inputs-name').style.display = 'none';
     document.querySelector('.divSubcontent').style.display = 'none';
     document.querySelector('.list-widjet-tools').style.display = 'none';
@@ -133,7 +134,18 @@ export function changeProperty(p5)
             b[3].style.display = 'flex';
             txtName.style.display = 'flex';
         }
-        if(p5.selected instanceof List)
+        if(p5.selected._type === "Menu")
+        {
+            document.querySelector('.locked').style.display = 'none';
+            document.querySelector('.divName').style.display = 'none';
+            document.querySelector('#btnEditEvents').style.display = 'none';
+            document.querySelector('.list-widjet-tools').style.display = 'flex';
+            iText.style.display = 'none';
+            foregroundColor.style.display = 'none';
+            widthAndHeight.style.display = 'none';
+            fillListChilds(p5);
+        }
+        else if(p5.selected instanceof List)
         {
             iText.style.display = 'none';
             foregroundColor.style.display = 'none';
@@ -196,6 +208,7 @@ function fillWithInputNames(p5)
                 names.push({name : screen.unSortedWidjets[j].name , Id : screen.unSortedWidjets[j].Id , index : ""+i});
         }
     }
+    // TODO : adds input from the menu ... 
     if(names.length === 0)
     {
         input.append(new Option(name, p5.selected.nameId, true, true));

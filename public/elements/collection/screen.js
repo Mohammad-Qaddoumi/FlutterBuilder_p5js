@@ -45,13 +45,38 @@ export default class Screen extends Element
             this.children[i].superSketch(p5);
             p5.pop();
         }
+    }
 
+    sketch_menu(p5)
+    {
         // TODO :  Just draw a Three lines and use it as List .....
+        // when deleting the menu set all screens to no menu
         if(this.menu_list)
         {
+            p5.push();
 
+            p5.fill(100,100,100);
+            p5.strokeWeight(3);
+            p5.stroke(100,100,100);
+            let x,y,w;
+            if(p5.screens[p5.selectedScreen].appBar)
+            {    
+                x = p5.screens[p5.selectedScreen].appBar.X + 10;
+                y = p5.screens[p5.selectedScreen].appBar.Y + 10;
+            }
+            else 
+            {
+                x = p5.screens[p5.selectedScreen].X + 10;
+                y = p5.screens[p5.selectedScreen].Y + 10;
+            }
+            w = p5.screens[p5.selectedScreen].Width * 0.17;
+            
+            p5.line(x, y, x + w, y);
+            p5.line(x, y + 7, x + w, y + 7);
+            p5.line(x, y + 14, x + w, y + 14);
+
+            p5.pop();
         }
-        
     }
 
     isInside(p5) 

@@ -1,4 +1,4 @@
-import Screen from '../elements/screen/screen.js';
+import Screen from '../elements/collection/screen.js';
 import AppBar from '../elements/widjet/appBar.js';
 import config from './config.js';
 import saveAsJson from './ajax.js';
@@ -58,7 +58,7 @@ function setEvents(p5)
     });
     document.querySelector('.screens-list').addEventListener('input',e=>{
         let selected,fromList;
-        if(p5.selected._type === "List")
+        if(p5.selected._type === "List" || p5.selected._type === "Menu" )
         {    
             fromList = true;
             selected = p5.selected.children[p5.selected.selectedIndex];
@@ -84,7 +84,7 @@ function setEvents(p5)
     });
     document.querySelector('#pushEvents').addEventListener('input', e => {
         let selected,fromList;
-        if(p5.selected._type === "List")
+        if(p5.selected._type === "List" || p5.selected._type === "Menu" )
         {    
             fromList = true;
             selected = p5.selected.children[p5.selected.selectedIndex];
@@ -132,7 +132,7 @@ function setEvents(p5)
     });
     document.querySelector('#calculate-events').addEventListener('input',e=>{
         let selected,fromList;
-        if(p5.selected._type === "List")
+        if(p5.selected._type === "List" || p5.selected._type === "Menu" )
         {    
             fromList = true;
             selected = p5.selected.children[p5.selected.selectedIndex];
@@ -169,7 +169,7 @@ function setEvents(p5)
     });
     document.querySelector('#concatenation-events').addEventListener('input',e=>{
         let selected,fromList;
-        if(p5.selected._type === "List")
+        if(p5.selected._type === "List" || p5.selected._type === "Menu" )
         {    
             fromList = true;
             selected = p5.selected.children[p5.selected.selectedIndex];
@@ -206,7 +206,7 @@ function setEvents(p5)
     });
     document.querySelector('#valid-insert-evnets').addEventListener('input',e=>{
         let selected,fromList;
-        if(p5.selected._type === "List")
+        if(p5.selected._type === "List" || p5.selected._type === "Menu" )
         {    
             fromList = true;
             selected = p5.selected.children[p5.selected.selectedIndex];
@@ -254,7 +254,7 @@ function setEvents(p5)
         if(!document.querySelector('#valid-insert-evnets').checked)
             return;
         let selected,fromList;
-        if(p5.selected._type === "List")
+        if(p5.selected._type === "List" || p5.selected._type === "Menu" )
         {    
             fromList = true;
             selected = p5.selected.children[p5.selected.selectedIndex];
@@ -296,7 +296,7 @@ function setEvents(p5)
         if(!document.querySelector('#valid-insert-evnets').checked)
             return;
         let selected,fromList;
-        if(p5.selected._type === "List")
+        if(p5.selected._type === "List" || p5.selected._type === "Menu" )
         {    
             fromList = true;
             selected = p5.selected.children[p5.selected.selectedIndex];
@@ -338,7 +338,7 @@ function setEvents(p5)
         if(!document.querySelector('#pushEvents').checked)
             return;
         let selected,fromList;
-        if(p5.selected._type === "List")
+        if(p5.selected._type === "List" || p5.selected._type === "Menu" )
         {    
             fromList = true;
             selected = p5.selected.children[p5.selected.selectedIndex];
@@ -374,7 +374,7 @@ function setEvents(p5)
         if(!document.querySelector('#pushEvents').checked)
             return;
         let selected,fromList;
-        if(p5.selected._type === "List")
+        if(p5.selected._type === "List" || p5.selected._type === "Menu" )
         {    
             fromList = true;
             selected = p5.selected.children[p5.selected.selectedIndex];
@@ -626,7 +626,7 @@ function setEvents(p5)
         },200);
     });
 
-    dlebtn.addEventListener('click', e => {
+    dlebtn.addEventListener('click', async e => {
         if(p5.selected.Id === p5.screens[p5.selectedScreen].Id) return;
         // if(p5.selected.Id === p5.screens[p5.selectedScreen].appBar.Id)return;
         if (!confirm(`Do you want to delete ${p5.selected.name}?`)) return;
@@ -883,13 +883,13 @@ async function change_image(p5)
     if (radios[0].checked && radios[0].value == "1") 
     {
         const url = document.querySelector('.image-url-box').value;
-        if(p5.selected._type === "List")
+        if(p5.selected._type === "List" || p5.selected._type === "Menu" )
             result = await binaryToBase64(p5,null,url,p5.selected.children[p5.selected.selectedIndex]);
         else
             result = await binaryToBase64(p5,null,url);
     }
     else{
-        if(p5.selected._type === "List")
+        if(p5.selected._type === "List" || p5.selected._type === "Menu" )
             result = await binaryToBase64(p5,image_BG.files,null,p5.selected.children[p5.selected.selectedIndex]);
         else
             result = await binaryToBase64(p5,image_BG.files);
@@ -914,7 +914,7 @@ function editEvents(p5)
     const myRe = /^push(AndReplacement)?\((\w|\d|\-)+\)$/g;
     let id = null;
     let events = p5.selected.events;
-    if(p5.selected._type === "List")
+    if(p5.selected._type === "List" || p5.selected._type === "Menu" )
         events = p5.selected.children[p5.selected.selectedIndex].events;
     for(let i=0;i<events.length;i++)
     {

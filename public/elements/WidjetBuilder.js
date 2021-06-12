@@ -3,7 +3,7 @@ import FlatButton from './widjet/flatButton.js';
 import Text from './widjet/Text.js';
 import ImageWidjet from './widjet/image.js';
 import Input from './widjet/input.js';
-import List from './List/list.js';
+import List from './collection/list.js';
 import ListTile from './widjet/listTile.js';
 export default class WidjetBuilder 
 {

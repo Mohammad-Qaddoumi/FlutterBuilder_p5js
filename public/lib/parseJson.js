@@ -1,4 +1,4 @@
-import Screen from "../elements/screen/screen.js";
+import Screen from "../elements/collection/screen.js";
 import AppBar from "../elements/widjet/appBar.js";
 import FlatButton from "../elements/widjet/flatButton.js";
 import ImageWidjet from "../elements/widjet/image.js";
@@ -9,14 +9,18 @@ import config from './config.js';
 import events from '../lib/events.js';
 import { loadSavedImage } from './base64Encode.js';
 import ListTile from "../elements/widjet/listTile.js";
-import List from "../elements/List/list.js";
+import List from "../elements/collection/list.js";
+import Menu from "../elements/collection/menu.js";
 
 export default function parseJson(p5) {
     p5.screens = [];
-
+    // p5.menu = null;
+    p5.menu = new Menu({X:0,Y:0},0,0);
     p5.selectedScreen = 0;
-    if (Object.keys(DESIGN).length !== 0) {
-        for (let i = 0; i < DESIGN.numberOfScreens; i++) {
+    if (Object.keys(DESIGN).length !== 0) 
+    {
+        for (let i = 0; i < DESIGN.numberOfScreens; i++) 
+        {
             let screen = new Screen(config.gridPoints);
             screen.unSortedWidjets = [];
             // screen.backgroundColor = [0, 0, 0];
@@ -47,6 +51,11 @@ export default function parseJson(p5) {
         }
         if (DESIGN['count'])
             config.count = DESIGN['count'];
+        if(DESIGN["menu"])
+        {
+            p5.menu = new Menu({X:0,Y:0},0,0);
+            p5.menu.children = getchildren( DESIGN["menu"] , p5 );
+        }
     }
     else {
         p5.screens.push(new Screen(config.gridPoints));
@@ -54,7 +63,7 @@ export default function parseJson(p5) {
         // p5.screens[0].backgroundColor = [0, 0, 0];
         p5.screens[p5.selectedScreen].canMove = false;
     }
-    p5.menu = null;
+
     p5.selected = p5.screens[p5.selectedScreen];
     p5.lockSelected = false;
     events.changeTheSelectedProperty(p5);

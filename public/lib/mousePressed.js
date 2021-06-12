@@ -1,6 +1,6 @@
 import config from './config.js';
 import WidjetBuilder from '../elements/WidjetBuilder.js';
-import Screen from '../elements/screen/screen.js';
+// import Screen from '../elements/screen/screen.js';
 import events from './events.js';
 
 function pressed(p5)
@@ -12,14 +12,16 @@ function pressed(p5)
         return;
     let foundItemFlag = false;
     let newItem = false;
-    for(let i = 0; i < p5.screens[p5.selectedScreen].children.length; i++)
+    // for(let i = 0; i < p5.screens[p5.selectedScreen].children.length; i++)
+    for(let i = p5.screens[p5.selectedScreen].children.length - 1; i >= 0; i--)
     {
-        if(p5.screens[p5.selectedScreen].children[i] instanceof Screen && p5.screens[p5.selectedScreen].children[i].isInside(p5))
-        {
-            foundItemFlag = foundPressedElement(p5.screens[p5.selectedScreen].children[i],p5);
-            break;
-        }
-        else if(p5.screens[p5.selectedScreen].children[i].isInside(p5))
+        // if(p5.screens[p5.selectedScreen].children[i] instanceof Screen && p5.screens[p5.selectedScreen].children[i].isInside(p5))
+        // {
+        //     foundItemFlag = foundPressedElement(p5.screens[p5.selectedScreen].children[i],p5);
+        //     break;
+        // }
+        // else 
+        if(p5.screens[p5.selectedScreen].children[i].isInside(p5))
         {
             foundItemFlag = true;
             p5.screens[p5.selectedScreen].children[i].drag = true;
@@ -29,14 +31,16 @@ function pressed(p5)
     }
     if(!foundItemFlag)
     {
-        for(let i=0; i< p5.screens[p5.selectedScreen].unSortedWidjets.length;i++)
+        // for(let i=0; i< p5.screens[p5.selectedScreen].unSortedWidjets.length;i++)
+        for(let i = p5.screens[p5.selectedScreen].unSortedWidjets.length - 1; i >= 0; i--)
         {
-            if(p5.screens[p5.selectedScreen].unSortedWidjets[i] instanceof Screen)
-            {
-                foundItemFlag = foundPressedElement(p5.screens[p5.selectedScreen].unSortedWidjets[i],p5);
-                if(foundItemFlag) break;
-            }
-            else if (p5.screens[p5.selectedScreen].unSortedWidjets[i].isInside(p5))
+            // if(p5.screens[p5.selectedScreen].unSortedWidjets[i] instanceof Screen)
+            // {
+            //     foundItemFlag = foundPressedElement(p5.screens[p5.selectedScreen].unSortedWidjets[i],p5);
+            //     if(foundItemFlag) break;
+            // }
+            // else 
+            if (p5.screens[p5.selectedScreen].unSortedWidjets[i].isInside(p5))
             {
                 foundItemFlag = true;
                 p5.screens[p5.selectedScreen].unSortedWidjets[i].drag = true;
@@ -66,6 +70,11 @@ function pressed(p5)
             }
         }
     }
+    if(!foundItemFlag && p5.menu && p5.screens[p5.selectedScreen].menu_list && p5.menu.isInside(p5))
+    {
+        foundItemFlag = true;
+        p5.selected = p5.menu;
+    }
     if(!foundItemFlag && p5.screens[p5.selectedScreen].appBar && p5.screens[p5.selectedScreen].appBar.isInside(p5))
     {
         foundItemFlag = true;
@@ -84,32 +93,32 @@ function pressed(p5)
     p5.Y_D = p5.mouseY - p5.selected.Y;
 }
 
-function foundPressedElement(item , p5)
-{
-    let found = false;
-    for(let i = 0; i < item.children.length; i++)
-    {
-        if( item.children[i] instanceof Screen && item.children[i].isInside(p5) )
-        {
-            found = foundPressedElement(item.children[i],p5);
-            if(found) break;
-        }
-        else if (item.children[i].isInside(p5))
-        {
-            found = true;
-            p5.selected = item.children[i];
-            p5.selected.drag = true;
-            break;
-        }
-    }
-    if (!found && item.isInside(p5))
-    {
-        found = true;
-        p5.selected = item;
-        p5.selected.drag = true;
-    }
-    return found;
-}
+// function foundPressedElement(item , p5)
+// {
+//     let found = false;
+//     for(let i = 0; i < item.children.length; i++)
+//     {
+//         if( item.children[i] instanceof Screen && item.children[i].isInside(p5) )
+//         {
+//             found = foundPressedElement(item.children[i],p5);
+//             if(found) break;
+//         }
+//         else if (item.children[i].isInside(p5))
+//         {
+//             found = true;
+//             p5.selected = item.children[i];
+//             p5.selected.drag = true;
+//             break;
+//         }
+//     }
+//     if (!found && item.isInside(p5))
+//     {
+//         found = true;
+//         p5.selected = item;
+//         p5.selected.drag = true;
+//     }
+//     return found;
+// }
 
 function foundTargetSelected(p5,Id)
 {
@@ -135,6 +144,8 @@ function foundTargetSelected(p5,Id)
             return i;
         }
     }
+    if(p5.menu && p5.menu.Id === Id)
+        return p5.menu;
     if(p5.screens[p5.selectedScreen].appBar 
         && p5.screens[p5.selectedScreen].appBar.Id === Id)
         return p5.screens[p5.selectedScreen].appBar;

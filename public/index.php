@@ -12,13 +12,14 @@ if ($status == PHP_SESSION_NONE) {
     exit;
 }
 
-
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     //TODO: Change the redirect ...
     header("location: ../connect.php");
     exit;
 }
-$email = $user_name = $app_id = $room_id = $design = "";
+
+$email = $user_name = $app_id = $room_id = "";
+$design = "{}";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     
@@ -193,10 +194,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <div>Add Screen</div>
                         </a>
                     </div>
-                    <hr>
-                    <div >
+                    <!-- <hr> -->
+                    <!-- <div >
                         <div>&nbsp;Menu&nbsp;List&nbsp;</div>
-                    </div>
+                    </div> -->
                     <hr>
                     <div class="screenaction">
                         <div class="menu-list transition-animation">
@@ -238,6 +239,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             </select>
                         </div>
                         <div class="childs-property">
+                            <hr>
                             <span>Property</span>
                             <div class="flex-row">
                                 <div>Name&nbsp;:&nbsp;</div>
@@ -260,9 +262,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <input type="button" class="btnDeleteElement button-style transition-animation" value="Delete">
                         </div>
                     </div>
-                    <div class="menu-list-tools" >
+                    <!-- <div class="menu-list-tools" >
 
-                    </div>
+                    </div> -->
                     <hr>
                     <div class="hide-in-list">
                     <div class="selectedItem">SelectedItem:</div>
@@ -481,5 +483,4 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <meta http-equiv="refresh" content="0.0;url=../connect.php">
     </noscript>
 </body>
-
 </html>

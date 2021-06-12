@@ -8,7 +8,7 @@ export default class List extends Element
         super({X : point.X , Y : point.Y, W : width, H : height} ,true , `List${config.count++}`,"List",[100,100,100]);
 
         this.children = [
-            new CircleAvatar({ X: 9, Y: 9 }, 40, 40)
+            // new CircleAvatar({ X: 9, Y: 9 }, 40, 40)
         ];
         this.noBackground = false;
         this.selectedIndex = 0;

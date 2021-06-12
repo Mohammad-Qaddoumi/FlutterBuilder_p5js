@@ -30,6 +30,10 @@ export default function buildJSON(p5)
         mJSON[`screen${j}`][`unSortedWidjets`] = getChildsAsJson(p5, screens[j].unSortedWidjets);
 
     }
+    if(p5.menu)
+    {
+        mJSON["menu"] = getChildsAsJson( p5 , p5.menu.children , 0);
+    }
     return mJSON;
 }
 
@@ -116,7 +120,7 @@ function getChildsAsJson( p5, children , selectedScreen )
         {
             // collection[`child${i+1}`].numOfChilds = children[i].children.length;
             collection[`child${i+1}`] = { ...collection[`child${i+1}`], 
-                                          ...getChildsAsJson(p5,children[i].children)};
+                                          ...getChildsAsJson(p5,children[i].children , 0)};
         }
         
     }
