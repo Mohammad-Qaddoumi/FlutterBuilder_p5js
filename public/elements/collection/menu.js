@@ -8,12 +8,12 @@ export default class Menu extends List
         super({X : point.X , Y : point.Y},  width,  height);
         this.name = this._type =  "Menu";
         this.canMove = false;
+        this.backgroundColor = [39,170,144];
     }
     sketch(p5) 
     {
         p5.push();
-        p5.strokeWeight(3);
-        p5.stroke(0,255,0);
+        p5.noStroke();
         p5.rectMode(p5.CORNER);
         p5.fill(this.backgroundColor[0], this.backgroundColor[1], this.backgroundColor[2]);
         let X,Y,H;

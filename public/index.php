@@ -194,10 +194,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <div>Add Screen</div>
                         </a>
                     </div>
-                    <!-- <hr> -->
-                    <!-- <div >
-                        <div>&nbsp;Menu&nbsp;List&nbsp;</div>
-                    </div> -->
                     <hr>
                     <div class="screenaction">
                         <div class="menu-list transition-animation">
@@ -223,6 +219,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         </div>
                     </div>
                     <div class="list-widjet-tools">
+                        <div class="type-of-selected">
+                            List property
+                        </div>
                         <div>
                             <div>Elements&nbsp;:&nbsp;</div>
                             <select class="list-childs-name"></select>
@@ -262,9 +261,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <input type="button" class="btnDeleteElement button-style transition-animation" value="Delete">
                         </div>
                     </div>
-                    <!-- <div class="menu-list-tools" >
-
-                    </div> -->
                     <hr>
                     <div class="hide-in-list">
                     <div class="selectedItem">SelectedItem:</div>

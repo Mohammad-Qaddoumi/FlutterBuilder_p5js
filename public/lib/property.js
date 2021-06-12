@@ -140,6 +140,7 @@ export function changeProperty(p5)
             document.querySelector('.divName').style.display = 'none';
             document.querySelector('#btnEditEvents').style.display = 'none';
             document.querySelector('.list-widjet-tools').style.display = 'flex';
+            document.querySelector('.type-of-selected').innerText = 'Menu property';
             iText.style.display = 'none';
             foregroundColor.style.display = 'none';
             widthAndHeight.style.display = 'none';
@@ -147,6 +148,7 @@ export function changeProperty(p5)
         }
         else if(p5.selected instanceof List)
         {
+            document.querySelector('.type-of-selected').innerText = 'List property';
             iText.style.display = 'none';
             foregroundColor.style.display = 'none';
             document.querySelector('#btnEditEvents').style.display = 'none';
@@ -208,7 +210,13 @@ function fillWithInputNames(p5)
                 names.push({name : screen.unSortedWidjets[j].name , Id : screen.unSortedWidjets[j].Id , index : ""+i});
         }
     }
-    // TODO : adds input from the menu ... 
+    for(let i=0;i<p5.menu.children.length;i++)
+    {
+        if(p5.menu.children[i]._type === "Input")
+        {
+            names.push({name : p5.menu.children[i].name , Id : p5.menu.children[i].Id , index : i});
+        }
+    }
     if(names.length === 0)
     {
         input.append(new Option(name, p5.selected.nameId, true, true));
@@ -239,3 +247,4 @@ function removeAllChildNodes(e)
         child = e.lastElementChild;
     }
 }
+

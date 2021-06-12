@@ -153,6 +153,10 @@ button:active , a:active ,input[type="button"]:active{
     padding: 0.2rem;
 }
 
+.type-of-selected{
+    font-size:2em;
+}
+
 .screen-collection{
     -webkit-appearance: none;
     -moz-appearance: none;

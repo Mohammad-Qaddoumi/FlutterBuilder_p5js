@@ -49,8 +49,6 @@ export default class Screen extends Element
 
     sketch_menu(p5)
     {
-        // TODO :  Just draw a Three lines and use it as List .....
-        // when deleting the menu set all screens to no menu
         if(this.menu_list)
         {
             p5.push();
