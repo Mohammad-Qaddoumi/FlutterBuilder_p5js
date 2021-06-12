@@ -427,6 +427,10 @@ function setEvents(p5)
         {
             document.querySelector('.childs-property').style.display = 'flex';
             document.querySelector('.hide-in-list').style.display = 'none';
+            const input = document.querySelector('.child-z-index');
+            removeAllChildNodes(input);
+            for(let k=0;k<p5.selected.children.length;k++)
+                input.append(new Option(` ${k+1} `, k));
             for(let i=0;i<p5.selected.children.length;i++)
             {
                 if(e.target.value === p5.selected.children[i].Id)
@@ -435,6 +439,7 @@ function setEvents(p5)
                     let type = p5.selected.children[i]._type;
                     document.querySelector('#child-name').value = p5.selected.children[i].name;
                     document.querySelector('.child-height').value = p5.selected.children[i].height;
+                    document.querySelector('.child-z-index').value = i;
                     document.querySelector('.heightOrRadius').innerText = 'Height:';
                     document.querySelector('.child-text').style.display = 'flex';
                     document.querySelector('.btnEditEvents').style.display = 'flex';
@@ -562,7 +567,34 @@ function setEvents(p5)
                 Id:p5.selected.Id,index:p5.selected.selectedIndex});
         }
     });
-
+    document.querySelector('.child-z-index').addEventListener('input', e => {
+        if (p5.selected === null) return;
+        if(p5.selected.Id === p5.screens[p5.selectedScreen].Id) return;
+        const index = e.target.value - 0;
+        if(index === p5.selected.selectedIndex) return;
+        let item = p5.selected.children.splice([p5.selected.selectedIndex],1);
+        const old = p5.selected.selectedIndex; 
+        p5.selected.selectedIndex = index;
+        if(index === p5.selected.children.length)
+        {
+            p5.selected.children.push(item[0]);
+        }
+        else{
+            p5.selected.children.splice(index,0,item[0]);
+        }
+        const input = document.querySelector('.list-childs-name');
+        removeAllChildNodes(input);
+        input.append(new Option("Select Element", "0",true,true));
+        for(let i=0;i<p5.selected.children.length;i++)
+        {
+            if(p5.selected.children[p5.selected.selectedIndex].Id === p5.selected.children[i].Id)
+                input.append(new Option(p5.selected.children[i].name, p5.selected.children[i].Id,true,true));
+            else
+                input.append(new Option(p5.selected.children[i].name, p5.selected.children[i].Id));
+        }
+        p5.socket.emit( 'child-z-index', ROOM_ID, { EMAIL,
+            index1 : index, index2 : old });
+    });
 
     document.querySelector('.menu-list input').addEventListener('input', e => {
         p5.screens[p5.selectedScreen].menu_list = e.target.checked;

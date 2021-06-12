@@ -272,6 +272,39 @@ export default function buildSocketConnection(p5)
             }
         }
     });
+    p5.socket.on('child-z-index', data => {
+        if(data)
+        {
+            if(data.EMAIL === EMAIL)return;
+            const index = p5.partners.findIndex(t=> t.email === data.EMAIL);
+            if( index !== -1 )
+            {
+                const selected = p5.partners[index].selected;
+                let item = selected.children.splice([data.index2],1);
+                if(index === selected.children.length)
+                {
+                    selected.children.push(item[0]);
+                }
+                else{
+                    selected.children.splice(data.index1,0,item[0]);
+                }
+                const input = document.querySelector('.list-childs-name');
+                removeAllChildNodes(input);
+                input.append(new Option("Select Element", "0",true,true));
+                for(let i=0;i<selected.children.length;i++)
+                {
+                    if(p5.selected.Id === selected.Id && 
+                        p5.selected.children[p5.selected.selectedIndex].Id === p5.selected.children[i].Id)
+                    {
+                        input.append(new Option(p5.selected.children[i].name, p5.selected.children[i].Id,true,true));
+                        p5.selected.selectedIndex = i;
+                    }
+                    else
+                        input.append(new Option(p5.selected.children[i].name, p5.selected.children[i].Id));
+                }
+            }
+        }
+    });
     p5.socket.on('change-child-height', data => {
         if(data)
         {

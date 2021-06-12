@@ -116,6 +116,9 @@ io.sockets.on('connection', (socket) => {
     socket.on('change-child-text' , (roomId ,data) => {
       socket.to(roomId).emit('change-child-text' ,data);
     });
+    socket.on('child-z-index' , (roomId ,data) => {
+      socket.to(roomId).emit('child-z-index' ,data);
+    });
     socket.on('change-sub-content' , (roomId ,data) => {
       socket.to(roomId).emit('change-sub-content' ,data);
     });

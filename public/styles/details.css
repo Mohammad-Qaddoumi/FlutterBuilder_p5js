@@ -82,7 +82,7 @@ button:active , a:active ,input[type="button"]:active{
     font-size: 0.47rem;
 }
 
-.divName, .z-index, .innerText, .grid, .size, .widthAndHeight {
+.divName, .innerText, .grid, .size, .widthAndHeight {
     padding-top: 5px;
     width: 100%;
     display: flex;

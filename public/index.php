@@ -239,7 +239,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         </div>
                         <div class="childs-property">
                             <hr>
-                            <span>Property</span>
+                            <span>Childs Property</span>
                             <div class="flex-row">
                                 <div>Name&nbsp;:&nbsp;</div>
                                 <input autocomplete="off" placeholder="name" type="text" class="transition-animation" id="child-name" />
@@ -255,6 +255,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <div class="flex-row">
                                 <div class="heightOrRadius">Height:</div>
                                 <input class="child-height transition-animation" type="number" />
+                            </div>
+                            <div class="flex-row">
+                                <div class="z-index">Position&nbsp;:&nbsp;</div>
+                                <select class="child-z-index transition-animation"></select>
                             </div>
                             <input type="button" class="btnAddImage button-style transition-animation" value="Change Image">
                             <input type="button" class="btnEditEvents button-style transition-animation" value="Edit Events">
