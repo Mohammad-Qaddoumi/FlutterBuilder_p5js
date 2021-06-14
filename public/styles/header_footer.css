@@ -21,3 +21,16 @@
 .logo{
     margin : 0.2em;
 }
+.mainheader{
+    justify-content: space-between;
+}
+.header-tool{
+    /* padding: 0.3rem; */
+}
+.font-large{
+    border: darkturquoise;
+    font-size: x-large;
+}
+.mlr05{
+    margin: 0 0.5em;
+}

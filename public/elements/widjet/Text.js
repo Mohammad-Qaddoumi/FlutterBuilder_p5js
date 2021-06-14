@@ -20,7 +20,8 @@ export default class Text extends Widjet
     sketch(p5)
     {       
         // p5.noFill();
-        // p5.rect(this.X - 1, this.Y ,this.Width,this.Height);
+        p5.fill(this.backgroundColor[0],this.backgroundColor[1],this.backgroundColor[2]);
+        p5.rect(this.X - 1, this.Y ,this.Width,this.Height);
 
         p5.textSize(this.fontSize);
         p5.fill(this.foregroundColor[0], this.foregroundColor[1], this.foregroundColor[2]);

@@ -114,10 +114,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     <header class="mainheader">
         <div class="header logo">
-            <h3>Codeless</h3>
+            <button class="font-large transition-animation" onclick="window.location = '../CONTROL/UserControlPanel.php';">
+                Codeless 
+            </button>
         </div>
-        <div>
-        <?php echo $user_name; ?>
+        <div class="flex-row header-tool">
+            <div class="mlr05"> <?php echo $user_name; ?> </div>
+            <div> <button class="font-large transition-animation mlr05">Logout</button> </div>
         </div>
     </header>
 

@@ -83,7 +83,7 @@ export function changeProperty(p5)
     
         if(p5.selected instanceof Text)
         {
-            backgroundColor.style.display = 'none';
+            // backgroundColor.style.display = 'none';
             document.querySelector('#btnEditEvents').style.display = 'none';
             uSize.value = p5.selected.fontSize;
             sizeName.innerText = "Font Size : ";
