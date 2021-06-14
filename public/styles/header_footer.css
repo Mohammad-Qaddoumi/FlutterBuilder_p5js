@@ -24,9 +24,9 @@
 .mainheader{
     justify-content: space-between;
 }
-.header-tool{
-    /* padding: 0.3rem; */
-}
+/* .header-tool{
+
+} */
 .font-large{
     border: darkturquoise;
     font-size: x-large;
