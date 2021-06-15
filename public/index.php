@@ -241,6 +241,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                 <option value="2">Image</option>
                                 <option value="3">Input</option>
                                 <option value="4">Circle</option>
+                                <option value="5">Text</option>
                                 
                             </select>
                         </div>
@@ -259,7 +260,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                 <div>Text&nbsp;:&nbsp;</div>
                                 <textarea class="transition-animation" id="child-text" cols="30" rows="2" placeholder="text"></textarea>
                             </div>
-                            <div class="flex-row">
+                            <div class="flex-row disable-for-text">
                                 <div class="heightOrRadius">Height:</div>
                                 <input class="child-height transition-animation" type="number" />
                             </div>

@@ -10,6 +10,7 @@ import FlatButton from '../elements/widjet/flatButton.js';
 import ImageWidjet from '../elements/widjet/image.js';
 import Input from '../elements/widjet/input.js';
 import CircleAvatar from '../elements/widjet/circle.js';
+import Text from '../elements/widjet/Text.js';
 
 const dlebtn = document.querySelector('.btnDelete');
 const updbtn = document.querySelector('.btnUpdate');
@@ -444,6 +445,7 @@ function setEvents(p5)
                     document.querySelector('.child-text').style.display = 'flex';
                     document.querySelector('.btnEditEvents').style.display = 'flex';
                     document.querySelector('.btnAddImage').style.display = 'none';
+                    document.querySelector('.disable-for-text').style.display = 'flex';
                     document.querySelector('.sub-content').style.display = 'none';
                     if(type === "ListTile")
                     {
@@ -454,6 +456,12 @@ function setEvents(p5)
                     else if(type === "FlatButton" || type === "Input")
                     {
                         document.querySelector('#child-text').value = p5.selected.children[i].text;
+                    }
+                    else if(type === "Text")
+                    {
+                        document.querySelector('#child-text').value = p5.selected.children[i].text;
+                        document.querySelector('.btnEditEvents').style.display = 'none';
+                        document.querySelector('.disable-for-text').style.display = 'none';
                     }
                     else if(type === "Image")
                     {
@@ -545,6 +553,11 @@ function setEvents(p5)
         {
             newElement = new CircleAvatar({ X: 9, Y: 9 }, 40, 40);
         }
+        else if(value === "5")
+        {
+            newElement = new Text({ X: 9, Y: 9 }, 40, 40);
+        }
+
         p5.selected.children.push(newElement);
         p5.socket.emit('add-elementList',ROOM_ID,{EMAIL, type:newElement._type,
             e_Id:newElement.Id,Id : p5.selected.Id,e_name : newElement.name});

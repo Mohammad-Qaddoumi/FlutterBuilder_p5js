@@ -13,6 +13,7 @@ import FlatButton from '../elements/widjet/flatButton.js';
 import ImageWidjet from '../elements/widjet/image.js';
 import Input from '../elements/widjet/input.js';
 import CircleAvatar from '../elements/widjet/circle.js';
+import Text from '../elements/widjet/Text.js';
 
 export default function buildSocketConnection(p5)
 {
@@ -565,6 +566,11 @@ export default function buildSocketConnection(p5)
                     case "CircleAvatar" :
                     {
                         newElement = new CircleAvatar({ X: 9, Y: 9 }, 40, 40);
+                        break;
+                    }
+                    case "Text" :
+                    {
+                        newElement = new Text({ X: 9, Y: 9 }, 40, 40);
                         break;
                     }
                 }

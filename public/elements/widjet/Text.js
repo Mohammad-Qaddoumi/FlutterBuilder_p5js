@@ -17,15 +17,32 @@ export default class Text extends Widjet
         return this.fontSize * 1.1;
     }
 
-    sketch(p5)
+    sketch(p5,fromList)
     {       
-        // p5.noFill();
+        let x,y,h,w,fontSize;
+        if(fromList)
+        {
+            x = this.X = fromList.x;
+            y = this.Y = fromList.y;
+            h = this.Height + 2;
+            this.height = 5 + this.Height;
+            w = this.width = fromList.w;
+            fontSize = 19;
+        }
+        else 
+        {
+            x = this.X;
+            y = this.Y;
+            w = this.Width;
+            h = this.Height;
+            fontSize = this.fontSize;
+        }
         p5.fill(this.backgroundColor[0],this.backgroundColor[1],this.backgroundColor[2]);
-        p5.rect(this.X - 1, this.Y ,this.Width,this.Height);
+        p5.rect(x - 1, y ,w,h + 3);
 
-        p5.textSize(this.fontSize);
+        p5.textSize(fontSize);
         p5.fill(this.foregroundColor[0], this.foregroundColor[1], this.foregroundColor[2]);
-        p5.text(this.text, this.X, this.Y);
+        p5.text(this.text, x + 3, y + 3);
 
     }
 
