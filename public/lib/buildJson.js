@@ -120,7 +120,7 @@ function getChildsAsJson( p5, children , selectedScreen )
         {
             // collection[`child${i+1}`].numOfChilds = children[i].children.length;
             collection[`child${i+1}`] = { ...collection[`child${i+1}`], 
-                                          ...getChildsAsJson(p5,children[i].children , 0)};
+                                          ...getChildsAsJson(p5,children[i].children , selectedScreen)};
         }
         
     }
@@ -145,6 +145,16 @@ function setElementPosition(p5,selected,selectedScreen)
     {
         x =  ( selected.X + (selected.width)  - X_zero ) / W - 0.00000000001;
     }
+    // let x,y,width,height;
+
+    // width = getCalculatedWidth(p5,selected,selectedScreen);
+    // x = (selected.X + width/2) - X_zero; 
+    // x = x / (W - width/2);
+
+    // height = getCalculatedHeight(p5,selected,selectedScreen);
+    // y = (selected.Y + height/2) - Y_zero;
+    // y = -y / (H - height/2);
+
 
     if(selected._type === "Input")
         x = 0.000001;

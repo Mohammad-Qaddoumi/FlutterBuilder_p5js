@@ -120,7 +120,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
         <div class="flex-row header-tool">
             <div class="mlr05"> <?php echo $user_name; ?> </div>
-            <div> <button class="font-large transition-animation mlr05">Logout</button> </div>
+            <div> 
+                <button onclick="window.location = '../logout.php';" class="font-large transition-animation mlr05">
+                    Logout
+                </button> 
+            </div>
         </div>
     </header>
 

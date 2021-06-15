@@ -185,6 +185,11 @@ input:checked:focus+.switch-left+.switch-right {
     border: solid 2px grey;
     margin-left: 0.75rem;
 }
+
+.inputs-name{
+    padding: 5px 50px 5px 3px;
+}
+
 .add-element, .btnEditEvents,.btnAddImage,.btnDeleteElement{
     padding: 0.5em;
     font-size: small;

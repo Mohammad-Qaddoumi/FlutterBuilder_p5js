@@ -225,17 +225,26 @@ function fillWithInputNames(p5)
             names.push({name : p5.menu.children[i].name , Id : p5.menu.children[i].Id , index : i});
         }
     }
+    const unSelectedOption = document.createElement('option');
+    unSelectedOption.innerText = 'Select Reference';
+    unSelectedOption.value = '0';
+    unSelectedOption.selected = true;
+    unSelectedOption.disabled = true;
+    input.append(unSelectedOption);
     if(names.length === 0)
     {
-        input.append(new Option(name, p5.selected.nameId, true, true));
+        input.append(new Option(name, p5.selected.nameId,true,true));
     }
     else
+    {
+        let found = false;
         for(let i=0;i<names.length;i++)
         {
             let option;
             if(names[i].name === name)
             {
                 option = new Option(name, names[i].Id, true, true);
+                found = true;
             }
             else
             {
@@ -244,6 +253,11 @@ function fillWithInputNames(p5)
             option.dataset.value = names[i].index;
             input.append(option);
         }
+        if(!found)
+        {
+            input.append(new Option(name, p5.selected.nameId,true,true));
+        }
+    }
 }
 
 function removeAllChildNodes(e) 
