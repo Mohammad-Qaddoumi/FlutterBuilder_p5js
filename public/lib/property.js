@@ -123,7 +123,7 @@ export function changeProperty(p5)
         }
         if(p5.selected instanceof CircleAvatar)
         {
-            foregroundColor.style.display = 'none';
+            // foregroundColor.style.display = 'none';
             document.querySelector('#btnEditEvents').style.display = 'none';
             iText.style.display = 'none';
             let b = widthAndHeight.querySelectorAll('*');
@@ -180,6 +180,7 @@ export function changeProperty(p5)
 
 export function fillListChilds(p5)
 {
+    document.querySelector('.hide-in-list').style.display = 'block';
     document.querySelector('.childs-property').style.display = 'none';
     const input = document.querySelector('.list-childs-name');
     removeAllChildNodes(input);

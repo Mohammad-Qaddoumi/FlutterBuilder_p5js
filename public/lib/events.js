@@ -53,8 +53,8 @@ function setEvents(p5)
         p5.lockSelected = false;
     });
     document.querySelector('#btnEditEvents').addEventListener('click', e => {
-        document.querySelector('.form-events').style.display = 'flex';
         editEvents(p5);
+        document.querySelector('.form-events').style.display = 'flex';
         p5.lockSelected = true;
     });
     document.querySelector('.screens-list').addEventListener('input',e=>{
@@ -526,8 +526,8 @@ function setEvents(p5)
         }, 200);
     }); 
     document.querySelector('.btnEditEvents').addEventListener('click', e => {
-        document.querySelector('.form-events').style.display = 'flex';
         editEvents(p5);
+        document.querySelector('.form-events').style.display = 'flex';
         p5.lockSelected = true;
     });
     document.querySelector('.add-element').addEventListener('click', e => {
@@ -988,16 +988,10 @@ function editEvents(p5)
     else
         document.querySelector('#pushEvents').checked = false;
 
-    //Submit and Calculate Events ...
-    // document.querySelector('#submit-events').checked = false;
+    //Concat And Calculate Events ...
     document.querySelector('#calculate-events').checked = false;
     document.querySelector('#concatenation-events').checked = false;
     for(let i=0;i<events.length;i++)
-        // if(events[i].startsWith("submit"))
-        // {
-        //     document.querySelector('#submit-events').checked = true;
-        // }
-        // else 
         if(events[i].startsWith("calc"))
         {
             document.querySelector('#calculate-events').checked = true;

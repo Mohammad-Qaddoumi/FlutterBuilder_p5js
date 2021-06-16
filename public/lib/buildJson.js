@@ -72,6 +72,27 @@ function getChildsAsJson( p5, children , selectedScreen )
         if(children[i].events)
         {
             let event = [];
+            if(children[i].events.length > 0)
+            {
+                let index1,index2;
+                for(let y=0;y<children[i].events.length;y++)    
+                {
+                    if(children[i].events[y].startsWith("calc"))
+                    {
+                        index1 = y;
+                    }
+                    else if(children[i].events[y].startsWith("conc"))
+                    {
+                        index2 = y;
+                    }
+                }
+                if(!isNaN(index1) && !isNaN(index2) && index1 < index2)
+                {
+                    let temp = children[i].events[index1];
+                    children[i].events[index1] = children[i].events[index2];
+                    children[i].events[index2] = temp;
+                }
+            }
             for(let j=0;j<children[i].events.length;j++)
             {
                 if(children[i].events[j].startsWith("push"))
