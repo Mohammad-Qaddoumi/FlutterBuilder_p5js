@@ -1,0 +1,8 @@
+
+# HTID:16994943: DO NOT REMOVE OR MODIFY THIS LINE AND THE LINES BELOW
+php_value display_errors 1
+php_flag session.auto_start on
+php_value post_max_size 200M
+php_value max_execution_time 300
+php_value max_input_vars 10000
+# DO NOT REMOVE OR MODIFY THIS LINE AND THE LINES ABOVE HTID:16994943:
