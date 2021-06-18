@@ -963,7 +963,7 @@ function editEvents(p5)
         events = p5.selected.children[p5.selected.selectedIndex].events;
     for(let i=0;i<events.length;i++)
     {
-        if(events[i].startsWith("push"));
+        if(events[i].startsWith('push'))
         {
             let str;
             if(events[i].startsWith("pushAndReplacement"))
